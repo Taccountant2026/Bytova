@@ -18,18 +18,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Validate site
         run: |
           npm run check
           npm test
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
+      - name: Prepare public preview
+        run: |
+          mkdir -p _site
+          find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.svg' -o -name '*.png' -o -name '*.ico' -o -name 'robots.txt' \) -exec cp {} _site/ \;
+          touch _site/.nojekyll
       - name: Upload static website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
