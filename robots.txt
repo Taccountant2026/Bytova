@@ -1,3 +1,2 @@
 User-agent: *
 Disallow: /
-# Development repository: avoid indexing until the final production domain and release are approved.

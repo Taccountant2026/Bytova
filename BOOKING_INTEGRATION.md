@@ -1,39 +1,25 @@
-# Bytova Booking & Payment Integration Contract
+# Booking configuration
 
-Status: **not connected**. This is a technical implementation contract, not a claim that bookings or payments work.
+Verified configuration date: 16 October 2026.
 
-## Appointment catalogue
-| Service | GBP price | Duration | Checkout |
-| --- | ---: | ---: | --- |
-| Remote Computer Help | 25.00 | 30 min | Fixed price |
-| PC Speed-Up | 35.00 | 60 min | Fixed price |
-| Windows Security Check | 29.00 | 60 min | Fixed price |
-| Business IT Support | From 49.00 | Quote required | No direct checkout |
+| Customer service | Duration | Total price | Retained Calendly URL |
+| --- | --- | --- | --- |
+| Remote Tech Help | 30 minutes | £25 | `https://calendly.com/leighton-hepworth22/bytova-remote-computer-help` |
+| Setup & Getting Started | 60 minutes | £35 | `https://calendly.com/leighton-hepworth22/bytova-pc-speed-up` |
+| Computer Care & Safety Check | 60 minutes | £29 | `https://calendly.com/leighton-hepworth22/bytova-windows-security-check` |
 
-Prices are provisional pending business approval.
+Calendly event names, descriptions, prices/durations and custom remote locations have been updated and read back through the connected API. The older URL slugs are retained for continuity. Four unrelated extra support event types were deactivated; the owner's separate personal event was left unchanged.
 
-## Availability
-- IANA timezone: `Europe/London` (DST aware).
-- Monday–Friday 09:00–14:00 and 18:00–20:00; Saturday/Sunday closed.
-- Booking provider must allow calendar blocking, holiday exceptions, rescheduling and cancellations.
-- Appointment length is service-specific. No appointment may extend beyond an open window.
+Availability uses the Europe/London calendar. API slot checks included a date after the October daylight-saving change. The website does not hard-code availability or invent dates.
 
-## Transaction sequence
-1. Customer chooses a fixed-price service.
-2. Provider displays **actual** availability and temporarily holds a slot if supported.
-3. Customer completes provider-hosted secure checkout.
-4. Trusted provider webhook/server verifies payment, appointment and idempotency; browser redirect is never proof of payment.
-5. Only after successful confirmation, issue booking confirmation and customer email; failures release holds or follow documented recovery process.
-6. Provide secure cancellation/reschedule links and clear UK consumer cancellation information.
+## Website gate
 
-## Integration acceptance tests
-- Confirm price/currency/service and appointment duration cannot be altered by browser inputs.
-- Two customers cannot confirm the same slot.
-- Failed/abandoned payment does not create a paid booking.
-- Duplicate webhook does not create duplicate appointments or emails.
-- Confirm timezone behaviour across BST/GMT change.
-- Test cancellations, refunds, blocked dates, reminders and notification failures.
-- No secret key or customer private data is stored in the public static repository.
+Both `launch.onlineBookingEnabled` and `launch.livePaymentsVerified` in `site.config.json` must be `true` to render online booking controls. The same combined result is supplied to the browser. Tests cover all four flag combinations. Both flags are currently `false` because a live checkout has not been verified.
 
-## Platform constraint
-GitHub Pages can host only the public frontend. Use an appropriately secured third-party booking/payment integration or separate backend. Do not create a simulated checkout, fake availability or insecure payment form. Until integrated, link customers to the existing live Bytova site.
+While gated, visitors choose a service and email Leighton. The email template includes the selected service, price/duration, one task, device details and preferred times. No email is sent by the website itself.
+
+When enabled, the calendar is absent until the customer opts in and requests it. The provider URL is restricted to the three configured HTTPS Calendly event URLs. The iframe and direct-link permission are reset when the service changes or the opt-in is withdrawn. No personal information is prefilled into provider URLs. A no-JavaScript fallback explains the external-provider privacy implications before its links.
+
+## Appointment delivery
+
+Leighton confirms the scope and arrangements by email and emails joining instructions for the agreed AnyDesk session. Customers remain present and control access. Early-start requests are collected by customer email before work begins; a website checkbox is not treated as a durable consent record.

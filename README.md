@@ -1,23 +1,38 @@
-# Bytova Website — GitHub preview
-This is the **existing Bytova repository**, redesigned in place to follow the current Shopify website: the photographic hero with Home/Business pathways, About Leighton, navy/cyan trust strip, featured-service carousel, four-step support process, service links, reassurance, FAQs and footer. All eight pages share the updated navigation, typography and branding.
+# Bytova — three-service remote support website
 
-The owner's newly uploaded logo is stored as `assets/Bytova_Logo.png`. Its original bytes were AVIF despite the PNG filename; it has been re-encoded as a valid PNG without visual changes. Photographs, service graphics and Inter fonts are local, with their original URLs recorded in `assets/SOURCES.md`. The Pages workflow includes the full assets directory.
+A standalone, buildless public website with local branding, images and fonts. Customer pages use no store, account, cart, product download, subscription, analytics or marketing integration.
 
-**Important:** `https://bytova.co.uk/` is currently a separate, live Shopify store. Pushing to this GitHub repository **does not update Shopify** and does not switch the domain. This GitHub site remains a `noindex` preview while legal, checkout and deployment requirements are reviewed.
+## The catalogue
 
-## Working external destinations
-- Remote Computer Help: `https://calendly.com/leighton-hepworth22/bytova-remote-computer-help`, £25 / 30 minutes
-- PC Speed-Up: `https://calendly.com/leighton-hepworth22/bytova-pc-speed-up`, £35 / 60 minutes
-- Windows Security Check: `https://calendly.com/leighton-hepworth22/bytova-windows-security-check`, £29 / 60 minutes
-- Live Shopify product catalogue: product cards link to their corresponding live Shopify product pages. Digital guides open Shopify checkout, **not Calendly**.
-- Contact: `https://bytova.co.uk/pages/contact`. Do not collect passwords or card details on GitHub Pages.
+| Service | Appointment | Total price |
+| --- | --- | --- |
+| Remote Tech Help | 30 minutes | £25 |
+| Setup & Getting Started | 60 minutes | £35 |
+| Computer Care & Safety Check | 60 minutes | £29 |
 
-## Checks
-Run `npm run check && npm test`. CI also performs these checks before the GitHub Pages preview deployment. The featured carousel supports arrow buttons, keyboard arrows and touch scrolling; mobile navigation supports Escape and outside-click dismissal. Animations respect reduced-motion preferences. Newsletter signup, store search, accounts and baskets open the existing Shopify website.
+Each service has a detailed scope, exclusions, preparation instructions and a genuine email route to `hello@bytova.co.uk`. The same bounded scope applies to households, students, sole traders and small businesses. Services are remote only.
 
-## Launch gates
-- Confirm booking provider live payment and appointment confirmation end-to-end (not assumed by an outbound link).
-- Verify prices, service scopes and legal pages; some existing terms/privacy text remains provisional.
-- Check responsive layout, keyboard navigation, accessibility, links and all customer flows manually.
-- Obtain owner confirmation before changing DNS, replacing Shopify or removing preview noindex.
-- This repo contains no Stripe secret keys and no standalone checkout backend.
+## Customer journeys
+
+- The booking page lets visitors choose one service and opens a real, prefilled email enquiry. It does not submit a form or claim to send email itself.
+- Online Calendly checkout is deliberately gated off until live payment processing is verified. The configured URLs preserve the three existing Calendly event slugs, although event titles and descriptions have been updated.
+- If both booking gates are enabled, the calendar still loads only after an explicit opt-in. Changing services or withdrawing the opt-in removes the iframe and resets consent. A direct provider link and no-JavaScript fallback are available with the privacy notice.
+- Cancellation and early-start requests use email templates. The website does not store consent, confirm appointments or send automated messages.
+
+## Source and checks
+
+Edit `site.config.json` for verified business details, service scope, prices, booking mappings and launch flags. Edit `scripts/build.mjs` for page structure and copy, then run:
+
+```sh
+npm run build
+npm run check
+npm test
+```
+
+The build writes 14 HTML pages and `robots.txt`. The check rejects stale generated content and missing local files/anchors. Tests cover the three-service catalogue, every gate combination, approved booking endpoints, privacy behavior, contact routes, cancellation wording and accessibility basics. `site.css` and `site.js` are maintained directly.
+
+## Current release state
+
+`onlineBookingEnabled`, `livePaymentsVerified` and `indexable` are all `false`. Customers can email to arrange support; the website does not expose an active payment route. Live Stripe checkout has not been verified. Do not change both booking gates to `true` until that verification is complete.
+
+The existing public GitHub Pages audience is preserved. No DNS, domain, mail records or existing live-domain routing have been changed. See `LAUNCH_EVIDENCE.md` for completed work and the remaining launch dependencies.

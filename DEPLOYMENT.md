@@ -1,18 +1,20 @@
-# Deployment and launch gates
+# Deployment
 
-The current GitHub repository is a **development preview** and is public. The original Shopify website remains authoritative and unchanged.
+Public preview: `https://taccountant2026.github.io/Bytova/`.
 
-## Pre-launch verification
-1. Obtain and apply original Bytova logo, typefaces, colours and verified business details from the current Shopify site. Do not guess identity or claim the temporary CSS is the approved brand.
-2. Confirm final service pricing, scopes, remote access platform and contact method.
-3. Confirm legal pages with verified controller identity, privacy processor details, UK consumer cancellation rights and complaints contact. Current terms and privacy pages are **pre-launch placeholders**.
-4. Configure Calendly event hours and Stripe payment collection; confirm the provider supports payment-before-confirmation. Verify test payments, duplicate bookings, cancellations and BST/GMT transitions. Only then activate events.
-5. Run automated accessibility, broken-link and responsive checks, followed by manual mobile, keyboard and screen-reader review.
-6. Confirm GitHub Pages build settings, repository visibility and any custom domain; remove robots.txt indexing block only when public release is approved.
-7. Obtain explicit approval before any DNS cutover or Shopify cancellation. Never commit credentials or publish test payment links as live.
+The checked-in HTML is generated from `site.config.json` and `scripts/build.mjs`; GitHub Pages can serve it directly. The custom Pages workflow runs the checks and packages root HTML/CSS/JavaScript, robots.txt and the assets directory. The repository's native Pages build also serves the root tree.
 
-## Local preview
-Run a local static HTTP server in the repository root, e.g. `python -m http.server 8000`, then open `http://localhost:8000/`.
+The custom workflows currently cannot start because GitHub reports an account billing lock. The native Pages build was still able to publish the previous release. This is a hosting-account issue, not a passing CI result. Local checks are run before publication and the native deployment result is checked separately.
 
-## Current limitations
-The website's static pages are navigable, but payments, live booking, confirmation emails, remote session delivery, production hosting and legal signoff have **not** been verified. The final release therefore has more than two dependencies until those checks are completed.
+## Update process
+
+1. Edit the configuration, page builder, stylesheet or browser script.
+2. Run `npm run build`, `npm run check` and `npm test`.
+3. Commit/publish the complete generated pages and their source. Keep the existing public audience.
+4. Verify the native Pages deployment and HTTP delivery of the changed pages and local assets.
+
+## Domain
+
+No domain or DNS change is performed by this source update. Before a later domain cutover, preserve email-related DNS records and use the verified host configuration. Do not infer a canonical URL before the target domain is actually connected.
+
+Indexing is intentionally disabled while live payment readiness remains unverified. When launch is approved, use `launch.indexable` to update every page and `robots.txt` consistently. Customer pages carry no development-preview banner.

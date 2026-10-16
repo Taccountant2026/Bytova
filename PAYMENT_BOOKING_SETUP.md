@@ -1,23 +1,16 @@
-# Bytova payment and booking integration
+# Payment and appointment status
 
-## Verified 12 October 2026
-Stripe account: Bytova sandbox (test mode only; no live payments). Three **inactive** products with GBP one-time draft prices:
+The three Calendly events are active and marked paid through the connected API, with £25/30-minute, £35/60-minute and £29/60-minute pricing. That flag is not proof of a functioning live charge.
 
-| Service | Duration | Draft price | Stripe product | Stripe price | Calendly event |
-|---|---:|---:|---|---|---|
-| Remote Computer Help | 30 min | £25 | `prod_VQVoRMO8VuIe1R` | `price_1UPempDemaz6EZhZRUgv1aFT` | `c32707e6-e3d3-4062-97a1-20c63227a937` |
-| PC Speed-Up | 60 min | £35 | `prod_VQVofMS1FYx8qT` | `price_1UPemrDemaz6EZhZa05lpjzG` | `44874b88-481a-4ad9-8107-2f8d5fbc9c1c` |
-| Windows Security Check | 60 min | £29 | `prod_VQVorOSt4yVGyx` | `price_1UPemvDemaz6EZhZu3AWcnqQ` | `4b024b9c-cc6a-4dc6-a509-f8566b946bf6` |
+The accessible connected Stripe account is a sandbox. A live Stripe connection and a real end-to-end paid booking have not been verified. No real charge, refund or customer booking was created during this work. Public Calendly HTTP retrieval was blocked, so its checkout could not be independently inspected through that route.
 
-Calendly host timezone: Europe/London. **Verified live configuration of all three inactive event types:** Monday–Friday 09:00–14:00 and 18:00–20:00, no weekend rules. Existing free 30-minute meeting remains unchanged. The event types are currently unpaid and inactive.
+The public website therefore uses a genuine email-first appointment route. Both online booking flags remain false. It does not display a checkout button that could imply live payment readiness.
 
-## Required before sales
-1. Verify preview GitHub Pages deployment succeeds and manually test responsive pages and links.
-2. Approve service descriptions, draft GBP prices, legal information and business details.
-3. Connect payment to booking without exposing unpaid appointment slots or taking payment without a deliverable appointment. Recommended: a Calendly paid event integrated with Stripe if supported by the connected plan; otherwise use a secure server-side payment/booking coordinator.
-4. If using a custom coordinator, implement webhook signature validation, idempotency and refund/cancellation handling. A public GitHub Pages static site cannot securely hold Stripe secrets.
-5. Complete sandbox checkout, payment verification, Calendly booking and confirmation tests, including failures, cancellation and duplicate webhook tests.
-6. Connect and verify a **live** Stripe account separately; sandbox credentials cannot collect real sales.
-7. Enable paid services only after successful live-mode verification and explicit owner approval.
+To enable provider checkout after the live connection is available:
 
-No live Stripe checkout, paid Calendly event, or successful deployment is claimed by this document.
+1. Verify that Calendly uses the correct live Stripe account for all three events and displays the agreed GBP total.
+2. Verify the customer confirmation and the cancellation/refund route. Do not assume optional reminders have been configured or delivered.
+3. Record the verification evidence in `LAUNCH_EVIDENCE.md`.
+4. Set both `onlineBookingEnabled` and `livePaymentsVerified` to `true`, rebuild, run checks/tests and publish.
+
+The site never collects card details. Do not put Stripe credentials in the repository. Consumer early-start requests and required pre-contract information are handled by email before work begins.
