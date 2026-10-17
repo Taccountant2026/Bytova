@@ -56,3 +56,9 @@ Provider privacy links were checked: Calendly, Stripe, AnyDesk and GitHub's offi
 - Custom GitHub workflows cannot start because of an account billing lock. Their status is not described as passing CI. Native Pages deployment and HTTP delivery are verified independently after publication.
 
 No DNS, custom-domain, email-record or live-domain routing change has been made. The remaining setup is the intended domain connection and its canonical/indexing settings. Live provider configuration and public prices are verified. No real completed transaction was created or tested during this work; that limit remains explicit.
+
+## Public release verification — 17 October 2026
+
+Booking activation was published in commit `fc3b95e4d823d878ea96df67544fb1008aa946e9`. The native [Pages build and deployment](https://github.com/Taccountant2026/Bytova/actions/runs/39021371890) completed successfully. Local validation passed all ten tests and checked 14 pages and 419 internal links/anchors.
+
+The public booking page was then checked in the authorized cloud browser. Each service loaded its matching embedded Calendly event with the correct actual GBP price: £25, £35 and £29. The initial calendar was absent and its load button disabled. Changing services removed the iframe, updated the service summary and reset the opt-in; withdrawing the opt-in also removed the iframe and hid the direct booking link. The desktop booking layout was visually inspected. No customer details, booking or payment were submitted. Indexing remains disabled for the domain cutover.
