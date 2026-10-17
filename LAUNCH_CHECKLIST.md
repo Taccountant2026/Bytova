@@ -10,12 +10,14 @@ Completed:
 - No store, account, cart, product download, subscription, marketing or analytics dependency.
 - Local logo, founder photo and fonts; responsive navigation and reduced-motion/print styles.
 - Calendly event metadata and availability updated/read back through the API.
-- Online booking blocked unless both independent gates pass.
+- Live Stripe configuration and all three actual public Calendly GBP prices/durations verified.
+- Online booking enabled through the two independent gates, with visitor opt-in before calendar loading.
 - Meaningful local content/link/gate tests.
 
-Remaining external dependencies:
+Remaining setup:
 
-1. Verify a live Stripe-backed Calendly checkout. Only a sandbox Stripe connection is currently accessible, so online checkout and indexing remain disabled. Email enquiries are available now.
-2. Connect the intended domain after the live-payment step is resolved and launch is approved. DNS and email records have not been changed.
+- Connect the intended domain and then review canonical/indexing settings. DNS and email records have not been changed.
+
+Verification limit: no real customer booking, completed charge or refund was submitted. Live account configuration and public prices are verified; a completed transaction is not claimed as tested.
 
 Evidence, sources and verification limits are recorded in `LAUNCH_EVIDENCE.md`.

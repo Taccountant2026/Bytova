@@ -14,12 +14,12 @@ Availability uses the Europe/London calendar. API slot checks included a date af
 
 ## Website gate
 
-Both `launch.onlineBookingEnabled` and `launch.livePaymentsVerified` in `site.config.json` must be `true` to render online booking controls. The same combined result is supplied to the browser. Tests cover all four flag combinations. Both flags are currently `false` because a live checkout has not been verified.
+Both `launch.onlineBookingEnabled` and `launch.livePaymentsVerified` in `site.config.json` must be `true` to render online booking controls. The same combined result is supplied to the browser. Tests cover all four flag combinations. Both flags are now `true` after live Stripe configuration and actual public GBP prices/durations were verified. No real completed booking or charge was submitted during verification.
 
-While gated, visitors choose a service and email Leighton. The email template includes the selected service, price/duration, one task, device details and preferred times. No email is sent by the website itself.
+Visitors choose one service and opt in to use Calendly. An email fallback remains available for suitability questions or booking help. The website does not send email itself. If either configuration gate is later disabled, the page returns to its email-first route.
 
-When enabled, the calendar is absent until the customer opts in and requests it. The provider URL is restricted to the three configured HTTPS Calendly event URLs. The iframe and direct-link permission are reset when the service changes or the opt-in is withdrawn. No personal information is prefilled into provider URLs. A no-JavaScript fallback explains the external-provider privacy implications before its links.
+The calendar is absent until the customer opts in and requests it. The provider URL is restricted to the three configured HTTPS Calendly event URLs. The iframe and direct-link permission are reset when the service changes or the opt-in is withdrawn. No personal information is prefilled into provider URLs. A no-JavaScript fallback explains the external-provider privacy implications before its links.
 
 ## Appointment delivery
 
-Leighton confirms the scope and arrangements by email and emails joining instructions for the agreed AnyDesk session. Customers remain present and control access. Early-start requests are collected by customer email before work begins; a website checkbox is not treated as a durable consent record.
+Calendly supplies the appointment confirmation after its booking/payment flow. Leighton emails the agreed support details and joining instructions for the AnyDesk session. Customers remain present and control access. Early-start requests are collected by customer email before work begins; a website checkbox is not treated as a durable consent record.

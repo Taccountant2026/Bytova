@@ -1,16 +1,29 @@
 # Payment and appointment status
 
-The three Calendly events are active and marked paid through the connected API, with £25/30-minute, £35/60-minute and £29/60-minute pricing. That flag is not proof of a functioning live charge.
+Verified 16 October 2026. Online Calendly checkout is enabled for the three services.
 
-The accessible connected Stripe account is a sandbox. A live Stripe connection and a real end-to-end paid booking have not been verified. No real charge, refund or customer booking was created during this work. Public Calendly HTTP retrieval was blocked, so its checkout could not be independently inspected through that route.
+## Verified live configuration
 
-The public website therefore uses a genuine email-first appointment route. Both online booking flags remain false. It does not display a checkout button that could imply live payment readiness.
+The live Stripe business account was inspected through the granted read-only connection. Charges and payouts are enabled, business details are submitted, and there are no currently due/past-due requirements or disabled reason. Existing live Calendly-associated GBP payment-intent records were visible; those inspected records were unpaid, awaiting a payment method.
 
-To enable provider checkout after the live connection is available:
+All three Calendly events are active and paid. Their actual public booking pages were inspected in a fresh browser session, including available weekday date cells and customer-facing prices/durations:
 
-1. Verify that Calendly uses the correct live Stripe account for all three events and displays the agreed GBP total.
-2. Verify the customer confirmation and the cancellation/refund route. Do not assume optional reminders have been configured or delivered.
-3. Record the verification evidence in `LAUNCH_EVIDENCE.md`.
-4. Set both `onlineBookingEnabled` and `livePaymentsVerified` to `true`, rebuild, run checks/tests and publish.
+| Service | Public total | Duration |
+| --- | --- | --- |
+| Remote Tech Help | £25 GBP | 30 minutes |
+| Setup & Getting Started | £35 GBP | 60 minutes |
+| Computer Care & Safety Check | £29 GBP | 60 minutes |
 
-The site never collects card details. Do not put Stripe credentials in the repository. Consumer early-start requests and required pre-contract information are handled by email before work begins.
+The owner corrected the care event's previous currency/amount setting, and a fresh browser read confirmed £29 GBP. The website configuration uses the same three prices and the retained Calendly URLs.
+
+The care event's empty Stripe payment form also showed £29.00 GBP in live mode. Its read-only merchant details matched the verified live Bytova account. No customer or card details were entered and the booking was not submitted.
+
+Both `onlineBookingEnabled` and `livePaymentsVerified` are now true. Here, verification means the live account configuration and actual public provider pricing were checked. It does not mean a real completed transaction was tested.
+
+## Verification limit
+
+No real customer booking, completed charge or refund was submitted during this work. A complete paid customer journey and confirmation/refund delivery have therefore not been transaction-tested. Do not describe these as completed end-to-end tests or assume optional reminders were sent.
+
+The website never collects card details or contains payment credentials. Calendly supplies the booking flow and Stripe handles payment. Joining instructions and consumer early-start requests remain email steps before work begins; a website checkbox is not treated as durable early-start consent.
+
+Indexing remains disabled until the intended domain is connected and its launch settings are approved. No DNS or email records were changed.

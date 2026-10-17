@@ -89,7 +89,20 @@ test('responsive navigation and reduced-motion/print support are retained',()=>{
  for(const[name,page]of html){assert.match(page,/aria-expanded="false"/,name);assert.match(page,/aria-controls="primary-nav"/,name);}
 });
 
-test('indexing remains closed while live payment verification is incomplete',()=>{
+test('indexing follows the separate domain launch flag',()=>{
  if(!config.launch.livePaymentsVerified){assert.equal(config.launch.onlineBookingEnabled,false);assert.equal(config.launch.indexable,false);}
  if(!config.launch.indexable){assert.match(pages.get('robots.txt'),/Disallow: \//);for(const[,page]of html)assert.match(page,/noindex,nofollow/);}
+});
+
+
+test('active booking page exposes the approved calendar choices with consent and email fallback',()=>{
+ if(!config.launch.onlineBookingEnabled||!config.launch.livePaymentsVerified)return;
+ const page=pages.get('book.html');
+ const data=JSON.parse(page.match(/<script id="booking-config" type="application\/json">(.*?)<\/script>/s)[1]);
+ assert.equal(data.enabled,true);
+ assert.deepEqual(data.services.map(s=>[s.name,s.price,s.minutes,s.url]),config.services.map(s=>[s.name,s.price,s.minutes,s.calendlyUrl]));
+ assert.match(page,/data-booking-consent/);assert.match(page,/data-load-calendar disabled/);
+ assert.match(page,/data-direct-booking hidden/);assert.match(page,/mailto:hello@bytova\.co\.uk/);
+ assert.match(page,/early-start request/);assert.doesNotMatch(page,/<iframe\b/);
+ assert.doesNotMatch(page,/Online checkout is not currently available|Live checkout is awaiting verification/);
 });

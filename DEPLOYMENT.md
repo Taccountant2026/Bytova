@@ -4,7 +4,7 @@ Public preview: `https://taccountant2026.github.io/Bytova/`.
 
 The checked-in HTML is generated from `site.config.json` and `scripts/build.mjs`; GitHub Pages can serve it directly. The custom Pages workflow runs the checks and packages root HTML/CSS/JavaScript, robots.txt and the assets directory. The repository's native Pages build also serves the root tree.
 
-The custom workflows currently cannot start because GitHub reports an account billing lock. The native Pages build was still able to publish the previous release. This is a hosting-account issue, not a passing CI result. Local checks are run before publication and the native deployment result is checked separately.
+The custom workflows were previously blocked by a GitHub account billing lock. The native Pages build successfully published the previous release. This is a hosting-account issue, not a passing CI result. Local checks are run before publication and the native deployment result is checked separately.
 
 ## Update process
 
@@ -17,4 +17,4 @@ The custom workflows currently cannot start because GitHub reports an account bi
 
 No domain or DNS change is performed by this source update. Before a later domain cutover, preserve email-related DNS records and use the verified host configuration. Do not infer a canonical URL before the target domain is actually connected.
 
-Indexing is intentionally disabled while live payment readiness remains unverified. When launch is approved, use `launch.indexable` to update every page and `robots.txt` consistently. Customer pages carry no development-preview banner.
+Indexing is intentionally disabled until the intended domain is connected and its launch settings are approved. When launch is approved, use `launch.indexable` to update every page and `robots.txt` consistently. Customer pages carry no development-preview banner.

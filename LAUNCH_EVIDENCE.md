@@ -18,11 +18,15 @@ Current published contact/legal-notice information was checked before rewriting 
 
 ## Calendly and payments
 
-The three event names, full HTML descriptions, £25/£35/£29 prices, 30/60/60-minute durations and custom remote joining-instructions location were updated and read back through the connected API. Additional unrelated support event types were deactivated. Europe/London availability was checked, including after the October DST change.
+The three event names, full HTML descriptions including the advertised £25/£35/£29 prices, 30/60/60-minute durations and custom remote joining-instructions location were updated and read back through the connected API. Actual payment settings were checked separately in the public booking flow, as recorded below. Additional unrelated support event types were deactivated. Europe/London availability was checked, including after the October DST change.
 
-The events are marked paid, but the accessible Stripe connection is a sandbox. No live charge, real customer booking or refund was created or verified. Public HTTP retrieval of Calendly returned 403. The operator was given the live-account connection handoff separately; its completion has not been assumed.
+The live Stripe business account was subsequently inspected through granted read-only access. Charges and payouts are enabled, business details are submitted, and no current/past-due requirements or disabled reason were reported. Existing live Calendly-associated GBP payment-intent records were visible; inspected records were unpaid and awaiting a payment method. No account identifiers, customer records or credentials are stored here.
 
-The website therefore keeps online booking disabled and provides an email-first route. Every combination of the two independent flags is tested; the browser receives the combined result. Even when both flags are enabled, no external calendar loads before explicit visitor opt-in, and choosing another service or withdrawing the opt-in removes the iframe.
+Fresh public browser sessions verified the actual booking prices and durations: Remote Tech Help £25 GBP / 30 minutes; Setup & Getting Started £35 GBP / 60 minutes; Computer Care & Safety Check £29 GBP / 60 minutes. The owner corrected the care event’s earlier currency/amount setting; a new browser read confirmed £29 GBP. Current weekday date cells were available. This supersedes the earlier blocked public HTTP retrieval.
+
+The care event was followed as far as its empty payment form, without submitting customer or card information. Stripe showed £29.00 GBP in live mode, and its read-only merchant details matched the verified live Bytova account. No booking or payment was submitted.
+
+Both online booking flags are now enabled. Verification records the live provider configuration and actual public prices; no real customer booking, completed charge or refund was submitted. A completed transaction and its confirmation/refund delivery are not claimed as end-to-end tested. Email remains available for suitability and booking help. Every combination of the two independent flags is tested; the browser receives the combined result. Even when both flags are enabled, no external calendar loads before explicit visitor opt-in, and choosing another service or withdrawing the opt-in removes the iframe.
 
 ## Consumer information and operating policies
 
@@ -47,8 +51,8 @@ Provider privacy links were checked: Calendly, Stripe, AnyDesk and GitHub's offi
 
 - `npm run build`: generates the complete site from current configuration.
 - `npm run check`: verifies generated content is current, all 14 pages have a main heading/landmark and skip link, and checks local files, anchors, image dimensions/alt text and CSS assets.
-- `npm test`: nine checks covering the exact catalogue, all four booking gate combinations, retained endpoints, absence of store dependencies/tracking/fake forms, PNG logo, cancellation/early-start text, identity/privacy/remedies, responsive semantics and indexing guard.
-- Browser visual QA is unavailable in this managed runtime because the required control-browser capability is not installed. Responsive layout and interactions have been checked in source; no screenshot or completed browser purchase test is claimed.
+- `npm test`: ten checks covering the exact catalogue, all four booking gate combinations, retained endpoints, absence of store dependencies/tracking/fake forms, PNG logo, cancellation/early-start text, identity/privacy/remedies, responsive semantics and indexing guard.
+- The public Calendly booking flows were inspected in the authorized cloud browser. Responsive layout and interactions were also checked in source. No completed browser purchase test is claimed.
 - Custom GitHub workflows cannot start because of an account billing lock. Their status is not described as passing CI. Native Pages deployment and HTTP delivery are verified independently after publication.
 
-No DNS, custom-domain, email-record or live-domain routing change has been made. The final external steps are live payment verification and the intended domain connection; the current website should not be described as fully verified for automated sales until the payment step is complete.
+No DNS, custom-domain, email-record or live-domain routing change has been made. The remaining setup is the intended domain connection and its canonical/indexing settings. Live provider configuration and public prices are verified. No real completed transaction was created or tested during this work; that limit remains explicit.

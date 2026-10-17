@@ -4,16 +4,24 @@
     "legalName": "Leighton Liam Hepworth",
     "legalStatus": "sole trader",
     "email": "hello@bytova.co.uk",
-    "address": ["Bytova", "65 Coronation Road", "Stainforth", "Doncaster", "South Yorkshire", "DN7 5EU", "United Kingdom"],
+    "address": [
+      "Bytova",
+      "65 Coronation Road",
+      "Stainforth",
+      "Doncaster",
+      "South Yorkshire",
+      "DN7 5EU",
+      "United Kingdom"
+    ],
     "vatRegistered": false,
     "responseAim": "within two working days",
     "remoteSupportSoftware": "AnyDesk"
   },
   "launch": {
     "indexable": false,
-    "onlineBookingEnabled": false,
-    "livePaymentsVerified": false,
-    "paymentStatus": "Live checkout is awaiting verification. Customers can email to arrange a service; no payment is taken by this website.",
+    "onlineBookingEnabled": true,
+    "livePaymentsVerified": true,
+    "paymentStatus": "Live provider configuration and customer-facing GBP prices verified. Online Calendly checkout enabled; no completed customer booking, charge or refund was created during verification.",
     "checkedDate": "2026-10-16"
   },
   "services": [
@@ -26,9 +34,23 @@
       "icon": "monitor",
       "summary": "Practical support with one defined Windows, supported email, printer or software issue.",
       "bestFor": "Something that normally works is giving you trouble.",
-      "included": ["One agreed issue on a Windows computer.", "Troubleshooting a supported app or email setup.", "A printer software or settings issue, if the printer is powered on, already connected and reachable.", "A clear explanation of what was checked and sensible next steps."],
-      "notIncluded": ["Hardware repair, a disconnected internet connection or physical printer repairs.", "Account ownership bypass, data recovery or migration.", "Active fraud, a suspected cyber incident or specialist malware removal.", "Enterprise administration or ongoing managed IT support."],
-      "prepare": ["Have a working internet connection and be able to use your computer.", "Keep the affected app, account or connected printer available.", "Know which one issue you want help with and back up important files."],
+      "included": [
+        "One agreed issue on a Windows computer.",
+        "Troubleshooting a supported app or email setup.",
+        "A printer software or settings issue, if the printer is powered on, already connected and reachable.",
+        "A clear explanation of what was checked and sensible next steps."
+      ],
+      "notIncluded": [
+        "Hardware repair, a disconnected internet connection or physical printer repairs.",
+        "Account ownership bypass, data recovery or migration.",
+        "Active fraud, a suspected cyber incident or specialist malware removal.",
+        "Enterprise administration or ongoing managed IT support."
+      ],
+      "prepare": [
+        "Have a working internet connection and be able to use your computer.",
+        "Keep the affected app, account or connected printer available.",
+        "Know which one issue you want help with and back up important files."
+      ],
       "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-remote-computer-help"
     },
     {
@@ -40,9 +62,23 @@
       "icon": "setup",
       "summary": "Guided help getting one agreed software, email or supported device setup ready to use.",
       "bestFor": "You want help getting one new thing set up correctly.",
-      "included": ["One setup task agreed before the appointment.", "Installation or configuration of one supported app, or one email account.", "Guided setup of one supported device, with you carrying out any physical steps.", "A walkthrough of the important settings and how to get started."],
-      "notIncluded": ["Whole-computer or multi-device migrations and bulk data transfers.", "Hardware assembly, cabling or hands-on installation visits.", "Software licences, subscriptions, replacement equipment or other third-party charges.", "Account ownership bypass, enterprise systems or ongoing administration."],
-      "prepare": ["Email first with the app, email service or device you want to set up.", "Have the device, account access and any required software licence ready.", "Use a working internet connection and remain available to carry out physical steps."],
+      "included": [
+        "One setup task agreed before the appointment.",
+        "Installation or configuration of one supported app, or one email account.",
+        "Guided setup of one supported device, with you carrying out any physical steps.",
+        "A walkthrough of the important settings and how to get started."
+      ],
+      "notIncluded": [
+        "Whole-computer or multi-device migrations and bulk data transfers.",
+        "Hardware assembly, cabling or hands-on installation visits.",
+        "Software licences, subscriptions, replacement equipment or other third-party charges.",
+        "Account ownership bypass, enterprise systems or ongoing administration."
+      ],
+      "prepare": [
+        "Email first with the app, email service or device you want to set up.",
+        "Have the device, account access and any required software licence ready.",
+        "Use a working internet connection and remain available to carry out physical steps."
+      ],
       "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-pc-speed-up"
     },
     {
@@ -54,9 +90,23 @@
       "icon": "shield",
       "summary": "A practical review of startup, storage, updates and common Windows security settings.",
       "bestFor": "You want to understand your computer’s everyday care and safety settings.",
-      "included": ["Review of common startup items and available storage.", "Review of Windows updates and common built-in security settings.", "Agreed, appropriate settings changes where practical within the appointment.", "Plain-English guidance on useful follow-up actions and everyday computer care."],
-      "notIncluded": ["A guarantee of faster performance, a hardware upgrade or a virus-free certificate.", "Forensic investigation, active cyber incidents or specialist malware removal.", "Hardware repair, data recovery or data migration.", "An enterprise security audit or ongoing monitoring."],
-      "prepare": ["Use a Windows computer with a working internet connection.", "Back up important files before the appointment.", "Tell me about any warning messages or current security concerns before booking."],
+      "included": [
+        "Review of common startup items and available storage.",
+        "Review of Windows updates and common built-in security settings.",
+        "Agreed, appropriate settings changes where practical within the appointment.",
+        "Plain-English guidance on useful follow-up actions and everyday computer care."
+      ],
+      "notIncluded": [
+        "A guarantee of faster performance, a hardware upgrade or a virus-free certificate.",
+        "Forensic investigation, active cyber incidents or specialist malware removal.",
+        "Hardware repair, data recovery or data migration.",
+        "An enterprise security audit or ongoing monitoring."
+      ],
+      "prepare": [
+        "Use a Windows computer with a working internet connection.",
+        "Back up important files before the appointment.",
+        "Tell me about any warning messages or current security concerns before booking."
+      ],
       "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-windows-security-check"
     }
   ]

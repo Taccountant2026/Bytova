@@ -14,9 +14,9 @@ Each service has a detailed scope, exclusions, preparation instructions and a ge
 
 ## Customer journeys
 
-- The booking page lets visitors choose one service and opens a real, prefilled email enquiry. It does not submit a form or claim to send email itself.
-- Online Calendly checkout is deliberately gated off until live payment processing is verified. The configured URLs preserve the three existing Calendly event slugs, although event titles and descriptions have been updated.
-- If both booking gates are enabled, the calendar still loads only after an explicit opt-in. Changing services or withdrawing the opt-in removes the iframe and resets consent. A direct provider link and no-JavaScript fallback are available with the privacy notice.
+- The booking page lets visitors choose one service, opt in to use Calendly, select an available time and complete its Stripe payment step. A genuine email route remains available for suitability questions and booking help.
+- Online Calendly checkout is enabled after verification of the live Stripe configuration and the actual public GBP prices/durations for all three events. The configured URLs preserve the three existing event slugs, while their titles and descriptions match the catalogue.
+- Both booking gates are enabled; the calendar still loads only after an explicit opt-in. Changing services or withdrawing the opt-in removes the iframe and resets consent. A direct provider link and no-JavaScript fallback are available with the privacy notice.
 - Cancellation and early-start requests use email templates. The website does not store consent, confirm appointments or send automated messages.
 
 ## Source and checks
@@ -33,6 +33,6 @@ The build writes 14 HTML pages and `robots.txt`. The check rejects stale generat
 
 ## Current release state
 
-`onlineBookingEnabled`, `livePaymentsVerified` and `indexable` are all `false`. Customers can email to arrange support; the website does not expose an active payment route. Live Stripe checkout has not been verified. Do not change both booking gates to `true` until that verification is complete.
+`onlineBookingEnabled` and `livePaymentsVerified` are `true`; `indexable` remains `false` for the domain cutover. The live account configuration and actual public Calendly prices are verified. No real customer booking, completed charge or refund was created during verification, so a completed transaction is not claimed as tested.
 
 The existing public GitHub Pages audience is preserved. No DNS, domain, mail records or existing live-domain routing have been changed. See `LAUNCH_EVIDENCE.md` for completed work and the remaining launch dependencies.
