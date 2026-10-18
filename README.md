@@ -29,10 +29,14 @@ npm run check
 npm test
 ```
 
-The build writes 14 HTML pages and `robots.txt`. The check rejects stale generated content and missing local files/anchors. Tests cover the three-service catalogue, every gate combination, approved booking endpoints, privacy behavior, contact routes, cancellation wording and accessibility basics. `site.css` and `site.js` are maintained directly.
+The build writes 14 HTML pages, `robots.txt`, `sitemap.xml` and the domain `CNAME` file. The check rejects stale generated content and missing local files/anchors. Tests cover the three-service catalogue, every gate combination, approved booking endpoints, privacy behavior, contact routes, cancellation wording and accessibility basics. `site.css` and `site.js` are maintained directly.
 
 ## Current release state
 
 `onlineBookingEnabled` and `livePaymentsVerified` are `true`; `indexable` remains `false` for the domain cutover. The live account configuration and actual public Calendly prices are verified. No real customer booking, completed charge or refund was created during verification, so a completed transaction is not claimed as tested.
 
 The existing public GitHub Pages audience is preserved. No DNS, domain, mail records or existing live-domain routing have been changed. See `LAUNCH_EVIDENCE.md` for completed work and the remaining launch dependencies.
+
+## Production domain
+
+The intended domain is `https://bytova.co.uk/`. Domain preparation is checked in; GitHub Pages must also accept its Custom domain setting, followed by the website DNS changes. Indexing remains disabled until HTTPS and the customer journeys work on that domain. See `DOMAIN_CUTOVER.md` for the precise records, order and rollback values.

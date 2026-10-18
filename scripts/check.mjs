@@ -20,7 +20,8 @@ for(const page of pages){
  assert.equal([...html.matchAll(/<h1\b/g)].length,1,page+' needs one main heading');
  assert(/<main id="main">/.test(html),page+' missing main landmark');
  assert(/class="skip" href="#main"/.test(html),page+' missing skip link');
- assert(!/https?:\/\/(?:www\.)?bytova\.co\.uk\//i.test(html),page+' contains a dependency on the previous website');
+ const body=html.match(/<body>[\s\S]*<\/body>/)?.[0]||html;
+ assert(!/https?:\/\/(?:www\.)?bytova\.co\.uk\//i.test(body),page+' contains an absolute website route instead of local navigation');
  for(const match of html.matchAll(/(?:href|src)="([^"<>]+)"/g)){
   const value=match[1].replaceAll('&amp;','&');
   if(!value.startsWith('./')&&!value.startsWith('#'))continue;

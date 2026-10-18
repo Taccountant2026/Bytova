@@ -44,7 +44,8 @@ test('booking endpoints are exactly the three verified retained Calendly mapping
 
 test('website has no store dependency, subscriptions, downloads, tracking, or fake contact form',()=>{
  for(const[name,page]of html){
-  assert.doesNotMatch(page,/https?:\/\/(?:www\.)?bytova\.co\.uk\//i,name);
+  const body=page.match(/<body>[\s\S]*<\/body>/)?.[0]||page;
+  assert.doesNotMatch(body,/https?:\/\/(?:www\.)?bytova\.co\.uk\//i,name);
   assert.doesNotMatch(page,/shopify|\/products\/|\/collections\/|newsletter|support plan|retroreplay|header-actions|<form\b/i,name);
   assert.doesNotMatch(page,/<script[^>]+src="https?:|rel="preconnect"[^>]+calendly/i,name);
  }
@@ -105,4 +106,25 @@ test('active booking page exposes the approved calendar choices with consent and
  assert.match(page,/data-direct-booking hidden/);assert.match(page,/mailto:hello@bytova\.co\.uk/);
  assert.match(page,/early-start request/);assert.doesNotMatch(page,/<iframe\b/);
  assert.doesNotMatch(page,/Online checkout is not currently available|Live checkout is awaiting verification/);
+});
+
+test('the domain launch enables canonical URLs and a sitemap while keeping the error page out of search',()=>{
+ for(const indexable of[false,true]){
+  const variant=structuredClone(config);variant.launch.indexable=indexable;
+  const built=buildSite(variant);
+  assert.equal(built.get('CNAME'),'bytova.co.uk\n');
+  for(const[name,page]of built){
+   if(!name.endsWith('.html'))continue;
+   if(indexable&&name!=='404.html'){
+    const expected='https://bytova.co.uk/'+(name==='index.html'?'':name);
+    assert(page.includes('<link rel="canonical" href="'+expected+'">'),name);
+    assert.match(page,/content="index,follow"/);
+   }else{assert.doesNotMatch(page,/rel="canonical"/);assert.match(page,/content="noindex,nofollow"/);}
+  }
+  const urls=[...built.get('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
+  assert.equal(urls.length,indexable?13:0);
+  assert(!urls.some(url=>url.endsWith('404.html')));
+  if(indexable){assert(urls.includes('https://bytova.co.uk/'));assert(urls.includes('https://bytova.co.uk/book.html'));assert.match(built.get('robots.txt'),/Sitemap: https:\/\/bytova\.co\.uk\/sitemap\.xml/);}
+  else{assert.match(built.get('robots.txt'),/Disallow: \//);assert.doesNotMatch(built.get('robots.txt'),/Sitemap:/);}
+ }
 });

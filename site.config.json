@@ -17,6 +17,9 @@
     "responseAim": "within two working days",
     "remoteSupportSoftware": "AnyDesk"
   },
+  "site": {
+    "url": "https://bytova.co.uk/"
+  },
   "launch": {
     "indexable": false,
     "onlineBookingEnabled": true,
