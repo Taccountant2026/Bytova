@@ -35,8 +35,8 @@ The build writes 14 HTML pages, `robots.txt`, `sitemap.xml` and the domain `CNAM
 
 `onlineBookingEnabled` and `livePaymentsVerified` are `true`; `indexable` remains `false` for the domain cutover. The live account configuration and actual public Calendly prices are verified. No real customer booking, completed charge or refund was created during verification, so a completed transaction is not claimed as tested.
 
-The existing public GitHub Pages audience is preserved. No DNS, domain, mail records or existing live-domain routing have been changed. See `LAUNCH_EVIDENCE.md` for completed work and the remaining launch dependencies.
+The owner has saved the production DNS records. Public checks confirm the four GitHub Pages A records, the correct www CNAME and the restored email setup records. The new website responds over HTTP; HTTPS certificate verification remains pending. See `LAUNCH_EVIDENCE.md` for completed work and the remaining launch dependencies.
 
 ## Production domain
 
-The intended domain is `https://bytova.co.uk/`. GitHub's native branch publisher has accepted the domain, confirmed by the old preview address redirecting to `http://bytova.co.uk/`. The website DNS records still need changing. Indexing remains disabled until HTTPS and the customer journeys work on that domain. See `DOMAIN_CUTOVER.md` for the precise records, order and rollback values.
+The production domain is `https://bytova.co.uk/`. GitHub's native branch publisher has accepted the domain and the saved website DNS now points to GitHub. HTTP serves the new website and www redirects to the root. HTTPS currently fails certificate hostname verification, so launch verification is incomplete. The remaining steps are certificate provisioning, Enforce HTTPS, secure-domain checks, Calendly terms-link updates and enabling indexing. See `DOMAIN_CUTOVER.md` for the current evidence, order and rollback values.

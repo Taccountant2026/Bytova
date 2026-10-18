@@ -1,4 +1,4 @@
-# Bytova release evidence — 16 October 2026
+# Bytova release evidence — updated 18 October 2026
 
 ## Implemented website
 
@@ -51,14 +51,22 @@ Provider privacy links were checked: Calendly, Stripe, AnyDesk and GitHub's offi
 
 - `npm run build`: generates the complete site from current configuration.
 - `npm run check`: verifies generated content is current, all 14 pages have a main heading/landmark and skip link, and checks local files, anchors, image dimensions/alt text and CSS assets.
-- `npm test`: ten checks covering the exact catalogue, all four booking gate combinations, retained endpoints, absence of store dependencies/tracking/fake forms, PNG logo, cancellation/early-start text, identity/privacy/remedies, responsive semantics and indexing guard.
+- `npm test`: eleven checks covering the exact catalogue, all four booking gate combinations, retained endpoints, absence of store dependencies/tracking/fake forms, PNG logo, cancellation/early-start text, identity/privacy/remedies, responsive semantics, indexing guard and production-domain canonical/sitemap behavior.
 - The public Calendly booking flows were inspected in the authorized cloud browser. Responsive layout and interactions were also checked in source. No completed browser purchase test is claimed.
 - Custom GitHub workflows cannot start because of an account billing lock. Their status is not described as passing CI. Native Pages deployment and HTTP delivery are verified independently after publication.
 
-No DNS, custom-domain, email-record or live-domain routing change has been made. The remaining setup is the intended domain connection and its canonical/indexing settings. Live provider configuration and public prices are verified. No real completed transaction was created or tested during this work; that limit remains explicit.
+The owner has saved the production DNS, and public HTTP delivery now uses the new website. HTTPS certificate verification, enforcement, secure-domain checks, provider terms links and indexing remain pending as detailed below. Live provider configuration and public prices are verified. No real completed transaction was created or tested during this work; that limit remains explicit.
 
 ## Public release verification — 17 October 2026
 
 Booking activation was published in commit `fc3b95e4d823d878ea96df67544fb1008aa946e9`. The native [Pages build and deployment](https://github.com/Taccountant2026/Bytova/actions/runs/39021371890) completed successfully. Local validation passed all ten tests and checked 14 pages and 419 internal links/anchors.
 
 The public booking page was then checked in the authorized cloud browser. Each service loaded its matching embedded Calendly event with the correct actual GBP price: £25, £35 and £29. The initial calendar was absent and its load button disabled. Changing services removed the iframe, updated the service summary and reset the opt-in; withdrawing the opt-in also removed the iframe and hid the direct booking link. The desktop booking layout was visually inspected. No customer details, booking or payment were submitted. Indexing remains disabled for the domain cutover.
+
+## Domain cutover verification — 18 October 2026
+
+The owner saved the Names.co.uk zone and corrected the duplicated www entry and replaced mail setup aliases. Fresh public DNS returns the four expected GitHub Pages A addresses, no root AAAA, a single www CNAME to taccountant2026.github.io, the restored autoconfig/imap/pop3 aliases, both existing MX records, and the retained verification TXT and autodiscover SRV. These checks verify DNS, not email delivery.
+
+The root serves the repository website over HTTP. The www host and previous GitHub Pages preview redirect to the root over HTTP. All 14 explicit HTML pages, CSS, JavaScript, images, all three local fonts, robots.txt and sitemap.xml match repository bytes. A nonexistent path returns the custom 404 page with HTTP 404.
+
+Both secure domain variants currently fail certificate hostname verification. The check did not bypass verification, and HTTPS enforcement is not claimed as enabled. Indexing remains disabled until certificate provisioning and secure customer journeys work. The three active paid service events and their durations were read again through Calendly; terms links retain the previous preview address until the HTTPS production URL is usable. See DOMAIN_CUTOVER.md for the remaining steps and original website rollback values.
