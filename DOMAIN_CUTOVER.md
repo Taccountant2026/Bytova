@@ -1,7 +1,7 @@
 # Bytova domain connection
 
 Target: `https://bytova.co.uk/`, with `www.bytova.co.uk` redirected by GitHub Pages.
-Prepared 18 October 2026. DNS and the GitHub custom-domain setting have not yet been changed by this preparation.
+Prepared 18 October 2026. GitHub's native branch publisher accepted the custom domain after the CNAME file was published. The previous preview address was checked and returns HTTP 301 to `http://bytova.co.uk/`. Website DNS still points to Shopify; the owner's DNS edit and certificate checks are next.
 
 ## Current public records and rollback values
 
@@ -15,7 +15,7 @@ The owner's DNS-zone screenshot was reviewed and agrees with these website/mail 
 
 ## Connection order
 
-1. In GitHub repository Settings → Pages, set Custom domain to `bytova.co.uk` and save. An initial DNS warning is expected while the website records still point to Shopify. Confirm GitHub has accepted and saved the custom domain before changing DNS. A CNAME file alone does not replace this setting.
+1. Domain routing has been accepted by this repository's native branch publisher: the old preview address redirects to `http://bytova.co.uk/`. In repository Settings → Pages, the intended Custom domain is `bytova.co.uk`. An initial DNS warning is expected while website records still point to Shopify. A different repository using a custom Actions publishing workflow must configure its custom domain through Settings or the API; a CNAME file alone is insufficient for that publishing mode.
 2. In Names.co.uk, replace the root website A record with the four GitHub Pages A records below. Leave the host field blank for the root in this provider's editor.
 3. Change only the www CNAME target to `taccountant2026.github.io`. Use no scheme, slash or repository name.
 4. Preserve all existing mail and verification records. Save the reviewed DNS zone.
@@ -35,7 +35,7 @@ In the supplied screenshot these correspond to changing row 1, adding A records 
 
 ## Source and deployment preparation
 
-`site.config.json` records the intended production URL. The generated CNAME file and the deployment artifact preserve it, but GitHub's repository custom-domain setting must also be saved. The native Pages deployment is used while the custom workflows are affected by the existing account billing restriction.
+`site.config.json` records the intended production URL. The generated CNAME file and deployment artifact preserve it. The native Pages deployment for commit `3105f2e8288ad0c0c695c865a2bd7e3f1bca80d9` completed successfully, and public preview redirection confirmed custom-domain routing. Local validation passed all 11 tests and checked 14 pages and 419 local links/anchors. The custom workflows still failed; their status is not a passing CI result.
 
 The domain registration remains with the existing provider. Domain/email renewal and any Shopify subscription decision are separate account tasks.
 

@@ -39,4 +39,4 @@ The existing public GitHub Pages audience is preserved. No DNS, domain, mail rec
 
 ## Production domain
 
-The intended domain is `https://bytova.co.uk/`. Domain preparation is checked in; GitHub Pages must also accept its Custom domain setting, followed by the website DNS changes. Indexing remains disabled until HTTPS and the customer journeys work on that domain. See `DOMAIN_CUTOVER.md` for the precise records, order and rollback values.
+The intended domain is `https://bytova.co.uk/`. GitHub's native branch publisher has accepted the domain, confirmed by the old preview address redirecting to `http://bytova.co.uk/`. The website DNS records still need changing. Indexing remains disabled until HTTPS and the customer journeys work on that domain. See `DOMAIN_CUTOVER.md` for the precise records, order and rollback values.
