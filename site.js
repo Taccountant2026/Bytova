@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     desktop.addEventListener('change', () => { if (desktop.matches) closeMenu(); });
   }
 
+  const prepChecks = [...document.querySelectorAll('[data-prep-check]')];
+  const prepStatus = document.querySelector('[data-prep-status]');
+  prepChecks.forEach((check) => check.addEventListener('change', () => {
+    if (prepStatus) prepStatus.textContent = `${prepChecks.filter((item) => item.checked).length} of ${prepChecks.length} ready`;
+  }));
+
   const bookingConfig = document.getElementById('booking-config');
   if (!bookingConfig) return;
   let config;

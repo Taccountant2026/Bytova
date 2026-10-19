@@ -42,3 +42,9 @@ The catalogue remains exactly three services at GBP25/GBP35/GBP29 with 30/60/60-
 The public website remains hosted on GitHub Pages at https://bytova.co.uk/. HTTP and the www hostname redirect to the secure root. The working GitHub DNS route is retained, and no registrar or mail DNS change was made during the final HTTPS verification.
 
 A separate Sites copy was prepared while GitHub certificate issuance was stalled. The owner approved public access to that fallback, but the original domain recovered before any registrar edit. The domain has not moved to Sites. Keep any fallback copy out of search and do not replace the working website records without a new reason and owner instruction.
+
+## Help and community release — 19 October 2026
+
+The production website now includes Help & Community and three complete guides: appointment preparation, describing an issue and everyday computer care. Suggestions are private email correspondence, reviewed before any agreed publication. A page-local preparation checklist sends and saves no data. Mobile visitors without JavaScript have direct navigation, and nested missing URLs recover against the production root. The three services, prices, Calendly mappings, opt-in and GitHub DNS route are retained.
+
+The generated release has 18 HTML pages and a 17-URL production sitemap.

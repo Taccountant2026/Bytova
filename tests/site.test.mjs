@@ -122,9 +122,19 @@ test('the domain launch enables canonical URLs and a sitemap while keeping the e
    }else{assert.doesNotMatch(page,/rel="canonical"/);assert.match(page,/content="noindex,nofollow"/);}
   }
   const urls=[...built.get('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  assert.equal(urls.length,indexable?13:0);
+  assert.equal(urls.length,indexable?17:0);
   assert(!urls.some(url=>url.endsWith('404.html')));
   if(indexable){assert(urls.includes('https://bytova.co.uk/'));assert(urls.includes('https://bytova.co.uk/book.html'));assert.match(built.get('robots.txt'),/Sitemap: https:\/\/bytova\.co\.uk\/sitemap\.xml/);}
   else{assert.match(built.get('robots.txt'),/Disallow: \//);assert.doesNotMatch(built.get('robots.txt'),/Sitemap:/);}
  }
+});
+
+
+test('help guides and nested missing-page recovery remain usable without a calendar or JavaScript',()=>{
+ const names=['help.html','prepare-for-remote-support.html','describe-a-tech-problem.html','everyday-computer-care.html'];
+ for(const name of names){const page=pages.get(name);assert(page,name);assert.match(page,/<noscript><nav/);assert.match(page,/href="\.\/help.html"/);assert.doesNotMatch(page,/<iframe\b/);}
+ const error=pages.get('404.html');const base=error.match(/<base href="([^"]+)"/)[1];
+ assert.equal(new URL('./services.html',new URL(base,'https://bytova.co.uk/old/missing')).href,'https://bytova.co.uk/services.html');
+ assert.equal(new URL('./site.css',base).href,'https://bytova.co.uk/site.css');
+ assert.match(pages.get('prepare-for-remote-support.html'),/Nothing is sent or saved/);
 });

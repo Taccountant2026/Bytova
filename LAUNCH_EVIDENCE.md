@@ -81,3 +81,7 @@ The original GitHub route is retained. Although a Sites fallback was prepared an
 Production indexing is enabled, with canonical URLs on the 13 content pages, the production sitemap in robots.txt and noindex retained on 404.html. The three-service catalogue, GBP prices, durations, payment settings and explicit calendar opt-in remain unchanged. Final publication and secure asset verification are recorded after the release completes; no completed live customer purchase is claimed.
 
 All three configured Bytova event types were freshly read and patched only to replace the old GitHub preview terms URL with https://bytova.co.uk/terms.html. A fresh readback confirmed the production link and preserved name, 30/60/60-minute duration, active/paid state, scheduling URL, location, questions and remaining event settings. The unrelated personal 30-minute meeting was not changed.
+
+## Final help and community revamp — 19 October 2026
+
+Added the Help & Community hub and three original complete guides, linked from the homepage, navigation, footer and relevant service journeys. Suggestions use private email rather than pretending there is a live forum or mailing service. Added a temporary preparation checklist, written-communication guidance, no-JavaScript mobile navigation and root-based recovery for nested 404 URLs. The release keeps the exact three-service catalogue and verified booking/payment configuration. No customer message, booking, payment or refund was created. Validation and publication evidence are recorded with the saved launch checkpoint.
