@@ -48,3 +48,9 @@ A separate Sites copy was prepared while GitHub certificate issuance was stalled
 The production website now includes Help & Community and three complete guides: appointment preparation, describing an issue and everyday computer care. Suggestions are private email correspondence, reviewed before any agreed publication. A page-local preparation checklist sends and saves no data. Mobile visitors without JavaScript have direct navigation, and nested missing URLs recover against the production root. The three services, prices, Calendly mappings, opt-in and GitHub DNS route are retained.
 
 The generated release has 18 HTML pages and a 17-URL production sitemap.
+
+## Interactive support guide
+
+`find-support.html` asks three page-local questions and maps only suitable routine tasks to the existing three services and configured total prices. Setup tasks, written-first preferences, uncertain connections and out-of-scope work lead to an email suitability conversation. The result includes a preparation checklist, editable device/task details, a reviewable email draft, clipboard copy with manual-copy fallback, and a printable plan. Nothing is transmitted or persisted by the guide itself. Existing calendar consent and payment gates remain in `book.html`.
+
+Run `npm run build`, `npm run check` and `npm test` after changing the generator or support guide. The release now contains 19 HTML pages and 18 indexable content routes.

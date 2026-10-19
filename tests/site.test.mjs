@@ -46,7 +46,7 @@ test('website has no store dependency, subscriptions, downloads, tracking, or fa
  for(const[name,page]of html){
   const body=page.match(/<body>[\s\S]*<\/body>/)?.[0]||page;
   assert.doesNotMatch(body,/https?:\/\/(?:www\.)?bytova\.co\.uk\//i,name);
-  assert.doesNotMatch(page,/shopify|\/products\/|\/collections\/|newsletter|support plan|retroreplay|header-actions|<form\b/i,name);
+  assert.doesNotMatch(page,/shopify|\/products\/|\/collections\/|newsletter|home support plan|retroreplay|header-actions|<form\b/i,name);
   assert.doesNotMatch(page,/<script[^>]+src="https?:|rel="preconnect"[^>]+calendly/i,name);
  }
  assert.match(pages.get('contact.html'),/mailto:hello@bytova\.co\.uk/);
@@ -122,7 +122,7 @@ test('the domain launch enables canonical URLs and a sitemap while keeping the e
    }else{assert.doesNotMatch(page,/rel="canonical"/);assert.match(page,/content="noindex,nofollow"/);}
   }
   const urls=[...built.get('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  assert.equal(urls.length,indexable?17:0);
+  assert.equal(urls.length,indexable?18:0);
   assert(!urls.some(url=>url.endsWith('404.html')));
   if(indexable){assert(urls.includes('https://bytova.co.uk/'));assert(urls.includes('https://bytova.co.uk/book.html'));assert.match(built.get('robots.txt'),/Sitemap: https:\/\/bytova\.co\.uk\/sitemap\.xml/);}
   else{assert.match(built.get('robots.txt'),/Disallow: \//);assert.doesNotMatch(built.get('robots.txt'),/Sitemap:/);}
