@@ -21,11 +21,11 @@
     "url": "https://bytova.co.uk/"
   },
   "launch": {
-    "indexable": false,
+    "indexable": true,
     "onlineBookingEnabled": true,
     "livePaymentsVerified": true,
     "paymentStatus": "Live provider configuration and customer-facing GBP prices verified. Online Calendly checkout enabled; no completed customer booking, charge or refund was created during verification.",
-    "checkedDate": "2026-10-16"
+    "checkedDate": "2026-10-19"
   },
   "services": [
     {

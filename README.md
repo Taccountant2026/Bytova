@@ -33,10 +33,12 @@ The build writes 14 HTML pages, `robots.txt`, `sitemap.xml` and the domain `CNAM
 
 ## Current release state
 
-`onlineBookingEnabled` and `livePaymentsVerified` are `true`; `indexable` remains `false` for the domain cutover. The live account configuration and actual public Calendly prices are verified. No real customer booking, completed charge or refund was created during verification, so a completed transaction is not claimed as tested.
+Online booking and verified live provider configuration remain enabled. HTTPS and redirects on https://bytova.co.uk/ were independently verified on 19 October 2026 after the owner enabled Enforce HTTPS. Search indexing is enabled for the production domain: the build emits canonical URLs, an allow rule and a 13-page sitemap; the custom 404 stays noindex.
 
-The owner has saved the production DNS records. Public checks confirm the four GitHub Pages A records, the correct www CNAME and the restored email setup records. The new website responds over HTTP; HTTPS certificate verification remains pending. See `LAUNCH_EVIDENCE.md` for completed work and the remaining launch dependencies.
+The catalogue remains exactly three services at GBP25/GBP35/GBP29 with 30/60/60-minute appointments. No completed live customer booking, charge or refund was created during launch verification. See LAUNCH_EVIDENCE.md for the precise checks and limits.
 
 ## Production domain
 
-The production domain is `https://bytova.co.uk/`. GitHub's native branch publisher has accepted the domain and the saved website DNS now points to GitHub. HTTP serves the new website and www redirects to the root. HTTPS currently fails certificate hostname verification, so launch verification is incomplete. The remaining steps are certificate provisioning, Enforce HTTPS, secure-domain checks, Calendly terms-link updates and enabling indexing. See `DOMAIN_CUTOVER.md` for the current evidence, order and rollback values.
+The public website remains hosted on GitHub Pages at https://bytova.co.uk/. HTTP and the www hostname redirect to the secure root. The working GitHub DNS route is retained, and no registrar or mail DNS change was made during the final HTTPS verification.
+
+A separate Sites copy was prepared while GitHub certificate issuance was stalled. The owner approved public access to that fallback, but the original domain recovered before any registrar edit. The domain has not moved to Sites. Keep any fallback copy out of search and do not replace the working website records without a new reason and owner instruction.

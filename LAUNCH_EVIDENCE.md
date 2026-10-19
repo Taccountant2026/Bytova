@@ -1,4 +1,4 @@
-# Bytova release evidence — updated 18 October 2026
+# Bytova release evidence — updated 19 October 2026
 
 ## Implemented website
 
@@ -55,7 +55,7 @@ Provider privacy links were checked: Calendly, Stripe, AnyDesk and GitHub's offi
 - The public Calendly booking flows were inspected in the authorized cloud browser. Responsive layout and interactions were also checked in source. No completed browser purchase test is claimed.
 - Custom GitHub workflows cannot start because of an account billing lock. Their status is not described as passing CI. Native Pages deployment and HTTP delivery are verified independently after publication.
 
-The owner has saved the production DNS, and public HTTP delivery now uses the new website. HTTPS certificate verification, enforcement, secure-domain checks, provider terms links and indexing remain pending as detailed below. Live provider configuration and public prices are verified. No real completed transaction was created or tested during this work; that limit remains explicit.
+The production domain now works over validated HTTPS with HTTP/www redirects. Production indexing is enabled in the release configuration. The earlier pending-certificate reports below are historical and superseded by the 19 October verification. Live provider configuration and public prices are verified. No real completed transaction was created or tested during this work; that limit remains explicit.
 
 ## Public release verification — 17 October 2026
 
@@ -70,3 +70,14 @@ The owner saved the Names.co.uk zone and corrected the duplicated www entry and 
 The root serves the repository website over HTTP. The www host and previous GitHub Pages preview redirect to the root over HTTP. All 14 explicit HTML pages, CSS, JavaScript, images, all three local fonts, robots.txt and sitemap.xml match repository bytes. A nonexistent path returns the custom 404 page with HTTP 404.
 
 Both secure domain variants currently fail certificate hostname verification. The check did not bypass verification, and HTTPS enforcement is not claimed as enabled. Indexing remains disabled until certificate provisioning and secure customer journeys work. The three active paid service events and their durations were read again through Calendly; terms links retain the previous preview address until the HTTPS production URL is usable. See DOMAIN_CUTOVER.md for the remaining steps and original website rollback values.
+
+
+## Secure production release — 19 October 2026
+
+At 17:36 BST the owner reported DNS check successful and Enforce HTTPS enabled. Independent public requests confirmed validated HTTPS returns 200 for the root and booking page. Both http://bytova.co.uk/ and https://www.bytova.co.uk/ end at https://bytova.co.uk/. A fresh public DNS query retained the four GitHub Pages A records. Certificate validation was never bypassed.
+
+The original GitHub route is retained. Although a Sites fallback was prepared and its audience was made public with owner approval, no registrar credentials were submitted and no DNS record was changed. The fallback is not the production domain.
+
+Production indexing is enabled, with canonical URLs on the 13 content pages, the production sitemap in robots.txt and noindex retained on 404.html. The three-service catalogue, GBP prices, durations, payment settings and explicit calendar opt-in remain unchanged. Final publication and secure asset verification are recorded after the release completes; no completed live customer purchase is claimed.
+
+All three configured Bytova event types were freshly read and patched only to replace the old GitHub preview terms URL with https://bytova.co.uk/terms.html. A fresh readback confirmed the production link and preserved name, 30/60/60-minute duration, active/paid state, scheduling URL, location, questions and remaining event settings. The unrelated personal 30-minute meeting was not changed.
