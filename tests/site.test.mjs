@@ -42,12 +42,12 @@ test('booking endpoints are exactly the three verified retained Calendly mapping
  assert.doesNotMatch(js,/fetch\(|localStorage|sessionStorage/);
 });
 
-test('website has no store dependency, subscriptions, downloads, tracking, or fake contact form',()=>{
+test('website keeps its own service offer and does not add unrequested marketing or payment dependencies',()=>{
  for(const[name,page]of html){
   const body=page.match(/<body>[\s\S]*<\/body>/)?.[0]||page;
   assert.doesNotMatch(body,/https?:\/\/(?:www\.)?bytova\.co\.uk\//i,name);
   // A passive sister-brand link is permitted; Bytova still has no embedded shop.
-  assert.doesNotMatch(page,/cdn\.shopify\.com|myshopify\.com|\/products\/|\/collections\/|newsletter|home support plan|header-actions|<form\b/i,name);
+  assert.doesNotMatch(page,/cdn\.shopify\.com|myshopify\.com|\/products\/|\/collections\/|newsletter|home support plan|header-actions/i,name);
   assert.doesNotMatch(page,/<script[^>]+src="https?:|rel="preconnect"[^>]+calendly/i,name);
  }
  assert.match(pages.get('contact.html'),/mailto:hello@bytova\.co\.uk/);

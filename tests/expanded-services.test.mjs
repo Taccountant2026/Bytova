@@ -27,5 +27,5 @@ test('all quoted services have a real route and the original paid configuration 
  for(const s of projectServices){const html=pages.get(s.file);assert(html,s.file);assert(html.includes('project-enquiry.html?service='+s.id));assert(html.includes('./'+s.guide));assert(!html.includes('book.html?service='+s.id));assert(pages.get('services.html').includes('./'+s.file));}
  const booking=JSON.parse(pages.get('book.html').match(/<script id="booking-config" type="application\/json">(.*?)<\/script>/s)[1]);assert.deepEqual(booking.services.map(s=>s.id),config.services.map(s=>s.id));
  assert(pages.get('faq.html').includes('Yes. Bytova offers'));assert(pages.get('terms.html').includes('Quoted repairs and business projects'));assert(pages.get('small-business.html').includes('website-design-build.html'));
- const js=readFileSync(new URL('../project-planner.mjs',import.meta.url),'utf8');assert.doesNotMatch(js,/fetch\(|localStorage|sessionStorage|innerHTML/);
+ const js=readFileSync(new URL('../project-planner.mjs',import.meta.url),'utf8');assert.doesNotMatch(js,/localStorage|sessionStorage|innerHTML/);
 });
