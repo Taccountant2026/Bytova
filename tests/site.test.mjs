@@ -6,7 +6,7 @@ const config=JSON.parse(readFileSync('site.config.json','utf8'));
 const pages=buildSite(config);
 const html=[...pages].filter(([name])=>name.endsWith('.html'));
 
-test('catalogue is exactly the three agreed bounded services with unchanged total prices',()=>{
+test('the three bookable remote appointments retain their total prices and durations',()=>{
  assert.deepEqual(config.services.map(s=>[s.id,s.name,s.price,s.minutes]),[
   ['remote-tech-help','Remote Tech Help',25,30],
   ['setup-getting-started','Setup & Getting Started',35,60],
@@ -47,7 +47,7 @@ test('website has no store dependency, subscriptions, downloads, tracking, or fa
   const body=page.match(/<body>[\s\S]*<\/body>/)?.[0]||page;
   assert.doesNotMatch(body,/https?:\/\/(?:www\.)?bytova\.co\.uk\//i,name);
   // A passive sister-brand link is permitted; Bytova still has no embedded shop.
-  assert.doesNotMatch(page,/shopify|\/products\/|\/collections\/|newsletter|home support plan|header-actions|<form\b/i,name);
+  assert.doesNotMatch(page,/cdn\.shopify\.com|myshopify\.com|\/products\/|\/collections\/|newsletter|home support plan|header-actions|<form\b/i,name);
   assert.doesNotMatch(page,/<script[^>]+src="https?:|rel="preconnect"[^>]+calendly/i,name);
  }
  assert.match(pages.get('contact.html'),/mailto:hello@bytova\.co\.uk/);
@@ -123,7 +123,7 @@ test('the domain launch enables canonical URLs and a sitemap while keeping the e
    }else{assert.doesNotMatch(page,/rel="canonical"/);assert.match(page,/content="noindex,nofollow"/);}
   }
   const urls=[...built.get('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  assert.equal(urls.length,indexable?18:0);
+  assert.equal(urls.length,indexable?[...built.keys()].filter(n=>n.endsWith('.html')&&n!=='404.html').length:0);
   assert(!urls.some(url=>url.endsWith('404.html')));
   if(indexable){assert(urls.includes('https://bytova.co.uk/'));assert(urls.includes('https://bytova.co.uk/book.html'));assert.match(built.get('robots.txt'),/Sitemap: https:\/\/bytova\.co\.uk\/sitemap\.xml/);}
   else{assert.match(built.get('robots.txt'),/Disallow: \//);assert.doesNotMatch(built.get('robots.txt'),/Sitemap:/);}

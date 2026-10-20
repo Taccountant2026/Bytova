@@ -10,7 +10,7 @@ A standalone, buildless public website with local branding, images and fonts. Cu
 | Setup & Getting Started | 60 minutes | £35 |
 | Computer Care & Safety Check | 60 minutes | £29 |
 
-Each service has a detailed scope, exclusions, preparation instructions and a genuine email route to `hello@bytova.co.uk`. The same bounded scope applies to households, students, sole traders and small businesses. Services are remote only.
+Each service has a detailed scope, exclusions, preparation instructions and a genuine email route to `hello@bytova.co.uk`. The same bounded scope applies to households, students, sole traders and small businesses. The three fixed-price appointments are remote. Repairs and business projects are individually scoped and quoted; handovers must be agreed before equipment is brought or sent.
 
 ## Customer journeys
 
@@ -54,3 +54,9 @@ The generated release has 18 HTML pages and a 17-URL production sitemap.
 `find-support.html` asks three page-local questions and maps only suitable routine tasks to the existing three services and configured total prices. Setup tasks, written-first preferences, uncertain connections and out-of-scope work lead to an email suitability conversation. The result includes a preparation checklist, editable device/task details, a reviewable email draft, clipboard copy with manual-copy fallback, and a printable plan. Nothing is transmitted or persisted by the guide itself. Existing calendar consent and payment gates remain in `book.html`.
 
 Run `npm run build`, `npm run check` and `npm test` after changing the generator or support guide. The release now contains 19 HTML pages and 18 indexable content routes.
+
+## Expanded services and customer journeys — 20 October 2026
+
+`service-catalogue.mjs` defines ten quoted service lines across repairs, upgrades/builds, transfers/backup, devices, networks/NAS, small-business IT, website design/build, ecommerce, marketing content/online presence and automation. The owner confirmed content/presence marketing rather than paid advertising management, and repair arrangements agreed per job. The three fixed appointment prices and Calendly mappings remain the only online paid booking offers.
+
+`project-enquiry.html` and `project-planner.mjs` create a bounded, reviewable email brief with copy fallback. They do not transmit, store or automatically send entries. `scripts/catalogue-content.mjs` generates the home/business hubs, quoted service pages, three preparation guides and examples from the owner's two businesses. The service guide routes repair/project topics to quoted work without offering a remote booking for them.

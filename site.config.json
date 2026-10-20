@@ -44,8 +44,8 @@
         "A clear explanation of what was checked and sensible next steps."
       ],
       "notIncluded": [
-        "Hardware repair, a disconnected internet connection or physical printer repairs.",
-        "Account ownership bypass, data recovery or migration.",
+        "Physical hardware work or connection faults requiring equipment work; ask for a separate repair or setup quote.",
+        "Account ownership bypass. Data-transfer or backup projects are separately quoted.",
         "Active fraud, a suspected cyber incident or specialist malware removal.",
         "Enterprise administration or ongoing managed IT support."
       ],
@@ -72,7 +72,7 @@
         "A walkthrough of the important settings and how to get started."
       ],
       "notIncluded": [
-        "Whole-computer or multi-device migrations and bulk data transfers.",
+        "Whole-computer or multi-device migrations and bulk transfers; these can be separately scoped and quoted.",
         "Hardware assembly, cabling or hands-on installation visits.",
         "Software licences, subscriptions, replacement equipment or other third-party charges.",
         "Account ownership bypass, enterprise systems or ongoing administration."
@@ -102,7 +102,7 @@
       "notIncluded": [
         "A guarantee of faster performance, a hardware upgrade or a virus-free certificate.",
         "Forensic investigation, active cyber incidents or specialist malware removal.",
-        "Hardware repair, data recovery or data migration.",
+        "Physical hardware work and data projects; ask for a separate repair, transfer or upgrade quote.",
         "An enterprise security audit or ongoing monitoring."
       ],
       "prepare": [

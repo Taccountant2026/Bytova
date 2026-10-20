@@ -1,12 +1,20 @@
+import {projectServices} from './service-catalogue.mjs';
 export const supportQuestions = [
-  { id:'topic', title:'What would you like a hand with?', detail:'Choose the closest description of your one task.', choices:[
+  { id:'topic', title:'What would you like a hand with?', detail:'Choose a remote task, physical repair or business goal.', choices:[
     {value:'issue',label:'Something has stopped working properly',detail:'One everyday Windows, supported app, email or connected-printer issue.'},
     {value:'setup',label:'I want to set up one new thing',detail:'One supported app, email account or agreed device setup.'},
     {value:'care',label:'I want to understand my computer’s care',detail:'Startup, storage, updates and common Windows security settings.'},
     {value:'unsure',label:'I am not sure which kind of help fits',detail:'Let’s make the question clearer first.'},
-    {value:'outside',label:'Hardware, lost data or an active security incident',detail:'These need help outside Bytova’s three routine remote appointments.'},
+    {value:'hardware',label:'Hardware repairs or a PC upgrade',detail:'Physical faults, supported console enquiries, upgrades or a custom PC.'},
+    {value:'transfer',label:'Move files or organise backups',detail:'Computer changes, accessible data transfers and backup setup.'},
+    {value:'network',label:'Wi-Fi, printers, devices or shared storage',detail:'Practical connection, device, network or NAS setup.'},
+    {value:'business',label:'IT help for my small business',detail:'Devices, email, software, users and practical guidance.'},
+    {value:'website',label:'Build or improve a website or shop',detail:'Website design, builds, ecommerce and customer journeys.'},
+    {value:'marketing',label:'Content and online presence',detail:'Website copy, social designs, profiles and practical SEO basics.'},
+    {value:'automation',label:'Simplify a repeated business task',detail:'Admin, enquiry, booking or record-keeping workflows.'},
+    {value:'outside',label:'An active security incident or account ownership problem',detail:'These do not fit a routine paid remote appointment.'},
   ]},
-  { id:'ready', title:'Can you join a remote appointment?', detail:'You need to stay at a usable computer, with working internet and permission to make the agreed changes.', choices:[
+  { id:'ready', title:'Could a remote appointment work for you?', detail:'Remote tasks need a usable computer and working internet. Repairs and business projects can still start with an enquiry.', choices:[
     {value:'yes',label:'Yes, my Windows computer and internet work',detail:'I can join, stay present and follow the joining instructions.'},
     {value:'no',label:'No, I cannot use or connect the computer',detail:'Let’s check the right next step before arranging remote help.'},
     {value:'unsure',label:'I would like to check suitability first',detail:'For example, a different device or uncertainty about remote access.'},
@@ -14,13 +22,15 @@ export const supportQuestions = [
   { id:'pace', title:'What would make the support feel easier?', detail:'Choose a starting point for the conversation with Leighton.', choices:[
     {value:'standard',label:'A clear explanation and practical next steps',detail:'I am comfortable following the appointment as it happens.'},
     {value:'calm',label:'A patient, step-by-step walkthrough',detail:'I would appreciate time to understand each part.'},
-    {value:'written',label:'Written communication before I book',detail:'I would like to agree communication needs and suitability by email first.'},
+    {value:'written',label:'Written communication first',detail:'I would like to agree communication needs and suitability by email first.'},
   ]},
 ];
 
 export function recommendSupport(answers) {
   if (!supportQuestions.every(q=>q.choices.some(c=>c.value===answers?.[q.id]))) return {kind:'contact',serviceId:null,emailFirst:true,title:'Let’s make the next step clearer.',reason:'Choose an answer to each question, or email Leighton to discuss suitability.'};
-  if (answers.topic==='outside') return {kind:'outside',serviceId:null,emailFirst:true,title:'This needs a different kind of help.',reason:'These routine appointments do not cover hardware repair, data recovery or migration, active fraud, incident response or account ownership bypass. Arrange appropriate specialist support before booking a routine remote session.'};
+  if (answers.topic==='outside') return {kind:'outside',serviceId:null,emailFirst:true,title:'This needs a different kind of help.',reason:'Active fraud, incident response and account ownership bypass are not routine remote appointments. Contact the relevant account provider or appropriate specialist support before paying for routine help.'};
+  const projectId={hardware:'repairs',transfer:'transfer',network:'devices',business:'business-it',website:'websites',marketing:'marketing',automation:'automation'}[answers.topic];
+  if(projectId)return {kind:'quote',serviceId:null,projectId,emailFirst:true,title:'Let’s scope the right job.',reason:'Bytova can discuss this work. Leighton will check suitability and agree the scope, price and arrangements before you commit. It is separate from the three fixed-price remote appointments.'};
   if (answers.ready!=='yes') return {kind:'contact',serviceId:null,emailFirst:true,title:'Let’s check remote suitability first.',reason:'Remote support needs a usable computer, working internet, permission and your presence. Email Leighton with the device and the one task before paying for an appointment.'};
   if (answers.topic==='unsure') return {kind:'contact',serviceId:null,emailFirst:true,title:'Let’s choose it together.',reason:'A short description of what you want to achieve will help Leighton check which appointment, if any, fits.'};
   const serviceId={issue:'remote-tech-help',setup:'setup-getting-started',care:'computer-care-safety-check'}[answers.topic];
@@ -28,13 +38,14 @@ export function recommendSupport(answers) {
 }
 
 export function supportChecklist(service) {
+  if(service&&!Number.isFinite(service.price))return [...service.prepare,'Agree the scope, price and arrangements before authorising work.'];
   return service ? [...service.prepare,'Keep your appointment and joining instructions to hand.','Close private windows and keep passwords and sign-in codes to yourself.'] : ['Write down the one task or issue you need help with.','Note the device and operating system, if known.','Describe whether the computer and internet are usable.','Check the service scope with Leighton before booking.'];
 }
 
 export function buildSupportBrief(service, answers, details={}, readyItems=[], allItems=[]) {
   const label=(key)=>supportQuestions.find(q=>q.id===key)?.choices.find(c=>c.value===answers[key])?.label||'Not selected';
   return ['Hello Leighton,','','I used the Bytova support guide to prepare this question.',
-    service?`Starting point: ${service.name} — £${service.price} total / ${service.minutes} minutes.`:'Starting point: please check suitability before an appointment.',
+    service?(Number.isFinite(service.price)?`Starting point: ${service.name} — £${service.price} total / ${service.minutes} minutes.`:`Starting point: ${service.name} — scope and price to be agreed.`):'Starting point: please check suitability before an appointment.',
     `Task type: ${label('topic')}`,`Remote readiness: ${label('ready')}`,`Communication preference: ${label('pace')}`,'',
     'My device / operating system:',String(details.device||'To be discussed').trim().slice(0,120),'',
     'The one task or issue I would like help with:',String(details.task||'To be discussed').trim().slice(0,600),'',
@@ -66,11 +77,11 @@ function initialiseSupportGuide() {
     copyStatus.textContent='';
   }
   function showResult(){
-    answers=values();const outcome=recommendSupport(answers);service=config.services.find(s=>s.id===outcome.serviceId)||null;
+    answers=values();const outcome=recommendSupport(answers);service=config.services.find(s=>s.id===outcome.serviceId)||projectServices.find(s=>s.id===outcome.projectId)||null;
     heading.textContent=outcome.title;reason.textContent=outcome.reason;
-    summary.textContent=service?`${service.name} · £${service.price} total · ${service.minutes} minutes`:'Please check suitability before booking';
+    summary.textContent=service?(Number.isFinite(service.price)?`${service.name} · £${service.price} total · ${service.minutes} minutes`:`${service.name} · individually quoted`):'Please check suitability before booking';
     serviceLink.hidden=!service;bookLink.hidden=!service||outcome.emailFirst;
-    if(service){serviceLink.href='./'+service.file;serviceLink.textContent='Read what’s included';bookLink.href='./book.html?service='+encodeURIComponent(service.id);bookLink.textContent='Choose a time for '+service.name;}
+    if(service){serviceLink.href='./'+service.file;serviceLink.textContent=outcome.kind==='quote'?'Explore this service':'Read what’s included';bookLink.href='./book.html?service='+encodeURIComponent(service.id);bookLink.textContent='Choose a time for '+service.name;}
     emailLink.textContent=outcome.emailFirst?'Email Leighton before booking':'Email my plan to Leighton';
     items=supportChecklist(service);checklist.replaceChildren();
     items.forEach((text,i)=>{const label=document.createElement('label'),input=document.createElement('input'),span=document.createElement('span');input.type='checkbox';input.value=String(i);input.addEventListener('change',updatePlan);span.textContent=text;label.append(input,span);checklist.append(label);});
