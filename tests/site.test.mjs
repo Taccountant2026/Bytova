@@ -46,7 +46,8 @@ test('website has no store dependency, subscriptions, downloads, tracking, or fa
  for(const[name,page]of html){
   const body=page.match(/<body>[\s\S]*<\/body>/)?.[0]||page;
   assert.doesNotMatch(body,/https?:\/\/(?:www\.)?bytova\.co\.uk\//i,name);
-  assert.doesNotMatch(page,/shopify|\/products\/|\/collections\/|newsletter|home support plan|retroreplay|header-actions|<form\b/i,name);
+  // A passive sister-brand link is permitted; Bytova still has no embedded shop.
+  assert.doesNotMatch(page,/shopify|\/products\/|\/collections\/|newsletter|home support plan|header-actions|<form\b/i,name);
   assert.doesNotMatch(page,/<script[^>]+src="https?:|rel="preconnect"[^>]+calendly/i,name);
  }
  assert.match(pages.get('contact.html'),/mailto:hello@bytova\.co\.uk/);
