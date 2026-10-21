@@ -77,6 +77,7 @@ const robots=launch.indexable?'User-agent: *\nAllow: /\n\nSitemap: '+new URL('si
 pages.set('robots.txt',robots);
 const sitemapUrls=launch.indexable?[...pages.keys()].filter(file=>file.endsWith('.html')&&file!=='404.html').map(file=>new URL(file==='index.html'?'':file,siteUrl).href):[];
 pages.set('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+sitemapUrls.map(url=>'  <url><loc>'+esc(url)+'</loc></url>\n').join('')+'</urlset>\n');
+pages.set('google7154a567ddca562f.html','google-site-verification: google7154a567ddca562f.html\n');
 if(siteUrl)pages.set('CNAME',siteUrl.hostname+'\n');
 return pages;
 }
