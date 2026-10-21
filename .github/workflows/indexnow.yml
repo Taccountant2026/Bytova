@@ -1,0 +1,25 @@
+name: Notify search engines
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for public deployment
+        run: sleep 45
+      - name: Submit sitemap URLs to IndexNow
+        env:
+          INDEXNOW_KEY: ec4016f677e19a82223dec083c43acd8
+          SITEMAP_URL: https://bytova.co.uk/sitemap.xml
+          KEY_LOCATION: https://bytova.co.uk/ec4016f677e19a82223dec083c43acd8.txt
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 "$SITEMAP_URL"             | grep -oP '(?<=<loc>).*?(?=</loc>)'             | while IFS= read -r url; do
+                encoded_url=$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$url")
+                encoded_key_location=$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$KEY_LOCATION")
+                curl -fsS --retry 3 "https://api.indexnow.org/indexnow?url=${encoded_url}&key=${INDEXNOW_KEY}&keyLocation=${encoded_key_location}" >/dev/null || true
+              done
