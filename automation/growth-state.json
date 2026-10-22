@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "agent": "Alex",
+  "business": "Bytova",
+  "enabled": true,
+  "timezone": "Europe/London",
+  "maxSubstantiveUpdatesPerDay": 1
+}
