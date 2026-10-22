@@ -59,3 +59,7 @@ The new source uses no exploitation, credentials, URL scanning, shell execution 
 All public claims need a source recheck before a delayed launch. The review-due date is 29 October 2026.
 
 A direct HTTP status probe to executor loopback could not connect to the supervisor, which is browser-routed. This transport check is unverified; it is not counted as a page or download failure. Browser delivery and source-file checks passed. Public status/MIME checks remain required after an approved deployment.
+
+## Hosted verification status
+
+The candidate GitHub Actions jobs were created but could not start any steps because of an account-level runner restriction. No hosted CI success is claimed. Local tests and artifact checks pass as recorded above. The account restriction must be resolved and hosted checks/deployment availability verified before launch through GitHub. No account, permission, billing or paid-service configuration was changed.

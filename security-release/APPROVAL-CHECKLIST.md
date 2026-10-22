@@ -24,6 +24,8 @@ The implementation, source record, checks and launch materials are prepared for 
 - [ ] Approve any chosen public post/email destination and wording. No bulk outreach is implied.
 - [ ] Recheck sources and the review-due date immediately before publishing.
 
+- [ ] Resolve the GitHub account-level runner restriction and verify the intended deployment route is available.
+
 ## After an approved deployment
 
 - [ ] Confirm the correct production commit deployed; verify public pages, data, MIME types and downloads.
