@@ -1,0 +1,18 @@
+{
+  "reviewed": "2026-10-22",
+  "designs": 13,
+  "campaign_pngs": 14,
+  "editable_svgs": 13,
+  "public_og_png": "assets/security/security-social.png",
+  "text_bounds_checked": 232,
+  "png_dimensions_and_decode": "passed",
+  "svg_xml_and_alt_text": "passed",
+  "headlines_max_characters": 27,
+  "descriptions_max_characters": 84,
+  "publication": "not activated; owner approval and live destinations required",
+  "limits": [
+    "Platform composer cropping must be reviewed before posting.",
+    "No platform-policy eligibility claim.",
+    "No reach, customer remediation, external review, indexing or conversion outcome is claimed."
+  ]
+}

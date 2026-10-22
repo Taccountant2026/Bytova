@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-22",
+  "preservation": "43 existing non-home/non-privacy document bodies preserved apart from security footer and verified ownership meta",
+  "config_unchanged": true,
+  "credential_pattern_scan": "no matches",
+  "javascript_tests": 64,
+  "python_tests": 8,
+  "scope": "local candidate only",
+  "http_status_probe": {
+    "transport": "executor loopback",
+    "result": "connection refused; supervisor is accessed through the managed browser route",
+    "verification": "unverified; public deployment verification is still pending"
+  },
+  "semantic_documents": 54,
+  "local_links_checked": 2980,
+  "hosted_ci": {
+    "result": "jobs did not start",
+    "cause": "account-level runner restriction",
+    "local_tests": "64 JavaScript and 8 Python pass",
+    "action": "owner must resolve account restriction before hosted checks/deployment"
+  }
+}

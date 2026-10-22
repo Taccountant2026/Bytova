@@ -1,0 +1,124 @@
+{
+  "status": "DRAFT - owner approval and live destination required before release",
+  "sources_checked": "2026-10-22",
+  "review_due": "2026-10-29",
+  "graphics": [
+    {
+      "name": "check-php-square",
+      "png": "check-php-square.png",
+      "svg": "check-php-square.svg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Bytova PHP security response. Check PHP and plan your update. Verified upstream fixes checked on 22 October 2026: PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12. A version check is not a security certificate. Free version checker at bytova.co.uk/php-version-checker.html.",
+      "text_boxes": 20
+    },
+    {
+      "name": "check-php-portrait",
+      "png": "check-php-portrait.png",
+      "svg": "check-php-portrait.svg",
+      "width": 1080,
+      "height": 1350,
+      "alt": "Bytova PHP security response. Check PHP and plan your update. Verified upstream fixes checked on 22 October 2026: PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12. A version check is not a security certificate. Free version checker at bytova.co.uk/php-version-checker.html.",
+      "text_boxes": 20
+    },
+    {
+      "name": "check-php-story",
+      "png": "check-php-story.png",
+      "svg": "check-php-story.svg",
+      "width": 1080,
+      "height": 1920,
+      "alt": "Bytova PHP security response. Check PHP and plan your update. Verified upstream fixes checked on 22 October 2026: PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12. A version check is not a security certificate. Free version checker at bytova.co.uk/php-version-checker.html.",
+      "text_boxes": 20
+    },
+    {
+      "name": "check-php-landscape",
+      "png": "check-php-landscape.png",
+      "svg": "check-php-landscape.svg",
+      "width": 1200,
+      "height": 630,
+      "alt": "Bytova PHP security response. Check PHP and plan your update. Verified upstream fixes checked on 22 October 2026: PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12. A version check is not a security certificate. Free version checker at bytova.co.uk/php-version-checker.html.",
+      "text_boxes": 20
+    },
+    {
+      "name": "backports-matter-square",
+      "png": "backports-matter-square.png",
+      "svg": "backports-matter-square.svg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Bytova explains vendor backports. An older PHP number can have a new security fix. Example: Ubuntu 24.04 PHP 8.3 package 8.3.6-0ubuntu0.24.04.13 is recorded as fixed for both listed advisories. Confirm the exact OS, package and running service. Sources checked 22 October 2026.",
+      "text_boxes": 16
+    },
+    {
+      "name": "backports-matter-portrait",
+      "png": "backports-matter-portrait.png",
+      "svg": "backports-matter-portrait.svg",
+      "width": 1080,
+      "height": 1350,
+      "alt": "Bytova explains vendor backports. An older PHP number can have a new security fix. Example: Ubuntu 24.04 PHP 8.3 package 8.3.6-0ubuntu0.24.04.13 is recorded as fixed for both listed advisories. Confirm the exact OS, package and running service. Sources checked 22 October 2026.",
+      "text_boxes": 16
+    },
+    {
+      "name": "backports-matter-story",
+      "png": "backports-matter-story.png",
+      "svg": "backports-matter-story.svg",
+      "width": 1080,
+      "height": 1920,
+      "alt": "Bytova explains vendor backports. An older PHP number can have a new security fix. Example: Ubuntu 24.04 PHP 8.3 package 8.3.6-0ubuntu0.24.04.13 is recorded as fixed for both listed advisories. Confirm the exact OS, package and running service. Sources checked 22 October 2026.",
+      "text_boxes": 16
+    },
+    {
+      "name": "backports-matter-landscape",
+      "png": "backports-matter-landscape.png",
+      "svg": "backports-matter-landscape.svg",
+      "width": 1200,
+      "height": 630,
+      "alt": "Bytova explains vendor backports. An older PHP number can have a new security fix. Example: Ubuntu 24.04 PHP 8.3 package 8.3.6-0ubuntu0.24.04.13 is recorded as fixed for both listed advisories. Confirm the exact OS, package and running service. Sources checked 22 October 2026.",
+      "text_boxes": 16
+    },
+    {
+      "name": "safe-update-plan-square",
+      "png": "safe-update-plan-square.png",
+      "svg": "safe-update-plan-square.svg",
+      "width": 1080,
+      "height": 1080,
+      "alt": "Bytova safe PHP update plan. Identify the runtime; verify backups and test; apply the vendor-approved fix; replace running workers; validate and document. Suspected compromise needs a qualified responder. Free response checklists at bytova.co.uk/security.html. Sources checked 22 October 2026.",
+      "text_boxes": 21
+    },
+    {
+      "name": "safe-update-plan-portrait",
+      "png": "safe-update-plan-portrait.png",
+      "svg": "safe-update-plan-portrait.svg",
+      "width": 1080,
+      "height": 1350,
+      "alt": "Bytova safe PHP update plan. Identify the runtime; verify backups and test; apply the vendor-approved fix; replace running workers; validate and document. Suspected compromise needs a qualified responder. Free response checklists at bytova.co.uk/security.html. Sources checked 22 October 2026.",
+      "text_boxes": 21
+    },
+    {
+      "name": "safe-update-plan-story",
+      "png": "safe-update-plan-story.png",
+      "svg": "safe-update-plan-story.svg",
+      "width": 1080,
+      "height": 1920,
+      "alt": "Bytova safe PHP update plan. Identify the runtime; verify backups and test; apply the vendor-approved fix; replace running workers; validate and document. Suspected compromise needs a qualified responder. Free response checklists at bytova.co.uk/security.html. Sources checked 22 October 2026.",
+      "text_boxes": 21
+    },
+    {
+      "name": "safe-update-plan-landscape",
+      "png": "safe-update-plan-landscape.png",
+      "svg": "safe-update-plan-landscape.svg",
+      "width": 1200,
+      "height": 630,
+      "alt": "Bytova safe PHP update plan. Identify the runtime; verify backups and test; apply the vendor-approved fix; replace running workers; validate and document. Suspected compromise needs a qualified responder. Free response checklists at bytova.co.uk/security.html. Sources checked 22 October 2026.",
+      "text_boxes": 21
+    },
+    {
+      "name": "website-banner",
+      "png": "website-banner.png",
+      "svg": "website-banner.svg",
+      "width": 1600,
+      "height": 320,
+      "alt": "Bytova PHP security: clear next steps. Free advisory, private version checker and response checklists at bytova.co.uk/security.html. Sources checked 22 October 2026.",
+      "text_boxes": 4
+    }
+  ]
+}

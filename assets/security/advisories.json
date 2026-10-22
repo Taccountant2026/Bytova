@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "dataset_id": "bytova-php-2026-10-22-r1",
+  "published": "2026-10-21",
+  "reviewed": "2026-10-22",
+  "review_due": "2026-10-29",
+  "scope": ["CVE-2026-109618", "CVE-2026-109619"],
+  "severity": "Critical",
+  "cvss_version": "4.0",
+  "cvss_score": 9.2,
+  "upstream": {
+    "8.2": {"fixed": "8.2.35", "latest_verified": "8.2.35", "security_until": "2026-12-31"},
+    "8.3": {"fixed": "8.3.36", "latest_verified": "8.3.36", "security_until": "2027-12-31"},
+    "8.4": {"fixed": "8.4.27", "latest_verified": "8.4.27", "security_until": "2028-12-31"},
+    "8.5": {"fixed": "8.5.12", "latest_verified": "8.5.12", "security_until": "2029-12-31"}
+  },
+  "vendor_fixes": [
+    {"vendor": "ubuntu", "os_release": "22.04", "package": "php8.1", "version": "8.1.2-1ubuntu2.28", "source_ids": ["ubuntu-618", "ubuntu-619"]},
+    {"vendor": "ubuntu", "os_release": "24.04", "package": "php8.3", "version": "8.3.6-0ubuntu0.24.04.13", "source_ids": ["ubuntu-618", "ubuntu-619"]},
+    {"vendor": "ubuntu", "os_release": "26.04", "package": "php8.5", "version": "8.5.4-0ubuntu1.5", "source_ids": ["ubuntu-618", "ubuntu-619"]},
+    {"vendor": "ubuntu", "os_release": "26.10", "package": "php8.5", "version": "8.5.9-0ubuntu2.1", "source_ids": ["ubuntu-618", "ubuntu-619"]},
+    {"vendor": "debian", "os_release": "12", "package": "php8.2", "version": "8.2.35-1~deb12u1", "source_ids": ["debian-618", "debian-619"]},
+    {"vendor": "debian", "os_release": "13", "package": "php8.4", "version": "8.4.27-1~deb13u1", "source_ids": ["debian-618", "debian-619"]}
+  ],
+  "sources": [
+    {"id": "php", "title": "PHP official security announcement", "url": "https://www.php.net/archive/2026.php#2026-10-21-5", "published": "2026-10-21", "reviewed": "2026-10-22"},
+    {"id": "ghsa-618", "title": "PHP: RCE via OOM corruption", "url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w", "published": "2026-10-21", "reviewed": "2026-10-22"},
+    {"id": "ghsa-619", "title": "PHP: RCE via stale global state", "url": "https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp", "published": "2026-10-21", "reviewed": "2026-10-22"},
+    {"id": "support", "title": "PHP upstream support calendar", "url": "https://www.php.net/supported-versions.php", "published": null, "reviewed": "2026-10-22"},
+    {"id": "ubuntu-618", "title": "Ubuntu package status: CVE-2026-109618", "url": "https://ubuntu.com/security/CVE-2026-109618", "published": "2026-10-21", "reviewed": "2026-10-22"},
+    {"id": "ubuntu-619", "title": "Ubuntu package status: CVE-2026-109619", "url": "https://ubuntu.com/security/CVE-2026-109619", "published": "2026-10-21", "reviewed": "2026-10-22"},
+    {"id": "debian-618", "title": "Debian package status: CVE-2026-109618", "url": "https://security-tracker.debian.org/tracker/CVE-2026-109618", "published": null, "reviewed": "2026-10-22"},
+    {"id": "debian-619", "title": "Debian package status: CVE-2026-109619", "url": "https://security-tracker.debian.org/tracker/CVE-2026-109619", "published": null, "reviewed": "2026-10-22"},
+    {"id": "ncsc", "title": "UK NCSC: Critical security issue affecting PHP", "url": "https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php", "published": "2026-10-21", "reviewed": "2026-10-22"},
+    {"id": "cloudflare", "title": "Cloudflare: observed attack traffic and WAF protections", "url": "https://blog.cloudflare.com/php-vulnerabilities-waf-protection/", "published": "2026-10-21", "reviewed": "2026-10-22"}
+  ]
+}

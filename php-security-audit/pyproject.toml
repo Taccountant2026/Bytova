@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bytova-php-security-audit"
+version = "1.0.0"
+description = "Offline PHP advisory comparison with explicit vendor-backport handling"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Bytova", email = "hello@bytova.co.uk"}]
+dependencies = []
+
+[project.scripts]
+php-security-audit = "php_security_audit.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["php_security_audit*"]
+
+[tool.setuptools.package-data]
+php_security_audit = ["data/*.json"]
