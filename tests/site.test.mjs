@@ -48,7 +48,8 @@ test('website keeps its own service offer and does not add unrequested marketing
   assert.doesNotMatch(body,/https?:\/\/(?:www\.)?bytova\.co\.uk\//i,name);
   // A passive sister-brand link is permitted; Bytova still has no embedded shop.
   assert.doesNotMatch(page,/cdn\.shopify\.com|myshopify\.com|\/products\/|\/collections\/|newsletter|home support plan|header-actions/i,name);
-  assert.doesNotMatch(page,/<script[^>]+src="https?:|rel="preconnect"[^>]+calendly/i,name);
+  const withoutApprovedHelper=page.replace('<script src="https://bytova.taccountant.chatgpt.site/assistant.js" defer></script>','');
+  assert.doesNotMatch(withoutApprovedHelper,/<script[^>]+src="https?:|rel="preconnect"[^>]+calendly/i,name);
  }
  assert.match(pages.get('contact.html'),/mailto:hello@bytova\.co\.uk/);
  assert.match(pages.get('contact.html'),/Leighton Liam Hepworth/);

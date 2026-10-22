@@ -10,7 +10,7 @@ test('each customer route has a real landing page, preparation step and correct 
  for(const f of funnels){const page=pages.get(f.file);assert(page,f.file);assert(pages.has(f.guide));assert(pages.has(f.serviceFile));assert(pages.has(f.secondaryFile));assert(page.includes('./'+f.guide));if(f.service)assert(page.includes('project-enquiry.html?service='+f.service));else assert(page.includes('find-support.html'));}
  assert(pages.get('start-here.html').includes('business-check.html'));
  assert(pages.get('project-enquiry.html').includes('data-project-privacy required'));
- assert(pages.get('privacy.html').includes('private business inbox hosted at retroreplay.uk'));
+ assert(pages.get('privacy.html').includes('dedicated Bytova business inbox hosted at bytova.taccountant.chatgpt.site'));
 });
 test('business priorities use complete valid answers, return bounded useful results and ignore injected query text',()=>{
  assert.deepEqual(reviewPriorities({}),[]);const all=Object.fromEntries(reviewQuestions.map(q=>[q.id,'working']));assert.deepEqual(reviewPriorities(all),[]);
