@@ -1,0 +1,26 @@
+{
+  "status": "DRAFT_DISABLED_OWNER_APPROVAL_REQUIRED",
+  "budget_gbp": 0,
+  "activated": false,
+  "final_url_after_release": "https://bytova.co.uk/php-version-checker.html",
+  "display_paths": ["php", "version-check"],
+  "headlines": [
+    "Free PHP Version Checker",
+    "Check Your PHP Release",
+    "PHP Security Response",
+    "Understand Vendor Backports",
+    "Free PHP Update Checklist",
+    "Clear PHP Security Guidance",
+    "Bytova Security Resources",
+    "No Account Needed",
+    "Plan A Safe PHP Update",
+    "Know Your Next Step"
+  ],
+  "descriptions": [
+    "Compare a locally supplied PHP version. No external scan or account required.",
+    "Use dated advice and official links. A version result is not a security certificate.",
+    "Vendor backports need the exact package revision. Learn what to ask your host.",
+    "Free update and incident checklists. Agree scope before requesting any assistance."
+  ],
+  "approval_notes": "Review current official platform policies and technical-support eligibility before any paid launch. Character-limit validation does not establish policy compliance. No spend or campaign activation is approved."
+}

@@ -4,7 +4,7 @@ import {strict as assert} from 'node:assert';
 import {buildSite} from '../scripts/build.mjs';
 const config=JSON.parse(readFileSync('site.config.json','utf8'));
 const pages=buildSite(config);
-const html=[...pages].filter(([name])=>name.endsWith('.html'));
+const html=[...pages].filter(([name,body])=>name.endsWith('.html')&&/<html\b/.test(body));
 
 test('the three bookable remote appointments retain their total prices and durations',()=>{
  assert.deepEqual(config.services.map(s=>[s.id,s.name,s.price,s.minutes]),[
@@ -115,7 +115,7 @@ test('the domain launch enables canonical URLs and a sitemap while keeping the e
   const built=buildSite(variant);
   assert.equal(built.get('CNAME'),'bytova.co.uk\n');
   for(const[name,page]of built){
-   if(!name.endsWith('.html'))continue;
+   if(!name.endsWith('.html')||!/<html\b/.test(page))continue;
    if(indexable&&name!=='404.html'){
     const expected='https://bytova.co.uk/'+(name==='index.html'?'':name);
     assert(page.includes('<link rel="canonical" href="'+expected+'">'),name);
@@ -123,7 +123,7 @@ test('the domain launch enables canonical URLs and a sitemap while keeping the e
    }else{assert.doesNotMatch(page,/rel="canonical"/);assert.match(page,/content="noindex,nofollow"/);}
   }
   const urls=[...built.get('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  assert.equal(urls.length,indexable?[...built.keys()].filter(n=>n.endsWith('.html')&&n!=='404.html').length:0);
+  assert.equal(urls.length,indexable?[...built].filter(([n,body])=>n.endsWith('.html')&&n!=='404.html'&&/<html\b/.test(body)).length:0);
   assert(!urls.some(url=>url.endsWith('404.html')));
   if(indexable){assert(urls.includes('https://bytova.co.uk/'));assert(urls.includes('https://bytova.co.uk/book.html'));assert.match(built.get('robots.txt'),/Sitemap: https:\/\/bytova\.co\.uk\/sitemap\.xml/);}
   else{assert.match(built.get('robots.txt'),/Disallow: \//);assert.doesNotMatch(built.get('robots.txt'),/Sitemap:/);}

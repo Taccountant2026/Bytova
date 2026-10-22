@@ -1,4 +1,4 @@
-/* Consent-controlled website statistics. Google tag loads in consent-denied mode; analytics events/storage require opt-in. */
+/* Consent-controlled website statistics. Google tag and analytics events load only after opt-in. */
 (()=>{
  const script=document.currentScript,brand=script?.dataset.brand,gaId=String(script?.dataset.gaId||({rruk:'G-4YTG0QWMW5',bytova:'G-HXLHMHPVZM',garden:'G-SBLP603J4G'}[brand]||'')).trim();
  if(!['rruk','bytova','garden'].includes(brand))return;
@@ -21,15 +21,14 @@
    const g=document.createElement('script');g.async=true;g.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(validGaId);document.head.append(g);
    gaReady=true;
   }
-  function setGoogleConsent(allowed){if(!validGaId||preview||doNotTrack)return;ensureGoogleTag();window.gtag('consent','update',{analytics_storage:allowed?'granted':'denied'});}
-  ensureGoogleTag();
-  if(choice?.allowed)setGoogleConsent(true);
+  function setGoogleConsent(allowed){if(!validGaId||preview||doNotTrack)return;window['ga-disable-'+validGaId]=!allowed;if(allowed)ensureGoogleTag();if(gaReady)window.gtag('consent','update',{analytics_storage:allowed?'granted':'denied'});}
+  if(choice?.allowed&&!doNotTrack)setGoogleConsent(true);
   function googleMeasure(event){
    if(!validGaId||preview||doNotTrack||!choice?.allowed)return;
    setGoogleConsent(true);
    window.gtag('event',event,{page_path:location.pathname});
   }
-  function measure(event){const payload=permittedEvent({choice,brand,path:location.pathname,event,campaign:new URLSearchParams(location.search).get('utm_campaign'),doNotTrack,preview});if(!payload)return;if(event==='page_view'){if(viewSent)return;viewSent=true;}void fetch('https://retroreplay.uk/api/metrics',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{});googleMeasure(event);}
+  function measure(event){const payload=permittedEvent({choice,brand,path:location.pathname,event,campaign:new URLSearchParams(location.search).get('utm_campaign'),doNotTrack,preview});if(!payload)return;if(event==='page_view'){if(viewSent)return;viewSent=true;}const securityPage=brand==='bytova'&&/^\/(?:security(?:-[a-z-]+)?|php-(?:security-advisory|patches|version-checker|remediation-guide|security-explained))\.html$/.test(location.pathname);if(!securityPage)void fetch('https://retroreplay.uk/api/metrics',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{});googleMeasure(event);}
   const style=document.createElement('style');style.textContent='.stats-choice{position:fixed;z-index:90;left:20px;right:20px;bottom:20px;margin:auto;max-width:880px;padding:23px 26px;background:#fffef9;color:#20392d;border:1px solid #839180;box-shadow:0 8px 50px #122c2633;font:14px/1.65 system-ui,sans-serif;box-sizing:border-box}.stats-choice h2{font:600 20px/1.3 system-ui,sans-serif;margin:0 0 8px;letter-spacing:0}.stats-choice p{margin:0 0 15px;color:#425345;font-size:13px}.stats-choice .stats-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.stats-choice button,.stats-preferences{font:600 12px/1.5 system-ui,sans-serif;color:#20392d;background:#fffef9;border:1px solid #69816a;padding:10px 15px;cursor:pointer;min-height:42px}.stats-choice button:focus-visible,.stats-preferences:focus-visible,.stats-choice a:focus-visible{outline:3px solid #994329;outline-offset:3px}.stats-choice button:disabled{opacity:.55;cursor:default}.stats-choice a{font-size:12px;text-decoration:underline;color:#284a37}.stats-preferences{position:fixed;bottom:12px;right:12px;z-index:50;padding:7px 11px;min-height:34px;box-shadow:0 2px 12px #122c261a}.stats-choice .stats-note{font-size:11px;margin:12px 0 0}@media(max-width:580px){.stats-choice{left:10px;right:10px;bottom:10px;padding:19px;max-height:85vh;overflow:auto}.stats-choice .stats-actions button{flex:1}.stats-preferences{font-size:10px}}@media print{.stats-choice,.stats-preferences{display:none!important}}';document.head.append(style);
   const prefs=document.createElement('button');prefs.type='button';prefs.className='stats-preferences';prefs.textContent='Privacy choices';prefs.setAttribute('aria-controls','statistics-choice');document.body.append(prefs);
   function close(){if(panel){panel.remove();panel=null;}if(returnFocus?.isConnected)returnFocus.focus();}

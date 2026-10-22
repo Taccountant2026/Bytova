@@ -1,0 +1,54 @@
+{
+  "template_version": 1,
+  "title": "Security incident record",
+  "template_reviewed": "2026-10-22",
+  "privacy_note": "Keep in a protected case folder. Do not include passwords or unnecessary personal data. Separate observations from hypotheses.",
+  "case_id": "",
+  "incident_lead": "",
+  "trusted_contact_route": "",
+  "affected_services": [],
+  "service_owner": "",
+  "hosting_environment": "",
+  "first_observed_at_with_timezone": "",
+  "observer": "",
+  "alert_source": "",
+  "confirmed_observations": [],
+  "hypotheses": [],
+  "unknowns_and_scope_gaps": [],
+  "evidence_custody": [
+    {
+      "evidence_reference": "",
+      "original_location": "",
+      "collected_at_with_timezone": "",
+      "collection_method": "",
+      "integrity_record": "",
+      "custodian": "",
+      "access_or_transfer_record": ""
+    }
+  ],
+  "actions_and_decisions": [
+    {
+      "at_with_timezone": "",
+      "action": "",
+      "authorised_by": "",
+      "rationale": "",
+      "evidence_references": [],
+      "business_impact": "",
+      "result": "",
+      "remaining_uncertainty": ""
+    }
+  ],
+  "recovery_validation": [],
+  "reporting_and_notification_decision_references": [],
+  "return_to_service_approver": "",
+  "outstanding_actions": [
+    {
+      "action": "",
+      "owner": "",
+      "due_date": "",
+      "status": ""
+    }
+  ],
+  "next_review_at_with_timezone": "",
+  "limitations": "This template does not establish attribution, security clearance or legal notification obligations. Involve appropriate qualified advisers for suspected compromise."
+}

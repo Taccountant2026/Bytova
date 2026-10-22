@@ -3,7 +3,7 @@ import {strict as assert} from 'node:assert';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const pages=readdirSync(root).filter(name=>name.endsWith('.html'));
+const pages=readdirSync(root).filter(name=>name.endsWith('.html')&&/<html\b/.test(readFileSync(resolve(root,name),'utf8')));
 const ids=new Map();
 for(const name of pages){
  const html=readFileSync(resolve(root,name),'utf8');
