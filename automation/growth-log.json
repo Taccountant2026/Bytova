@@ -1,1 +1,17 @@
-{"version":1,"attempts":[]}
+{
+  "version": 1,
+  "attempts": [
+    {
+      "id": "editorial-2026-10-23",
+      "timestamp": "2026-10-23T07:48:19.625Z",
+      "londonDay": "2026-10-23",
+      "status": "publication-attempt",
+      "url": "https://bytova.co.uk/printer-offline-before-booking.html",
+      "summary": "Printer showing offline? Check these details first",
+      "validation": [
+        "Static tests/build/link checks",
+        "Native tests/typecheck/build"
+      ]
+    }
+  ]
+}

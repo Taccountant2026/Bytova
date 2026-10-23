@@ -1,5 +1,39 @@
 export const guides = [
   {
+  "file": "printer-offline-before-booking.html",
+  "title": "Printer showing offline? Check these details first",
+  "summary": "A safe first check for Windows printer problems—and how to tell when remote support may be suitable.",
+  "label": "PRINTER PROBLEMS · BEFORE BOOKING",
+  "service": "remote-tech-help",
+  "sections": [
+    [
+      "Start with the actual symptom",
+      "Does Windows show the printer as offline, or is a document waiting in the print queue? Note the exact message and whether it affects one app or everything you print. Avoid repeatedly sending the same document, particularly if it contains private information."
+    ],
+    [
+      "Check the basics without changing settings",
+      "Confirm that the printer is switched on and has no obvious paper, ink or device error. If it uses Wi-Fi, consult its own display or manual to check the connection; do not assume that the computer and printer are on the same network. Check that the computer itself can access the internet."
+    ],
+    [
+      "Look at the Windows printer entry",
+      "On Windows 11, open Settings, then Bluetooth & devices, then Printers & scanners. Select the printer and inspect its status and queue. Write down what you see. Do not cancel important print jobs, remove drivers or reset a printer until you understand the consequences."
+    ],
+    [
+      "Decide whether remote help fits",
+      "Bytova Remote Tech Help is a 30-minute, £25 appointment for one agreed Windows, supported software or printer-settings issue. Printer software support is suitable only when the printer is already powered on, connected and reachable. A physical fault, failed network connection or hardware repair needs a separate suitability discussion rather than a routine remote booking."
+    ],
+    [
+      "Prepare a useful enquiry",
+      "Share the printer make and model, Windows version if known, whether it is USB or Wi-Fi, the exact message and what you have already tried. Do not send passwords, Wi-Fi keys, account recovery codes or unredacted private printouts. Microsoft’s printer guidance offers further checks, but you do not need to attempt unfamiliar changes before asking for help."
+    ]
+  ],
+  "reference": [
+    "https://support.microsoft.com/en-us/windows/hardware/printer/troubleshooting-offline-printer-problems-in-windows",
+    "Microsoft: troubleshoot offline printers in Windows"
+  ],
+  "updated": "23 October 2026"
+},
+  {
     file: 'prepare-for-remote-support.html',
     title: 'Get ready for remote support',
     summary: 'A calm, practical checklist before your appointment, with you in control throughout.',
