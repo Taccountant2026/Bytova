@@ -1,5 +1,39 @@
 export const guides = [
   {
+  "file": "share-a-support-screenshot.html",
+  "title": "A useful support screenshot, with less private information",
+  "summary": "Capture the message that matters, check what is visible and choose a written description whenever that is safer.",
+  "label": "ASKING FOR HELP · SCREENSHOTS",
+  "service": "remote-tech-help",
+  "sections": [
+    [
+      "Start with the question",
+      "A screenshot is useful when it shows the exact message or setting you want help with. Write one sentence explaining what you were trying to do and what happened instead. You do not need to send a picture of the whole desktop, and a typed error message may be enough."
+    ],
+    [
+      "Prepare the screen first",
+      "Close unrelated documents, email, messaging and payment windows before taking the picture. Check browser tabs, notifications and the taskbar too. Never include passwords, recovery keys, security codes, full card details or another person's private information. If you cannot exclude those details confidently, describe the problem in words."
+    ],
+    [
+      "Capture only the useful area",
+      "On Windows 11, Windows key + Shift + S opens Snipping Tool's screenshot controls. Choose a rectangular area or the relevant window rather than the entire display. Keep the full wording of the error visible, but leave out unrelated account details. Microsoft's instructions explain the available capture options."
+    ],
+    [
+      "Review the file you will actually share",
+      "Open the saved image and inspect every edge before attaching it. Check names, addresses, account numbers and any information that identifies someone else. If sensitive content is still visible, take a fresh, narrower picture or send the wording instead. Do not rely on a quick coloured mark to make private text safe."
+    ],
+    [
+      "Keep the next step simple",
+      "Send the checked image only through the private support route you intended to use, with the device or app name and your short description. A screenshot does not confirm an appointment or diagnose the fault. Bytova can discuss whether the £25, 30-minute Remote Tech Help appointment suits the issue before you book."
+    ]
+  ],
+  "reference": [
+    "https://support.microsoft.com/en-gb/windows/apps/use-snipping-tool-to-capture-screenshots",
+    "Microsoft: use Snipping Tool to capture screenshots"
+  ],
+  "updated": "24 October 2026"
+},
+  {
   "file": "printer-offline-before-booking.html",
   "title": "Printer showing offline? Check these details first",
   "summary": "A safe first check for Windows printer problems—and how to tell when remote support may be suitable.",
