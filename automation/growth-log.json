@@ -12,6 +12,21 @@
         "Static tests/build/link checks",
         "Native tests/typecheck/build"
       ]
+    },
+    {
+      "id": "editorial-2026-10-24",
+      "timestamp": "2026-10-23T23:08:33Z",
+      "londonDay": "2026-10-24",
+      "status": "publication-attempt",
+      "url": "https://bytova.co.uk/share-a-support-screenshot.html",
+      "summary": "A useful support screenshot, with less private information",
+      "sourceDraftCommit": "87306101037e9d555f082ca2760206f80b1f1896",
+      "validation": [
+        "64 static tests, build and 3094 local links checked",
+        "36 native tests, typecheck and standard Sites build passed",
+        "Official Microsoft screenshot instructions verified",
+        "Node 24.22.1 official SHA256 verified"
+      ]
     }
   ]
 }
