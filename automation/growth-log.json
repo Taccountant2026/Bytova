@@ -27,6 +27,21 @@
         "Official Microsoft screenshot instructions verified",
         "Node 24.22.1 official SHA256 verified"
       ]
+    },
+    {
+      "id": "editorial-2026-10-25-virus-warning",
+      "timestamp": "2026-10-24T23:10:47.283830Z",
+      "londonDay": "2026-10-25",
+      "status": "publication-attempt",
+      "url": "https://bytova.co.uk/unexpected-virus-warning.html",
+      "summary": "Original calm first-response guide for unexpected browser virus warnings, with suitability-first contact and unchanged routine support limits",
+      "sourceDraftCommit": "f916d87014f1b793b0c496c39748ab05290a5d67",
+      "validation": [
+        "64 static tests; build and 57 HTML/3151 local links checked",
+        "36 native tests, typecheck and standard Sites build passed",
+        "Microsoft scam and keyboard guidance rechecked on 25 October",
+        "Node 24.22.1; current runtime manifests and locks preserved"
+      ]
     }
   ]
 }

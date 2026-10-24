@@ -1,5 +1,40 @@
 export const guides = [
   {
+  "file": "unexpected-virus-warning.html",
+  "title": "A sudden virus warning? Pause before you click",
+  "summary": "A calm first response to a frightening browser message, with clear limits on what an online guide or routine appointment can establish.",
+  "label": "UNEXPECTED WARNINGS · FIRST STEPS",
+  "service": "remote-tech-help",
+  "contactFirst": true,
+  "sections": [
+    [
+      "Pause the demand",
+      "Do not call a number, pay or grant remote access because a browser message tells you to. A warning on a web page does not establish that the computer is infected. Microsoft says its error messages do not include support phone numbers; scammers can copy familiar branding and make a page look like a system warning."
+    ],
+    [
+      "Close the browser window",
+      "Use the browser window's own controls rather than a button inside the warning. On Windows, Alt + F4 can close the active window if the mouse controls are difficult to use. You may lose unsaved form text. Closing the page stops that display; it does not prove the device is clean or undo anything already shared."
+    ],
+    [
+      "Check through software you already trust",
+      "Open Windows Security from the Start menu instead of a link in the warning. Microsoft's guidance includes running a full scan and applying available security updates. Keep to the operating system's own update controls and official support instructions; do not install a cleaner advertised by the pop-up."
+    ],
+    [
+      "If you already called, paid or allowed access",
+      "Stop the conversation and seek appropriate help through contact details you already trust. Explain whether you installed software, shared account information, allowed remote control or made a payment. Microsoft provides recovery guidance for people who have engaged with a scammer, including contacting the card provider about a payment. A closed warning is not a completed recovery."
+    ],
+    [
+      "Email before arranging an appointment",
+      "Describe the message in words and say what you did next, without sending passwords, recovery keys or sign-in codes. Email Bytova before booking if fraud, account compromise or an active incident may be involved. Its routine remote appointments do not provide incident response, forensic investigation, account-ownership bypass or data recovery. If this is a work-managed device, use your organisation's agreed IT reporting route."
+    ]
+  ],
+  "reference": [
+    "https://support.microsoft.com/en-us/office/protect-yourself-from-tech-support-scams",
+    "Microsoft: protect yourself from tech support scams"
+  ],
+  "updated": "25 October 2026"
+},
+  {
   "file": "share-a-support-screenshot.html",
   "title": "A useful support screenshot, with less private information",
   "summary": "Capture the message that matters, check what is visible and choose a written description whenever that is safer.",
