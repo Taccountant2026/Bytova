@@ -32,6 +32,7 @@ jobs:
           mkdir -p _site
           find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.mjs' -o -name '*.jpg' -o -name '*.svg' -o -name '*.png' -o -name '*.ico' -o -name 'robots.txt' -o -name 'sitemap.xml' -o -name 'CNAME' \) -exec cp {} _site/ \;
           cp -R assets _site/assets
+          cp -R blogs _site/blogs
           rm -f _site/assets/SOURCES.md
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3

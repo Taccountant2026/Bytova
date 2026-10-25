@@ -3,7 +3,9 @@ import {strict as assert} from 'node:assert';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const pages=readdirSync(root).filter(name=>name.endsWith('.html')&&/<html\b/.test(readFileSync(resolve(root,name),'utf8')));
+const candidates=readdirSync(root);
+if(existsSync(resolve(root,'blogs')))candidates.push(...readdirSync(resolve(root,'blogs'),{recursive:true}).map(name=>'blogs/'+name));
+const pages=candidates.filter(name=>name.endsWith('.html')&&/<html\b/.test(readFileSync(resolve(root,name),'utf8')));
 const ids=new Map();
 for(const name of pages){
  const html=readFileSync(resolve(root,name),'utf8');
@@ -24,7 +26,7 @@ for(const page of pages){
  assert(!/https?:\/\/(?:www\.)?bytova\.co\.uk\//i.test(body),page+' contains an absolute website route instead of local navigation');
  for(const match of html.matchAll(/(?:href|src)="([^"<>]+)"/g)){
   const value=match[1].replaceAll('&amp;','&');
-  if(!value.startsWith('./')&&!value.startsWith('#'))continue;
+  if(!value.startsWith('./')&&!value.startsWith('#')&&!/^\/(?!\/)/.test(value))continue;
   const u=new URL(value,'https://local.example/'+page);
   let name=decodeURIComponent(u.pathname.slice(1));if(!name)name='index.html';
   assert(existsSync(resolve(root,name)),page+' broken local file: '+value);

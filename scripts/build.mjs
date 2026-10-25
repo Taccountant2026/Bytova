@@ -1,4 +1,4 @@
-import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {readFileSync,writeFileSync,existsSync,mkdirSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {resolve,dirname} from 'node:path';
 import {guides} from './help-content.mjs';
@@ -6,6 +6,7 @@ import {supportFinderContent,supportPromo} from './support-content.mjs';
 import {funnelPages,funnelInvitation} from './funnel-content.mjs';
 import {expandedCataloguePages} from './catalogue-content.mjs';
 import {securityPages,securityFiles} from './security-content.mjs';
+import {buildLegacyWarningPages} from './legacy-warning-pages.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 export function buildSite(config){
 const {business:b,launch,services}=config;
@@ -87,11 +88,12 @@ return pages;
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
 const config=JSON.parse(readFileSync(resolve(root,'site.config.json'),'utf8'));
-const pages=buildSite(config);
+const contentPages=buildSite(config);
+const pages=new Map([...contentPages,...buildLegacyWarningPages(config,contentPages)]);
 if(process.argv.includes('--check')){
  let changed=[];for(const [file,body]of pages)if(!existsSync(resolve(root,file))||readFileSync(resolve(root,file),'utf8')!==body)changed.push(file);
  if(changed.length){console.error('Generated files need rebuilding: '+changed.join(', '));process.exit(1);}
  console.log(`Generated content is current (${[...pages.keys()].filter(file=>file.endsWith('.html')).length} pages).`);
-}else{for(const [file,body]of pages)writeFileSync(resolve(root,file),body);console.log(`Built ${[...pages.keys()].filter(file=>file.endsWith('.html')).length} pages from the verified appointments and project catalogue.`);}
+}else{for(const [file,body]of pages){mkdirSync(dirname(resolve(root,file)),{recursive:true});writeFileSync(resolve(root,file),body);}console.log(`Built ${[...pages.keys()].filter(file=>file.endsWith('.html')).length} pages from the verified appointments and project catalogue.`);}
 
 }
