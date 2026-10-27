@@ -117,19 +117,43 @@ export const guides = [
     ],
   },
   {
-    file: 'describe-a-tech-problem.html',
-    title: 'Describe a tech problem clearly',
-    summary: 'You do not need technical language. A few useful details make the next step easier.',
-    label: 'A BETTER FIRST MESSAGE',
-    service: 'remote-tech-help',
-    sections: [
-      ['Start with what you wanted to do', 'For example: “I want to print a document from my laptop.” Then explain what happens instead. “The printer is switched on, but the document stays in the queue” is more useful than “it is broken”.'],
-      ['Name the device and the message', 'Include the computer, app or printer model if you know it, the Windows version if available, and the exact error text. It is fine to say you do not know. Do not include account passwords, licence keys or recovery codes.'],
-      ['Say when it started', 'Does it happen every time or only sometimes? Did it begin after an update, new app, move or change of equipment? Describe what you have already tried and what happened, rather than repeating changes just to make the message longer.'],
-      ['Share only what is needed', 'If a screenshot helps, remove or cover names, account numbers, messages, addresses and other private information first. A typed error message is often enough. Never send full card details or security codes.'],
-      ['Ask for a suitable next step', 'Say what a useful outcome would look like and whether you can use the device and internet connection. Bytova can then help you choose one of the three appointments or explain when a different kind of support is needed.'],
+  "file": "describe-a-tech-problem.html",
+  "title": "Describe a tech problem clearly",
+  "summary": "Gather the symptom, exact message and useful context before asking whether remote support fits your Windows, app or connected-printer problem.",
+  "label": "A BETTER FIRST MESSAGE",
+  "service": "remote-tech-help",
+  "updated": "28 October 2026",
+  "sections": [
+    [
+      "Start with the task and the symptom",
+      "You do not need to know the cause before asking for help. Say what you wanted to do and what happened instead. For example: “I was opening this document, but the app closed.” This is an example of a useful description, not a diagnosis or a customer story."
     ],
-  },
+    [
+      "Write down the message and timing",
+      "Note the app or device name, the exact warning, when it began and whether it happens every time or after one particular action. Mention changes you remember and what you already tried. Do not repeat a task that might send duplicate messages, print private documents or overwrite work simply to collect more detail."
+    ],
+    [
+      "Keep private information out",
+      "Include your Windows version if known and the steps leading to the problem. A typed error message is often enough. If a screenshot helps, check it for private information first and follow the screenshot guide below. Never send passwords, recovery codes, licence keys, payment details or private documents."
+    ],
+    [
+      "Use a short brief",
+      "“I’m using [app or device] on [Windows version if known]. I wanted to [task]. Instead, [what happened]. The message says [wording]. It began [when]. I already tried [what you actually did].” It is fine to say you do not know a detail."
+    ],
+    [
+      "Choose the right next step",
+      "Remote Tech Help is £25 for up to 30 minutes on one agreed Windows, supported-app, email or suitable printer-settings issue. You need a usable computer and working internet; a printer must already be powered on, connected and reachable. The session covers the agreed task and time; a particular fix cannot be promised. Read the scope, then use the current appointment-request route. A request needs confirmation before it becomes an appointment. Computer Care & Safety Check is £29 for up to 60 minutes with a live calendar; Setup & Getting Started is £35 for up to 60 minutes and arranged on request."
+    ],
+    [
+      "Ask separately about other work",
+      "Physical faults, data-transfer projects and active security incidents need separate assessment. If fraud or compromised access may be involved, describe that concern through Bytova contact first, without sending secrets; do not treat it as an ordinary app appointment. Routine remote appointments do not include incident response or forensic investigation."
+    ]
+  ],
+  "reference": [
+    "./share-a-support-screenshot.html",
+    "Bytova: prepare a useful support screenshot"
+  ]
+},
   {
     file: 'everyday-computer-care.html',
     title: 'A simple computer-care routine',
