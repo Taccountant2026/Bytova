@@ -42,11 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadButton = document.querySelector('[data-load-calendar]');
   const directLink = document.querySelector('[data-direct-booking]');
   const calendarContainer = document.querySelector('[data-calendar-container]');
+  const liveSection = document.querySelector('[data-booking-live]');
+  const requestSection = document.querySelector('[data-booking-request]');
+  const availability = document.querySelector('[data-booking-availability]');
+  const nextTitle = document.getElementById('booking-next-title');
+  const online = (service) => config.enabled && service.online !== false;
   const requested = new URLSearchParams(window.location.search).get('service');
   const requestedChoice = choices.find((choice) => choice.value === requested);
   if (requestedChoice) requestedChoice.checked = true;
   const selectedService = () => config.services.find((service) => service.id === choices.find((choice) => choice.checked)?.value) || config.services[0];
   const approvedUrl = (service) => {
+    if (!online(service)) throw new Error('Appointment must be agreed first');
     const url = new URL(service.url);
     if (url.protocol !== 'https:' || url.hostname !== 'calendly.com' || !url.pathname.startsWith('/leighton-hepworth22/')) throw new Error('Invalid booking provider');
     return url;
@@ -65,12 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
       emailButton.textContent = `Email About ${service.name}`;
     }
     resetCalendar();
+    const canBook = online(service);
+    if (liveSection) liveSection.hidden = !canBook;
+    if (requestSection) requestSection.hidden = canBook;
+    if (nextTitle) nextTitle.textContent = canBook ? '2. Choose a time' : '2. Request an appointment';
+    if (availability) availability.textContent = `${service.name} is arranged on request. Send a request in your customer area so we can agree a suitable time. No appointment or payment is confirmed until separately agreed.`;
   };
   choices.forEach((choice) => choice.addEventListener('change', updateSelection));
   updateSelection();
   if (!config.enabled || !consent || !loadButton || !directLink || !calendarContainer) return;
   consent.addEventListener('change', () => {
-    if (!consent.checked) { resetCalendar(); return; }
+    if (!consent.checked || !online(selectedService())) { resetCalendar(); return; }
     try {
       directLink.href = approvedUrl(selectedService()).href;
       directLink.hidden = false;
@@ -80,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadButton.addEventListener('click', () => {
     if (!consent.checked || !config.enabled) return;
     const service = selectedService();
+    if (!online(service)) return;
     const url = approvedUrl(service);
     url.searchParams.set('embed_domain', window.location.hostname);
     url.searchParams.set('embed_type', 'Inline');

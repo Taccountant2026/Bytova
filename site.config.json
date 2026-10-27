@@ -25,7 +25,8 @@
     "onlineBookingEnabled": true,
     "livePaymentsVerified": true,
     "paymentStatus": "Live provider configuration and customer-facing GBP prices verified. Online Calendly checkout enabled; no completed customer booking, charge or refund was created during verification.",
-    "checkedDate": "2026-10-19"
+    "checkedDate": "2026-10-19",
+    "bookingAvailabilityCheckedDate": "2026-10-27"
   },
   "services": [
     {
@@ -54,7 +55,8 @@
         "Keep the affected app, account or connected printer available.",
         "Know which one issue you want help with and back up important files."
       ],
-      "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-remote-computer-help"
+      "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-remote-computer-help",
+      "onlineBookingActive": false
     },
     {
       "id": "setup-getting-started",
@@ -82,7 +84,8 @@
         "Have the device, account access and any required software licence ready.",
         "Use a working internet connection and remain available to carry out physical steps."
       ],
-      "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-pc-speed-up"
+      "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-pc-speed-up",
+      "onlineBookingActive": false
     },
     {
       "id": "computer-care-safety-check",
@@ -110,7 +113,8 @@
         "Back up important files before the appointment.",
         "Tell me about any warning messages or current security concerns before booking."
       ],
-      "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-windows-security-check"
+      "calendlyUrl": "https://calendly.com/leighton-hepworth22/bytova-windows-security-check",
+      "onlineBookingActive": true
     }
   ]
 }
