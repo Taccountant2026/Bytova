@@ -42,6 +42,21 @@
         "Microsoft scam and keyboard guidance rechecked on 25 October",
         "Node 24.22.1; current runtime manifests and locks preserved"
       ]
+    },
+    {
+      "id": "editorial-2026-10-28-support-brief",
+      "timestamp": "2026-10-28T04:01:37.899Z",
+      "londonDay": "2026-10-28",
+      "status": "publication-attempt",
+      "url": "https://bytova.co.uk/describe-a-tech-problem.html",
+      "summary": "Improve existing support brief guide without duplicate article; clarify Care calendar versus Remote Help and Setup request wording",
+      "sourceDraftCommit": "2d558af4172b7c284e7443fea26e8ddd5768bd44",
+      "validation": [
+        "64 static tests; build and57HTML/3153links/assets checked",
+        "59 native tests, typecheck and standard Sites build passed",
+        "Node24.22.1;187main app blobs verified; nine intended files checked",
+        "Prices, booking logic, security boundaries, assistant/media and runtime manifests unchanged"
+      ]
     }
   ]
 }
