@@ -57,6 +57,21 @@
         "Node24.22.1;187main app blobs verified; nine intended files checked",
         "Prices, booking logic, security boundaries, assistant/media and runtime manifests unchanged"
       ]
+    },
+    {
+      "id": "editorial-2026-10-29-care-backup-clarity",
+      "timestamp": "2026-10-29T00:09:23.591614Z",
+      "londonDay": "2026-10-29",
+      "status": "publication-attempt",
+      "url": "https://bytova.co.uk/everyday-computer-care.html",
+      "summary": "Improve existing Windows care guide with selected-folder backup checks, current Care route and contact-first limits; no duplicate article",
+      "sourceBaseCommit": "f399ac47de73150660e90fcd291441e129d8f98a",
+      "validation": [
+        "64 static tests, generator current and57HTML/3154links/assets checked",
+        "62 native tests, typecheck and standard Sites build passed under Node24.22.1",
+        "Microsoft current Windows Backup instructions and live Care service page rechecked29October",
+        "Native security/runtime/assistant/commerce/settings preserved; only intended editorial files and attempt log"
+      ]
     }
   ]
 }
