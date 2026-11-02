@@ -54,7 +54,7 @@ export function initialiseProjectPlanner(){
   const serialized=JSON.stringify(payload);if(!attempt||attempt.body!==serialized)attempt={body:serialized,key:crypto.randomUUID()};
   const controls=[...root.querySelectorAll('input,select,textarea,button')].map(el=>[el,el.disabled]);controls.forEach(([el])=>el.disabled=true);send.textContent='Sending your enquiry…';
   try{const response=await fetch('https://bytova.taccountant.chatgpt.site/api/leads',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,requestKey:attempt.key}),signal:AbortSignal.timeout(15000)}),data=await response.json();if(!response.ok||!data.reference)throw new Error(data.error||'Your enquiry could not be confirmed.');
-   by('reference').textContent=data.reference;success.hidden=false;by('send-fields').hidden=true;by('success-title').focus();
+   window.dispatchEvent(new CustomEvent('business-metric',{detail:{event:'generate_lead',lead_type:'website_project'}}));by('reference').textContent=data.reference;success.hidden=false;by('send-fields').hidden=true;by('success-title').focus();
   }catch(error){sendStatus.textContent=(error.name==='TimeoutError'?'The reply took too long to confirm.':error.message||'The connection could not be confirmed.')+' Retry the same enquiry, or use the email draft above. Keep the same details when retrying to prevent duplicates.';}
   finally{controls.forEach(([el,disabled])=>el.disabled=disabled);send.textContent='Send My Private Enquiry';}
  });
