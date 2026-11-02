@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
       loadButton.disabled = false;
     } catch { resetCalendar(); }
   });
+  let scheduled=false;
+  window.addEventListener('message',event=>{const frame=calendarContainer.querySelector('iframe');if(scheduled||event.origin!=='https://calendly.com'||!frame||event.source!==frame.contentWindow||event.data?.event!=='calendly.event_scheduled')return;scheduled=true;window.dispatchEvent(new CustomEvent('business-metric',{detail:{event:'booking_scheduled'}}));});
   loadButton.addEventListener('click', () => {
     if (!consent.checked || !config.enabled) return;
     const service = selectedService();
@@ -104,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     notice.className = 'calendar-status';
     notice.textContent = 'If the calendar does not appear, use “Open Booking in a New Tab” above or email Leighton. No appointment is confirmed until the booking provider confirms it.';
     calendarContainer.replaceChildren(notice, frame);
+    window.dispatchEvent(new CustomEvent('business-metric',{detail:{event:'open_booking'}}));
     loadButton.disabled = true;
     loadButton.textContent = 'Booking Calendar Loaded';
   });
