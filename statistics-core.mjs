@@ -29,10 +29,12 @@ export function eventParameters(event,detail={}){
  if(event==='booking_scheduled')return {booking_provider:'calendly'};
  return {};
 }
-export function safePageContext(brand,path){
+export function safePageContext(brand,path,search=''){
  const page=publicPage(brand,path);if(!page)return null;
  const origin={rruk:'https://retroreplay.uk',bytova:'https://bytova.co.uk',garden:'https://stoneandsprig.co.uk'}[brand];
- return {page_path:page,page_location:origin+page,page_referrer:'',page_title:brand==='rruk'?'RetroReplay UK':brand==='bytova'?'Bytova':'Stone & Sprig'};
+ const input=new URLSearchParams(search),safe=new URLSearchParams();
+ if(campaigns.includes(input.get('utm_campaign'))){safe.set('utm_campaign',input.get('utm_campaign'));for(const [key,allowed] of [['utm_source',['youtube','instagram','facebook','tiktok','linkedin','google','bing','email','newsletter','rruk','bytova','stoneandsprig','metricool','threads','x','pinterest']],['utm_medium',['organic_social','social','video','email','referral','organic','cpc']]])if(allowed.includes(input.get(key)))safe.set(key,input.get(key));}
+ return {page_path:page,page_location:origin+page+(safe.size?'?'+safe.toString():''),page_referrer:'',page_title:brand==='rruk'?'RetroReplay UK':brand==='bytova'?'Bytova':'Stone & Sprig'};
 }
 export function permittedEvent({choice,brand,path,event,campaign,doNotTrack=false,preview=false},now=Date.now()){
  if(!readChoice(choice,now)?.allowed||doNotTrack||preview||!events.includes(event))return null;
