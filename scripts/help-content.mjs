@@ -1,4 +1,10 @@
 export const guides = [
+ {file:'professional-email-address.html',title:'A professional email address for your business',summary:'Plan an email address on your own domain, with clear ownership, setup and ongoing costs.',label:'SMALL BUSINESS · EMAIL SETUP',service:'setup-getting-started',updated:'3 November 2026',sections:[
+ ['Start with an address you can keep','An address such as hello@your-business.example uses a domain you control. Check that you own the domain and can sign in to its provider before changing any email settings.'],
+ ['Separate setup from ongoing charges','The domain and mailbox provider may charge recurring fees. Bytova quotes for setup work separately and confirms any third-party charges before you authorise them. The £35 remote Setup appointment covers one agreed supported setup task within 60 minutes; migrations, DNS projects and multiple accounts need a written quote.'],
+ ['Protect access and existing mail','Keep your passwords and recovery codes private. Enable the provider’s two-step verification where available. Before changing mail routing, agree how existing messages, backups, devices and shared inboxes will be handled.'],
+ ['Tell us what you already have','Send the domain provider name, the email service you use, the number of mailboxes and the result you need. Do not send passwords, card details or recovery codes. We will confirm the scope, provider costs and price before work.']
+ ]},
   {
   "file": "unexpected-virus-warning.html",
   "title": "A sudden virus warning? Pause before you click",

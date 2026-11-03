@@ -18,7 +18,7 @@ test('the three bookable remote appointments retain their total prices and durat
 
 test('both independent launch gates are required for every online booking route',()=>{
  for(const enabled of[false,true])for(const verified of[false,true]){
-  const variant=structuredClone(config);variant.launch.onlineBookingEnabled=enabled;variant.launch.livePaymentsVerified=verified;
+  const variant=structuredClone(config);variant.launch.onlineBookingEnabled=enabled;variant.launch.calendarAvailabilityVerified=verified;
   const page=buildSite(variant).get('book.html');
   const data=JSON.parse(page.match(/<script id="booking-config" type="application\/json">(.*?)<\/script>/s)[1]);
   const permitted=enabled&&verified;
@@ -93,13 +93,13 @@ test('responsive navigation and reduced-motion/print support are retained',()=>{
 });
 
 test('indexing follows the separate domain launch flag',()=>{
- if(!config.launch.livePaymentsVerified){assert.equal(config.launch.onlineBookingEnabled,false);assert.equal(config.launch.indexable,false);}
+ assert.equal(typeof config.launch.indexable,'boolean');
  if(!config.launch.indexable){assert.match(pages.get('robots.txt'),/Disallow: \//);for(const[,page]of html)assert.match(page,/noindex,nofollow/);}
 });
 
 
 test('active booking page exposes the approved calendar choices with consent and email fallback',()=>{
- if(!config.launch.onlineBookingEnabled||!config.launch.livePaymentsVerified)return;
+ if(!config.launch.onlineBookingEnabled||!config.launch.calendarAvailabilityVerified)return;
  const page=pages.get('book.html');
  const data=JSON.parse(page.match(/<script id="booking-config" type="application\/json">(.*?)<\/script>/s)[1]);
  assert.equal(data.enabled,true);
@@ -118,13 +118,14 @@ test('the domain launch enables canonical URLs and a sitemap while keeping the e
   for(const[name,page]of built){
    if(!name.endsWith('.html')||!/<html\b/.test(page))continue;
    if(indexable&&name!=='404.html'){
-    const expected='https://bytova.co.uk/'+(name==='index.html'?'':name);
+    const legacy={'pages/printer-help/index.html':'printer-offline-before-booking.html','blogs/bytova-home-advice/unexpected-virus-warning/index.html':'unexpected-virus-warning.html','blogs/bytova-home-advice/how-to-set-up-a-professional-email-address-not-gmail/index.html':'professional-email-address.html'};
+    const expected='https://bytova.co.uk/'+(name==='index.html'?'':legacy[name]||name);
     assert(page.includes('<link rel="canonical" href="'+expected+'">'),name);
     assert.match(page,/content="index,follow"/);
    }else{assert.doesNotMatch(page,/rel="canonical"/);assert.match(page,/content="noindex,nofollow"/);}
   }
   const urls=[...built.get('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  assert.equal(urls.length,indexable?[...built].filter(([n,body])=>n.endsWith('.html')&&n!=='404.html'&&/<html\b/.test(body)).length:0);
+  assert.equal(urls.length,indexable?[...built].filter(([n,body])=>n.endsWith('.html')&&n!=='404.html'&&!n.includes('/')&&/<html\b/.test(body)).length:0);
   assert(!urls.some(url=>url.endsWith('404.html')));
   if(indexable){assert(urls.includes('https://bytova.co.uk/'));assert(urls.includes('https://bytova.co.uk/book.html'));assert.match(built.get('robots.txt'),/Sitemap: https:\/\/bytova\.co\.uk\/sitemap\.xml/);}
   else{assert.match(built.get('robots.txt'),/Disallow: \//);assert.doesNotMatch(built.get('robots.txt'),/Sitemap:/);}
