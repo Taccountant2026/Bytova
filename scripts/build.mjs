@@ -6,6 +6,7 @@ import {supportFinderContent,supportPromo} from './support-content.mjs';
 import {funnelPages,funnelInvitation} from './funnel-content.mjs';
 import {expandedCataloguePages} from './catalogue-content.mjs';
 import {securityPages,securityFiles} from './security-content.mjs';
+import {legacyPages} from './legacy-pages.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 export function buildSite(config){
 const {business:b,launch,services}=config;
@@ -80,11 +81,6 @@ page('404.html','Page Not Found | Bytova','Return to Bytova’s home and small-b
 securityPages({page,launch});
 // GitHub Pages cannot issue custom HTTP redirects. Restore fixed historic URLs
 // as complete equivalent pages with root-relative assets and current canonicals.
-const legacyPages={
- 'pages/printer-help/index.html':'printer-offline-before-booking.html',
- 'blogs/bytova-home-advice/unexpected-virus-warning/index.html':'unexpected-virus-warning.html',
- 'blogs/bytova-home-advice/how-to-set-up-a-professional-email-address-not-gmail/index.html':'professional-email-address.html',
-};
 for(const [oldFile,current] of Object.entries(legacyPages)){const original=pages.get(current);if(!original)throw new Error('Missing legacy destination '+current);pages.set(oldFile,original.replace('<head>','<head>\n<base href="/">'));}
 const robots=launch.indexable?'User-agent: *\nAllow: /\n\nSitemap: '+new URL('sitemap.xml',siteUrl).href+'\n':'User-agent: *\nDisallow: /\n';
 pages.set('robots.txt',robots);

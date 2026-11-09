@@ -2,6 +2,7 @@ import test from 'node:test';
 import {readFileSync,readdirSync,existsSync} from 'node:fs';
 import {strict as assert} from 'node:assert';
 import {buildSite} from '../scripts/build.mjs';
+import {legacyPages} from '../scripts/legacy-pages.mjs';
 const config=JSON.parse(readFileSync('site.config.json','utf8'));
 const pages=buildSite(config);
 const html=[...pages].filter(([name,body])=>name.endsWith('.html')&&/<html\b/.test(body));
@@ -118,8 +119,7 @@ test('the domain launch enables canonical URLs and a sitemap while keeping the e
   for(const[name,page]of built){
    if(!name.endsWith('.html')||!/<html\b/.test(page))continue;
    if(indexable&&name!=='404.html'){
-    const legacy={'pages/printer-help/index.html':'printer-offline-before-booking.html','blogs/bytova-home-advice/unexpected-virus-warning/index.html':'unexpected-virus-warning.html','blogs/bytova-home-advice/how-to-set-up-a-professional-email-address-not-gmail/index.html':'professional-email-address.html'};
-    const expected='https://bytova.co.uk/'+(name==='index.html'?'':legacy[name]||name);
+    const expected='https://bytova.co.uk/'+(name==='index.html'?'':legacyPages[name]||name);
     assert(page.includes('<link rel="canonical" href="'+expected+'">'),name);
     assert.match(page,/content="index,follow"/);
    }else{assert.doesNotMatch(page,/rel="canonical"/);assert.match(page,/content="noindex,nofollow"/);}
