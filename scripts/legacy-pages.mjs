@@ -44,7 +44,7 @@ export const legacyPages={
  'blogs/bytova-business-insights/do-small-businesses-really-need-it-support-heres-what-most-owners-get-wrong/index.html':'business-it-help.html',
  'blogs/news/5-signs-your-small-business-needs-it-support/index.html':'business-it-help.html',
  'blogs/news/do-i-need-a-website-or-a-facebook-page-honest-answer-for-uk-small-businesses/index.html':'business-website.html',
- 'blogs/news/how-to-set-up-a-new-laptop-without-losing-your-old-files/index.html':'new-laptop-files-checklist.html',,
+ 'blogs/news/how-to-set-up-a-new-laptop-without-losing-your-old-files/index.html':'new-laptop-files-checklist.html',
  'products/printer-and-email-support/index.html':'wifi-printers-device-setup.html',
  'products/smart-device-setup/index.html':'setup-getting-started.html',
  'products/complete-pc-speed-up-guide/index.html':'everyday-computer-care.html',
