@@ -25,7 +25,8 @@ for(const page of pages){
  for(const match of html.matchAll(/(?:href|src)="([^"<>]+)"/g)){
   const value=match[1].replaceAll('&amp;','&');
   if(!value.startsWith('./')&&!value.startsWith('#'))continue;
-  const u=new URL(value,'https://local.example/'+page);
+  const pageBase=html.includes('<base href="/">')?'https://local.example/':'https://local.example/'+page;
+  const u=new URL(value,pageBase);
   let name=decodeURIComponent(u.pathname.slice(1));if(!name)name='index.html';
   assert(existsSync(resolve(root,name)),page+' broken local file: '+value);
   if(u.hash&&ids.has(name))assert(ids.get(name).has(decodeURIComponent(u.hash.slice(1))),page+' broken anchor: '+value);
