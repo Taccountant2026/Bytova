@@ -32,6 +32,7 @@ jobs:
           mkdir -p _site
           find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.mjs' -o -name '*.jpg' -o -name '*.svg' -o -name '*.png' -o -name '*.ico' -o -name 'robots.txt' -o -name 'sitemap.xml' -o -name 'CNAME' \) -exec cp {} _site/ \;
           cp -R assets _site/assets
+          cp ec4016f677e19a82223dec083c43acd8.txt bd5ca9e836b8efc074c92d2b388f6679.txt _site/
           for directory in pages blogs; do
             if [ -d "$directory" ]; then
               cp -R "$directory" "_site/$directory"
