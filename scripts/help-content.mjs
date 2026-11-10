@@ -1,4 +1,105 @@
 export const guides = [
+ {
+  "file": "laptop-storage-full.html",
+  "title": "Laptop storage full? Check before you delete",
+  "summary": "Find what is using space, protect important files and choose a careful next step.",
+  "label": "COMPUTER CARE · STORAGE",
+  "service": "computer-care-safety-check",
+  "updated": "10 November 2026",
+  "sections": [
+   [
+    "Start with the storage overview",
+    "A full drive can interrupt saving files and installing updates. In Windows, open Settings, System, then Storage. Let the categories load and note which ones are largest. This is a starting point, not a diagnosis: low space can be one of several reasons a laptop feels slow."
+   ],
+   [
+    "Protect the files you would miss",
+    "Before removing personal files, make a separate copy of important documents and photos. Open several files from that copy to check it. A file that appears in a synced folder is not, by itself, proof of an independent backup. Avoid deleting unfamiliar folders or using an automatic cleaner you do not understand."
+   ],
+   [
+    "Review categories rather than deleting in bulk",
+    "Windows provides storage and cleanup options. Read the description and selected categories before confirming removal. Downloads may include files you still need; the Recycle Bin may contain something you want to recover. Removing a previous Windows installation can remove the option to return to it. If unsure, pause and ask."
+   ],
+   [
+    "Choose cleanup, a transfer or an upgrade",
+    "For example, old downloads you recognise need a different decision from a growing photo collection you want to keep. If space repeatedly runs out, assess storage capacity, backup arrangements and the laptop model. A larger drive is a hardware job, while organising or moving a large collection is a data project; both need a separate quote."
+   ],
+   [
+    "Ask for the right help",
+    "For a routine review, Bytova’s Computer Care & Safety Check is £29 for up to 60 minutes. Send the device model, available space and what you need to keep. The appointment can review storage and agreed settings within scope; it does not include bulk transfers, a hardware upgrade or guaranteed speed improvements."
+   ]
+  ],
+  "reference": [
+   "https://support.microsoft.com/en-gb/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+   "Microsoft: Free up drive space in Windows"
+  ]
+ },
+ {
+  "file": "repair-or-replace-laptop.html",
+  "title": "Repair or replace your laptop? Five questions to ask first",
+  "summary": "Compare the fault, support, total cost and your everyday needs before deciding.",
+  "label": "REPAIRS · A CLEARER DECISION",
+  "service": "remote-tech-help",
+  "updated": "10 November 2026",
+  "nextFile": "computer-hardware-repairs.html",
+  "nextTitle": "Ask about a repair assessment",
+  "nextText": "Send the model, symptoms and the result you want. Diagnostic charges, parts, labour and handover arrangements are agreed in writing before work. A £25 remote appointment is not a hardware repair.",
+  "sections": [
+   [
+    "1. What is actually wrong?",
+    "Write down the symptoms, when they started and the exact model. A blank screen alone does not establish that a motherboard has failed. A loose connection, software issue and hardware fault can look similar. Avoid buying parts on a guess. A repair assessment should distinguish observations from a confirmed cause."
+   ],
+   [
+    "2. Will it still do the work you need?",
+    "List your real tasks: email, study, video calls, business software or games. Check the requirements of the apps you rely on and whether the operating system has a supported route. A repaired machine may still be a poor fit for your workload. A newer machine may also need software, accessories and setup."
+   ],
+   [
+    "3. What is the whole cost?",
+    "Compare the written diagnostic fee, parts, labour, return arrangements and any proposed warranty with a suitable replacement. Include setup and data-transfer costs on the replacement side. There is no universal percentage at which replacement wins: remaining condition, likely use and your budget all matter."
+   ],
+   [
+    "4. What happens to your files?",
+    "Tell the repairer whether you have a checked backup. Agree what data work is authorised and whether an action could erase files. File recovery is separate from routine repair and cannot be guaranteed. Keep the old device until the required files and accounts have been checked on any replacement."
+   ],
+   [
+    "5. What can be agreed before you commit?",
+    "Ask for a written scope, cost or estimate basis, any diagnostic charge, timing and what happens if repair is unsuitable. For Bytova, send the model and a short symptom description first. Do not post or drop off equipment until suitability and handover arrangements are agreed."
+   ]
+  ]
+ },
+ {
+  "file": "small-business-website-quote-checklist.html",
+  "title": "Need a small business website? Prepare a useful quote request",
+  "summary": "Define the customer action, pages, ownership and running costs before choosing a website project.",
+  "label": "SMALL BUSINESS · WEBSITE PLANNING",
+  "service": "setup-getting-started",
+  "updated": "10 November 2026",
+  "nextFile": "project-enquiry.html?service=websites",
+  "nextTitle": "Discuss your website project",
+  "nextText": "Send your current URL if you have one, the customer action you want and the pages or issue involved. Bytova agrees deliverables, total price or estimate basis and third-party costs before work.",
+  "sections": [
+   [
+    "Start with the action a visitor should take",
+    "Choose one main result: request a quote, book a suitable appointment or enquire about a service. For a local decorator, that might mean sending a room description and photos for an estimate. For a tutor, it might be an enquiry about availability. A useful brief describes the customer and the action, rather than only asking for a modern design."
+   ],
+   [
+    "List only the pages you need now",
+    "Write down the services, area served, contact route and information a customer needs before enquiring. Separate an initial launch from later additions. If the existing site has one broken button or unclear page, ask whether a small fix would solve the immediate problem before commissioning a rebuild."
+   ],
+   [
+    "Gather content you have permission to use",
+    "Prepare accurate service descriptions, your approved logo and photographs you own or are licensed to use. Explain who will write and approve the copy. Examples from your own work help customers understand the offer; publish customer details or testimonials only with the appropriate permission."
+   ],
+   [
+    "Ask about ownership and ongoing costs",
+    "Identify who controls the domain, hosting and business email, how accounts will be handed over and what access is needed. Ask which subscriptions, booking tools, payment fees and maintenance costs sit outside the project price. You should know what happens if you change supplier later. Never send passwords in an initial enquiry."
+   ],
+   [
+    "Agree completion and the next step",
+    "A useful scope names the pages, enquiry route, mobile checks, revisions, testing and handover. Agree how success will be assessed, such as a working enquiry route and clear service information. A finished website does not guarantee traffic, rankings or sales. Send Bytova your current URL, main customer action, must-have pages, budget range and preferred timing for an individually scoped quote."
+   ]
+  ]
+ }
+,
  {file:'wifi-slow-in-one-room.html',title:'Why is Wi-Fi slow in one room?',summary:'Compare the connection in two places before changing settings or buying equipment.',label:'HOME WI-FI · FIRST CHECKS',service:'remote-tech-help',updated:'9 November 2026',sections:[
  ['Compare the same device in two places','Try the same ordinary task near the router, then in the problem room. Note the time and result. A single speed test is a snapshot; repeat the comparison before drawing a conclusion.'],
  ['Separate a coverage problem from a wider problem','If only the distant room struggles, walls, distance or interference may matter. If every room struggles, check another device and your provider’s service status. A weak signal and a slow internet connection need different checks.'],
