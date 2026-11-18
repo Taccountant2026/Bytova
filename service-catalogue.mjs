@@ -1,3 +1,91 @@
+const dataServices = [
+  {
+    id: 'ai-response-evaluation', file: 'ai-response-evaluation.html', name: 'AI Response Evaluation',
+    summary: 'Check whether a chatbot gives clear answers that match the guidance you supply.',
+    audience: 'You have a set of customer questions and AI replies, or two versions of an answer you want to compare.',
+    outcome: 'You receive a scorecard for each question, a short reason for each judgement and a list of recurring problems.',
+    included: [
+      'Agree what makes a good answer using a few sample questions.',
+      'Rate replies against your reference material for accuracy, clarity and coverage.',
+      'Compare two replies to the same question and explain the choice where they differ.',
+      'Flag unsupported claims, missing information and questions your guidance leaves open.'
+    ],
+    prepare: ['Describe who uses the answers and what they need to know.', 'Supply sample questions, replies and the reference answers or policy to use.', 'Tell me how many replies need review and which criteria matter most.'],
+    scope: 'We agree the questions, reference material, scoring rules and report format in writing. You can use the scorecard to decide which replies to revise.',
+    detailLabel: 'Questions, reference material and number of replies',
+    placeholder: 'Compare two chatbot answers to each of 20 delivery and returns questions against our shop FAQ.',
+    related: ['annotation-quality-checks', 'automation']
+  },
+  {
+    id: 'annotation-quality-checks', file: 'annotation-quality-checks.html', name: 'Annotation Quality Checks',
+    summary: 'Get a second pair of eyes on the labels in a batch of text, images or video.',
+    audience: 'You already have labelled material and want to know where tags are missing, inconsistent or open to interpretation.',
+    outcome: 'You receive a review sheet showing the original label, the finding and any suggested correction or question.',
+    included: [
+      'Check a sample against your written labelling rules.',
+      'Review the agreed batch for missing, misplaced or inconsistent tags.',
+      'Record proposed changes against the item ID or video timestamp.',
+      'Group repeated errors and flag examples that need a decision from you.'
+    ],
+    prepare: ['Send the label definitions and a few cleared examples.', 'State the file types, batch size and any video durations.', 'Choose a review sheet or a corrected copy of the label file.'],
+    scope: 'We agree the labels, sample or full batch, review depth and output format. Where the rules allow more than one reading, the review records the question for you.',
+    detailLabel: 'Material, label rules and batch size',
+    placeholder: 'Review the tags on 40 product images against our five label definitions.',
+    related: ['ai-response-evaluation', 'scanned-document-checks']
+  },
+  {
+    id: 'catalogue-clean-up', file: 'product-catalogue-clean-up.html', name: 'Product Catalogue Clean-up',
+    summary: 'Tidy product names and categories, spot likely duplicates and find missing details in a shop export.',
+    audience: 'Your shop spreadsheet has inconsistent names, uncategorised items or similar listings that might be different variants.',
+    outcome: 'You receive a cleaned copy of the catalogue, a change log and a list of items that need your decision.',
+    included: [
+      'Agree a naming pattern and category list using a small sample.',
+      'Standardise the agreed fields while preserving product codes and meaningful variants.',
+      'Flag possible duplicates and missing details against their original rows.',
+      'Return the revised spreadsheet alongside a record of changes.'
+    ],
+    prepare: ['Share the column headings and a few example rows from your export.', 'List the fields to tidy and the number of products.', 'Explain which differences matter, such as model, size, condition or packaging.'],
+    scope: 'A batch of 25 listings is one possible starting point. We agree the fields and row count in your quote. You review the flagged matches before any merge or live shop change.',
+    detailLabel: 'Catalogue size, fields and variants',
+    placeholder: 'Tidy 25 listings and flag possible duplicates while keeping boxed and loose consoles separate.',
+    related: ['ecommerce', 'shop-search-testing']
+  },
+  {
+    id: 'shop-search-testing', file: 'online-shop-search-testing.html', name: 'Online Shop Search Testing',
+    summary: 'See what shoppers actually find when they search your online shop for a product.',
+    audience: 'Customers know what they want, but familiar words, model names or alternative spellings return unexpected products.',
+    outcome: 'You receive a spreadsheet of search terms, expected products, observed results and searches worth fixing first.',
+    included: [
+      'Agree a shortlist of search terms and what a useful result looks like.',
+      'Run the searches on your storefront and record the top results to the agreed depth.',
+      'Identify missing matches, unrelated items and useful alternatives.',
+      'Summarise patterns with examples your shop manager can reproduce.'
+    ],
+    prepare: ['Share the shop address and example customer search terms.', 'Identify products that should match, including important model or compatibility details.', 'Tell me which market, language and storefront to test.'],
+    scope: 'We agree the queries, storefront and number of results per search. The report records the results visible during the review. Changes to the store can be quoted separately.',
+    detailLabel: 'Shop address, search terms and expected matches',
+    placeholder: 'Test ten accessory searches and tell us where compatible products are missing from the first five results.',
+    related: ['catalogue-clean-up', 'ecommerce']
+  },
+  {
+    id: 'scanned-document-checks', file: 'scanned-document-checks.html', name: 'Scanned Document Checks',
+    summary: 'Check that text and figures copied from scanned pages match the original documents.',
+    audience: 'You have a spreadsheet or text export from scanned forms, delivery notes or stock sheets and want it checked against the pages.',
+    outcome: 'You receive a corrected copy, with unclear entries flagged by source page and field so you can resolve them.',
+    included: [
+      'Agree which fields to compare, such as item codes, dates or quantities.',
+      'Check the extracted values against the supplied scans.',
+      'Correct legible mismatches and flag unreadable characters or missing fields.',
+      'Return the checked file with references back to the original pages.'
+    ],
+    prepare: ['Describe the page count, layout and fields to check.', 'Provide a redacted sample scan and its matching extracted rows for the quote.', 'Choose the file format for the corrected copy.'],
+    scope: 'We agree the source pages and fields before work starts. Illegible values are marked for your review. The check confirms what the page says.',
+    detailLabel: 'Page count, fields and output format',
+    placeholder: 'Check the item codes and quantities on ten delivery notes against our spreadsheet.',
+    related: ['annotation-quality-checks', 'automation']
+  }
+];
+
 // Quoted work is deliberately separate from the three configured paid appointments.
 export const projectServices = [
  {id:'business-email',file:'business-email-setup.html',name:'Business Email Setup',group:'business',mark:'11',summary:'Email on your own domain, with account ownership and ongoing costs made clear.',audience:'You want a professional email address or help configuring a supported business mailbox.',outcome:'An agreed mailbox setup and a clear handover, with provider subscriptions owned by you.',included:['Review the existing domain and mailbox setup.','Agree one mailbox or a separately scoped multi-user project.','Configure supported devices and check sending and receiving within the agreed scope.','Explain ownership, recovery and ongoing provider charges.'],prepare:['Tell us your domain and email provider.','State how many accounts and devices need help.','Explain any existing mail or migration needs.','Keep passwords and recovery codes private.'],scope:'For one suitable setup task, the £35 / 60-minute Setup appointment may fit after review. Domains, mailbox subscriptions and licences are additional. DNS changes, migrations, multiple users and provider administration are quoted separately before work.',detailLabel:'Your domain, provider and email goal',placeholder:'For example: I own my business domain and need one mailbox on my laptop.',guide:'professional-email-address.html',related:['business-it','websites']},
@@ -65,7 +153,7 @@ export const projectServices = [
    included:['Store structure, collections and product-page design.','Shopify or another agreed ecommerce platform.','Customer journeys from discovery to basket and checkout.','Domain, payment-provider configuration and launch checks within the agreed scope.'],
    prepare:['Describe what you sell and your catalogue size.','Identify any existing store and product data.','Explain delivery, returns and stock arrangements.','List required payment, booking or fulfilment integrations.'],
    scope:'Catalogue entry, imports, photography, policies, provider fees and ongoing maintenance are scoped separately. You supply accurate product and business information and own the merchant accounts. No promise is made about provider approval, platform reinstatement or sales volume.',
-   detailLabel:'Products, platform and buying journey',placeholder:'For example: organise 40 products into collections and improve the path to checkout.',guide:'website-project-checklist.html',related:['websites','marketing']},
+   detailLabel:'Products, platform and buying journey',placeholder:'For example: organise 40 products into collections and improve the path to checkout.',guide:'website-project-checklist.html',related:['websites','marketing','catalogue-clean-up','shop-search-testing']},
   {id:'marketing',file:'marketing-online-presence.html',name:'Marketing & Online Presence',group:'business',mark:'09',
    summary:'Clearer website content, practical search improvements and consistent materials for your business.',
    audience:'You want customers to understand your offer and find a more consistent business presence online.',
@@ -82,6 +170,9 @@ export const projectServices = [
    prepare:['Describe the current steps and where work gets stuck.','List the apps and account owners involved.','Provide a fictional example rather than customer records.','Say which actions must always require your approval.'],
    scope:'Feasibility, permissions, provider fees, data handling, testing and maintenance are agreed first. Payment, deletion, account access and consequential customer actions need explicit controls. No unattended decision-making or savings guarantee is implied.',
    detailLabel:'Current process and desired improvement',placeholder:'For example: turn incoming quote enquiries into a simple task list with a clear follow-up step.',guide:'small-business-digital-checklist.html',related:['business-it','websites']},
+  ...dataServices.map(service => ({
+    ...service, group: 'business', category: 'data-services', guide: 'small-business-digital-checklist.html'
+  }))
 ];
 
 export const projectById=id=>projectServices.find(s=>s.id===id)||null;
