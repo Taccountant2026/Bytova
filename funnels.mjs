@@ -22,9 +22,26 @@ export function reviewPriorities(answers){
 }
 export function reviewFromQuery(value){const ids=String(value||'').split(',');return reviewQuestions.filter(q=>ids.includes(q.id)).slice(0,3);}
 export function campaignLabel(value){return typeof value==='string'&&/^[a-zA-Z0-9][a-zA-Z0-9 _.-]{0,59}$/.test(value)?value:'';}
-function preserveCampaign(){
- const campaign=campaignLabel(new URLSearchParams(location.search).get('utm_campaign'));if(!campaign)return;
- document.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href');if(!href||href.startsWith('#'))return;const url=new URL(href,location.href);if(url.origin!==location.origin||!url.pathname.endsWith('.html'))return;url.searchParams.set('utm_campaign',campaign);a.setAttribute('href','./'+url.pathname.split('/').pop()+url.search+url.hash);});
+function preserveJourneyLinks() {
+ const params = new URLSearchParams(location.search);
+ const campaign = campaignLabel(params.get('utm_campaign'));
+ const requested = params.get('audience');
+ const audience = ['household','business'].includes(requested) ? requested : '';
+ if (!campaign && !audience) return;
+ const back = document.querySelector('[data-audience-back]');
+ if (back && audience) {
+   back.href = audience==='business' ? './small-business.html' : './home-tech-help.html';
+   back.textContent = audience==='business' ? 'Businesses and SMEs' : 'Individuals and households';
+ }
+ document.querySelectorAll('a[href]').forEach(a=>{
+   const href=a.getAttribute('href');
+   if(!href || href.startsWith('#'))return;
+   const url=new URL(href,document.baseURI);
+   if(url.origin!==location.origin || !url.pathname.endsWith('.html'))return;
+   if(campaign)url.searchParams.set('utm_campaign',campaign);
+   if(audience && back && url.pathname.endsWith('/project-enquiry.html'))url.searchParams.set('audience',audience);
+   if(campaign || (audience && back && url.pathname.endsWith('/project-enquiry.html')))a.href=url.href;
+ });
 }
 
 function initialiseReview(){
@@ -36,4 +53,4 @@ function initialiseReview(){
  });
  document.querySelector('[data-review-print]').addEventListener('click',()=>window.print());
 }
-if(typeof document!=='undefined'){const initialise=()=>{preserveCampaign();initialiseReview();};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialise);else initialise();}
+if(typeof document!=='undefined'){const initialise=()=>{preserveJourneyLinks();initialiseReview();};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialise);else initialise();}
