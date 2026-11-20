@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {audiences} from '../audiences.mjs';
+import {platforms} from '../platforms.mjs';
 import {buildSite} from '../scripts/build.mjs';
 import {buildProjectBrief,buildContractBrief,websiteLead} from '../project-planner.mjs';
 
@@ -47,4 +48,47 @@ test('hiring opportunities and CV requests have a dedicated intake and retain th
   const generic=buildProjectBrief('devices',{audience:'Sole trader / small business',goal:'Connect the office printer.'});
   assert(generic.includes('Sole trader / small business') && generic.includes('Wi-Fi, Printers & Device Setup'));
   assert(pages.get('freelance-contracts.html').includes('contract-enquiry.html?engagement=cv'));
+});
+
+test('the independent introduction, three route photos and public profiles are discoverable', () => {
+  const home = pages.get('index.html');
+  assert.match(home, /I’m Leighton Hepworth/);
+  assert.match(home, /href="#choose-route"/);
+  assert.doesNotMatch(home, /security-home-promo|assistant\.js/);
+  const channel = platforms.find(p => p.id === 'youtube');
+  assert.match(home, /id="youtube"/);
+  assert(home.includes(channel.url));
+  for (const audience of audiences) {
+    const image = './assets/journey-' + audience.id + '.webp';
+    assert(home.includes(image));
+    assert(pages.get(audience.file).includes(image));
+  }
+  for (const file of ['index.html', ...audiences.map(a => a.file), 'project-enquiry.html', 'contract-enquiry.html']) {
+    const footer = pages.get(file).split('<footer')[1];
+    for (const profile of platforms.filter(p => p.kind !== 'video')) {
+      assert(footer.includes(profile.url), file + ' missing ' + profile.label);
+    }
+  }
+});
+
+test('visitors can verify all 24 Cisco awards and distinguish current qualifications from past cards', () => {
+  const awards = JSON.parse(readFileSync(new URL('../data/cisco-credentials.json',import.meta.url),'utf8'));
+  const page = pages.get('qualifications.html');
+  const register = pages.get('assets/cisco-learning-record.csv');
+  const profile = platforms.find(p => p.id === 'credly');
+  assert.equal(awards.length,24);
+  assert.equal(new Set(awards.map(a => a.verification)).size,24);
+  assert.equal(awards.filter(a => a.pathway).length,2);
+  for (const award of awards) {
+    assert.match(award.verification,/^https:\/\/www\.credly\.com\/badges\/[0-9a-f-]{36}$/);
+    assert(page.includes(award.verification) && page.includes(award.image));
+    assert(page.includes('datetime="'+award.issued+'"'));
+    assert(register.includes(award.name) && register.includes(award.verification));
+  }
+  assert.equal(register.trimEnd().split('\n').length,25);
+  assert(page.includes(profile.url) && page.includes('Full UK driving licence') && page.includes('cards have expired'));
+  for (const file of ['index.html','freelance-contracts.html']) {
+    assert(pages.get(file).split('</main>')[0].includes('./qualifications.html'));
+  }
+  assert(pages.get('sitemap.xml').includes('/qualifications.html'));
 });

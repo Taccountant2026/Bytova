@@ -41,8 +41,8 @@ export function enquiryPages({page, email}) {
       <label class="guide-field" for="project-budget">${employer?'Rate range or project budget (optional)':'Budget or constraints (optional)'}<input id="project-budget" data-project-budget maxlength="160"></label></div>
       ${employer?'':'<label class="guide-field" for="project-communication">Communication preference<select id="project-communication" data-project-communication><option>Written email first</option><option>Please agree a suitable approach by email</option></select></label>'}`;
     page(file,(employer?'Freelance & Contract Enquiry':'Household or Business Enquiry')+' | Bytova',description,`
-      <header class="brief-heading"><div class="container"><a class="journey-back" data-project-back href="${back}">${employer?'Employers and recruiters':'Choose your route'}</a><h1 data-project-heading>${name}</h1><p class="journey-lead">${esc(description)} Review your message before sending it.</p></div></header>
-      <section class="journey-band"><div class="container enquiry-layout" data-project-planner data-kind="${employer?'employer':'project'}" data-email="${esc(email)}">
+      <header class="page-hero brief-heading"><div class="container centre narrow"><p class="guide-breadcrumb"><a data-project-back href="${back}">${employer?'Employers and recruiters':'Choose your route'}</a></p><h1 data-project-heading>${name}</h1><p class="lead">${esc(description)} Review your message before sending it.</p></div></header>
+      <section class="section"><div class="container enquiry-layout" data-project-planner data-kind="${employer?'employer':'project'}" data-email="${esc(email)}">
       <div class="enquiry-fields"><div class="brief-controls"><div data-project-fields>${fields}</div>
       <button type="button" class="button button-navy" data-project-build>${employer?'Review my hiring brief':'Review my enquiry'}</button><p role="status" data-project-status></p>${review(email,employer)}</div>
       <noscript><style>.brief-controls{display:none}</style><p>Send your enquiry by email. <a href="${esc(emailLink)}">Write to Leighton</a> with ${employer?'your role, dates and work pattern, or ask for a CV':'your task, the result you want and any deadline'}.</p></noscript></div>
@@ -50,6 +50,6 @@ export function enquiryPages({page, email}) {
       <p>I aim to reply within two working days.</p><a href="${esc(emailLink)}">Email Leighton directly</a>
       <p class="small-note">Please leave out passwords and other people’s private information. <a href="./privacy.html">Read the privacy notice</a>.</p>
       ${employer?'':'<p>Hiring for a role? <a href="./contract-enquiry.html">Use the employer enquiry.</a></p>'}</aside></div></section>
-      <script type="module" src="./project-planner.mjs"></script>`);
+      <script type="module" src="./project-planner.mjs"></script>`, '<link rel="stylesheet" href="./support-tool.css">');
   }
 }

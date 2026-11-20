@@ -1,17 +1,17 @@
 export const audiences = [
   {
     id: 'household', nav: 'Households', name: 'Individuals & households', file: 'home-tech-help.html',
-    description: 'Get help with a computer, a device or an everyday digital task.',
+    description: 'I can help with a slow PC, a printer, a repair or a one-off digital task.',
     enquiry: 'project-enquiry.html?audience=household'
   },
   {
     id: 'business', nav: 'Businesses', name: 'Businesses & SMEs', file: 'small-business.html',
-    description: 'Buy IT support, website work or a data project for your business.',
+    description: 'Get a written quote from me for IT support, a website or a data project.',
     enquiry: 'project-enquiry.html?audience=business'
   },
   {
     id: 'employer', nav: 'Employers', name: 'Employers & recruiters', file: 'freelance-contracts.html',
-    description: 'Hire Leighton for a freelance assignment or a contract role in your team.',
+    description: 'See my work, request my CV or send me a freelance or contract opportunity.',
     enquiry: 'contract-enquiry.html'
   }
 ];
