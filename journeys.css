@@ -133,3 +133,7 @@
   .career-award { gap: 12px; padding: 12px; }
   .career-award img { width: 66px; height: 66px; }
 }
+
+/* Keep consent and review controls steady while focus moves between form steps. */
+html:has(.brief-controls) { scroll-behavior: auto; }
+.brief-controls :is(input, textarea, select, button, [tabindex="-1"]) { scroll-margin-block: 10px; }
