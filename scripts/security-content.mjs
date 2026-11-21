@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs';
 const data=JSON.parse(readFileSync(new URL('../assets/security/advisories.json',import.meta.url),'utf8'));
 export const securityFiles=['security.html','php-security-advisory.html','php-patches.html','php-version-checker.html','php-remediation-guide.html','security-incident-resources.html','security-assistance.html','php-security-explained.html','security-sources.html'];
 const e=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
-const nav=[['Response centre','security.html'],['Advisory','php-security-advisory.html'],['Official patches','php-patches.html'],['Version checker','php-version-checker.html'],['Remediation','php-remediation-guide.html'],['Resources','security-incident-resources.html']];
+const nav=[['Response centre','security.html'],['Advisory','php-security-advisory.html'],['Official patches','php-patches.html'],['Version checker','php-version-checker.html'],['Remediation','php-remediation-guide.html'],['Resources','security-incident-resources.html'],['Cyber tips','cybersecurity-library.html']];
 const btn=(href,text,cls='')=>`<a class="button ${cls}" href="./${href}">${text}</a>`;
 const bar=active=>`<nav class="security-nav container" aria-label="Security resources">${nav.map(([t,f])=>`<a href="./${f}"${f===active?' aria-current="page"':''}>${t}</a>`).join('')}<a href="https://bytova.taccountant.chatgpt.site/portal?kind=incident">My incident records</a></nav>`;
 const stamp=()=>`<p class="security-stamp">Published <time datetime="2026-10-22">22 October 2026</time> · Sources checked <time datetime="${data.reviewed}">22 October 2026</time> · Next review due 29 October 2026</p>`;
