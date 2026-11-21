@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     for(const group of groups){
       group.hidden=![...group.querySelectorAll('[data-cyber-card]')].some(card=>!card.hidden);
     }
-    status.textContent='Showing '+visible+' of '+cards.length+' guides.';
+    status.textContent=query?'Matching guides: '+visible+'.':'Browse the complete article library.';
     if(empty)empty.hidden=visible!==0;
   }
   input.addEventListener('input',update);

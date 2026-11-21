@@ -10,8 +10,9 @@ test('Bytova cybersecurity library creates exactly 50 distinct, useful printable
   assert.equal(new Set(cyberArticles.map(a=>a.title)).size,50);
   const pages=buildSite(config);
   const index=pages.get(cyberLibraryFile);
-  assert.ok(index?.includes('Fifty individual'));
+  assert.ok(index?.includes('Practical, plain-English cybersecurity guides'));
   assert.ok(index.includes('cyber-card-grid'));
+  assert.doesNotMatch(index,/\b50\s+(?:free\s+)?(?:individual\s+)?(?:guides|articles|tips)|fifty\s+individual/i);
   for(const a of cyberArticles){
     assert.equal(a.sections.length,4,a.slug);
     assert.equal(a.actions.length,3,a.slug);
@@ -21,6 +22,7 @@ test('Bytova cybersecurity library creates exactly 50 distinct, useful printable
     assert.ok(html.includes('<article class="cyber-article-content">'),a.slug);
     assert.ok(html.includes('cyber-library.css'),a.slug);
     assert.ok(html.includes('data-cyber-print'),a.slug);
+    assert.doesNotMatch(html,/\b50\s+(?:guides|articles|tips)|guide\s+\d+\s+of\s+50/i,a.slug);
     assert.ok(html.includes('"@type":"TechArticle"'),a.slug);
     assert.ok(html.includes('href="./cybersecurity-library.html"'),a.slug);
     assert.equal((html.match(/<h1\b/g)||[]).length,1,a.slug);
