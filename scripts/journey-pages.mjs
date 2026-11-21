@@ -64,7 +64,7 @@ export function journeyPages({page,cards,dataSection,businessGuide,email,busines
     `<section class="hero personal-hero" aria-labelledby="hero-title">
       <img class="hero-image" src="./assets/leighton-workspace.webp" alt="Leighton Hepworth in his computer workspace" width="832" height="1248" fetchpriority="high"><div class="hero-shade"></div>
       <div class="container personal-intro"><div><h1 id="hero-title">Technology that works<br>for your world.</h1>
-      <p>I’m Leighton Hepworth. I run Bytova from Doncaster. I help people with everyday technology, build digital tools for small businesses and take on freelance IT and data work.</p>
+      <p>I’m Leighton Hepworth, the independent IT and digital specialist behind Bytova. I help people with everyday technology, build digital tools for small businesses and take on freelance IT and data work.</p>
       ${link('#choose-route','Find the right service','button')}</div></div></section>
      <section class="section choose-section" id="choose-route"><div class="container"><h2>How can I help?</h2>${audienceLinks(true)}</div></section>
      ${nextStep("Free IT support for UK charities","I offer eligible UK charities a free initial remote IT support session of up to 30 minutes, with further help considered where time allows. Requests are reviewed individually and there is no obligation to buy anything.",button('charity-it-support.html',"Explore free charity support"))}
