@@ -36,17 +36,17 @@ async function ticketOf(db,id){
 async function log(db,id,action,detail,actor="operator"){
  await db.prepare("INSERT INTO ticket_events(ticket_id,actor,action,detail,created_at) VALUES(?,?,?,?,?)").bind(id,actor,action,detail,timestamp()).run();
 }
-async function verifyTurnstile(token,env){
+async function verifyTurnstile(token,env,allowedHosts){
  if(!env.TURNSTILE_SECRET)throw new HttpError(503,"Public requests not yet configured");
  if(typeof token!=="string"||token.length<8)throw new HttpError(400,"Please complete security verification");
  const res=await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify",{
   method:"POST",body:new URLSearchParams({secret:env.TURNSTILE_SECRET,response:token})
  });
- const status=await res.json();if(!status.success)throw new HttpError(403,"Security verification failed");
+ const status=await res.json();if(!status.success||!allowedHosts.includes(status.hostname))throw new HttpError(403,"Security verification failed");
 }
 async function intake(req,env){
  allowOrigin(req,env);const input=await body(req),item=validateEnquiry(input);
- await verifyTurnstile(input.turnstileToken,env);
+ await verifyTurnstile(input.turnstileToken,env,[new URL(req.url).hostname,new URL(env.PUBLIC_SITE_ORIGIN||"https://bytova.co.uk").hostname]);
  const db=dbOf(env),id=crypto.randomUUID(),at=timestamp();
  await db.batch([
   db.prepare("INSERT INTO tickets(id,customer_name,email,service,summary,device,status,payment_status,amount_pence,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)")
