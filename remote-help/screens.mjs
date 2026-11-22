@@ -15,6 +15,7 @@ export const operatorHtml=String.raw`<!doctype html>
 <div class="fields" id="ticketFields"></div>
 <div class="detail-grid"><div><h3>Case actions</h3><label for="newState">Change status</label><select id="newState"></select><button id="applyState" class="primary">Apply status</button>
 <label for="note">Internal work note</label><textarea id="note" rows="4" maxlength="1800" placeholder="Record agreed work, actions, results and follow-up. No passwords or codes."></textarea><button id="addNote" class="secondary">Save private note</button>
+<h3>Customer communication</h3><p class="hint">Open a reviewable email draft in your own mail app. No email is sent by this dashboard.</p><button id="ackEmail" type="button" class="secondary">Draft acknowledgement</button><button id="prepEmail" type="button" class="secondary">Draft session instructions</button><button id="closeEmail" type="button" class="secondary">Draft aftercare summary</button>
 <h3>Calendar link</h3><label for="invitee">Calendly invitee API URI</label><input id="invitee" placeholder="https://api.calendly.com/scheduled_events/.../invitees/..."><label for="appointment">Appointment date and time</label><input id="appointment" type="datetime-local"><button id="saveBooking" class="secondary">Save verified link</button>
 <h3>Payments</h3><p class="hint">Test-mode Stripe Checkout is available only after suitability approval and secret configuration. No live charges.</p><button id="checkout" class="secondary">Create test checkout</button><div id="checkoutLink"></div>
 </div><div><h3>Activity history</h3><ul class="timeline" id="ticketEvents"></ul><p class="hint">Use the customer’s verified email for joining instructions; this system never requests passwords, one-time codes or unattended AnyDesk access.</p></div></div>
@@ -114,6 +115,31 @@ $("closeDetail").addEventListener("click",()=>{$("detail").hidden=true});
 $("applyState").addEventListener("click",()=>run(()=>api("/api/tickets/"+current+"/transition","POST",{status:$("newState").value})));
 $("addNote").addEventListener("click",()=>run(async()=>{await api("/api/tickets/"+current+"/note","POST",{note:$("note").value});$("note").value=""}));
 $("saveBooking").addEventListener("click",()=>run(()=>api("/api/tickets/"+current+"/booking","POST",{invitee_uri:$("invitee").value,appointment_at:new Date($("appointment").value).toISOString()})));
+function customerDraft(kind){
+ if(!details||!details.ticket)return;
+ const t=details.ticket;
+ if(kind==="prep"&&!["appointment_confirmed","ready","in_progress"].includes(t.status)){
+  note("Confirm the appointment before preparing joining instructions",true);return;
+ }
+ const name=t.customer_name,ref=t.id.slice(0,8),service=t.service.replaceAll("-"," ");
+ let subject="",body="";
+ if(kind==="ack"){
+  subject="Bytova support enquiry received — "+ref;
+  body="Hello "+name+",\n\nThank you for contacting Bytova about "+service+". I have received your request (reference "+ref+") and will review whether remote support is suitable.\n\nThis is not yet a confirmed appointment or payment. I will respond in writing with the agreed scope, next steps and any payment arrangements.\n\nPlease do not email passwords, sign-in codes or banking details.";
+ }else if(kind==="prep"){
+  subject="Bytova — preparing for your remote appointment "+ref;
+  body="Hello "+name+",\n\nYour "+service+" appointment is being prepared. Please check the agreed date/time and contact me before the session if anything needs changing.\n\nBefore we connect: back up important files; stay at your device; close private documents; use only the remote-support software and joining instructions you have independently verified as coming from Bytova. Only accept the connection you are expecting, and you can end it at any time. Please do not send me passwords or security codes.\n\nRead: https://bytova.co.uk/remote-support-safety.html\nCancellation information: https://bytova.co.uk/cancellations.html\n\n[ADD CONFIRMED DATE, TIME, SERVICE SCOPE AND AGREED JOINING DETAILS HERE]";
+ }else{
+  subject="Bytova support session — summary and next steps "+ref;
+  body="Hello "+name+",\n\nThank you for using Bytova for "+service+".\n\nWork carried out: [ADD VERIFIED SUMMARY]\nResult: [ADD VERIFIED OUTCOME]\nAny outstanding actions: [ADD NEXT STEPS]\n\nIf anything is unclear, reply to this email and include reference "+ref+". You can read service and cancellation information at https://bytova.co.uk/cancellations.html.\n\n[Any accurate invoice or receipt should be supplied separately.]";
+ }
+ body+="\n\nKind regards,\nLeighton\nBytova\nhttps://bytova.co.uk";
+ const url="mailto:"+encodeURIComponent(t.email)+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+ window.location.assign(url);
+}
+$("ackEmail").addEventListener("click",()=>customerDraft("ack"));
+$("prepEmail").addEventListener("click",()=>customerDraft("prep"));
+$("closeEmail").addEventListener("click",()=>customerDraft("aftercare"));
 $("checkout").addEventListener("click",async()=>{
  if(!current)return;
  try{

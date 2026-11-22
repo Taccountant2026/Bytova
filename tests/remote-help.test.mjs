@@ -73,6 +73,9 @@ test("public intake fails closed without verified security and rejects other ori
 test("screens include secure request, ticket operations and no hardcoded passwords",()=>{
  assert.match(operatorHtml,/PRIVATE OPERATOR CONSOLE/);
  assert.match(operatorScript,/Authorization|authorization/);
+ assert.match(operatorHtml,/Draft acknowledgement/);
+ assert.match(operatorScript,/customerDraft\("prep"\)/);
+ assert.match(operatorScript,/mailto:/);
  assert.match(requestHtml,/__TURNSTILE_SITE_KEY__/);
  assert.match(requestScript,/api\/enquiries/);
  assert.match(appCss,/0a1a5c/);
