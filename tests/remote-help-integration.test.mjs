@@ -6,11 +6,11 @@ import {verifySignedPayload} from "../remote-help/core.mjs";
 // Minimal deterministic D1 replacement. Tests API wiring, not actual SQLite transaction semantics.
 class FakeDb {
  constructor(){this.tickets=new Map();this.events=[];this.receipts=new Set()}
- prepare(sql){return {bind:(...args)=>({
+ prepare(sql){const statement=(args)=>({
   first:async()=>this.execute(sql,args,"first"),
   all:async()=>this.execute(sql,args,"all"),
   run:async()=>this.execute(sql,args,"run")
- })}}
+ });return {...statement([]),bind:(...args)=>statement(args)}}
  async batch(statements){const results=[];for(const s of statements)results.push(await s.run());return results}
  execute(sql,args,kind){
   let result={meta:{changes:0}};let ticket;
