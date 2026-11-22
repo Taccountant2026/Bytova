@@ -8,6 +8,10 @@ workers_dev = true
 [vars]
 PUBLIC_SITE_ORIGIN = "https://bytova.co.uk"
 PAYMENTS_MODE = "disabled"
+# These values must match an owner-only Cloudflare Access application.
+ACCESS_TEAM_DOMAIN = "REPLACE_ACCESS_TEAM_DOMAIN"
+ACCESS_AUD = "REPLACE_ACCESS_AUD"
+ACCESS_OWNER_EMAIL = "REPLACE_ACCESS_OWNER_EMAIL"
 # Add the public Turnstile site key only after creating a widget for the worker hostname:
 # TURNSTILE_SITE_KEY = "your-public-site-key"
 

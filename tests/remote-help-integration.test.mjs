@@ -55,8 +55,9 @@ class FakeDb {
  }
 }
 const key="an-exact-operator-test-key-of-more-than-32-characters";
+let accessJwt="";
 const admin={"authorization":"Bearer "+key,"content-type":"application/json"};
-const authRequest=(url,method="GET",payload)=>new Request(url,{method,headers:admin,body:payload?JSON.stringify(payload):undefined});
+const authRequest=(url,method="GET",payload)=>new Request(url,{method,headers:{...admin,"cf-access-jwt-assertion":accessJwt},body:payload?JSON.stringify(payload):undefined});
 async function signed(raw,secret,time=Math.floor(Date.now()/1000)){
  const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(secret),{name:"HMAC",hash:"SHA-256"},false,["sign"]);
  const buf=await crypto.subtle.sign("HMAC",k,new TextEncoder().encode(time+"."+raw));
@@ -67,8 +68,19 @@ test("Full test-mode journey: accepted request, private ticket, Stripe verificat
  const origin="https://remote.example",customerOrigin="https://bytova.co.uk";
  const env={DB:db,ADMIN_API_KEY:key,PUBLIC_SITE_ORIGIN:customerOrigin,
   TURNSTILE_SECRET:"turnstile-secret",PAYMENTS_MODE:"test",STRIPE_TEST_SECRET_KEY:"sk_test_sample",
-  STRIPE_TEST_WEBHOOK_SECRET:"whsec_sample",CALENDLY_WEBHOOK_SIGNING_KEY:"calendly-signing"};
+  STRIPE_TEST_WEBHOOK_SECRET:"whsec_sample",CALENDLY_WEBHOOK_SIGNING_KEY:"calendly-signing",
+  ACCESS_TEAM_DOMAIN:"https://byto-test.cloudflareaccess.com",ACCESS_AUD:"remote-help-audience",ACCESS_OWNER_EMAIL:"operator@example.com"};
+ const pair=await crypto.subtle.generateKey({name:"RSASSA-PKCS1-v1_5",modulusLength:2048,publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},true,["sign","verify"]);
+ const publicJwk={...await crypto.subtle.exportKey("jwk",pair.publicKey),kid:"unit-test-signing-key",alg:"RS256",use:"sig"};
+ const b64=x=>Buffer.from(x).toString("base64url");
+ const head=b64(JSON.stringify({alg:"RS256",typ:"JWT",kid:"unit-test-signing-key"}));
+ const now=Math.floor(Date.now()/1000);
+ const jwtPayload=b64(JSON.stringify({iss:env.ACCESS_TEAM_DOMAIN,aud:[env.ACCESS_AUD],email:env.ACCESS_OWNER_EMAIL,iat:now,nbf:now-1,exp:now+300}));
+ const signingInput=head+"."+jwtPayload;
+ const signature=await crypto.subtle.sign("RSASSA-PKCS1-v1_5",pair.privateKey,new TextEncoder().encode(signingInput));
+ accessJwt=signingInput+"."+b64(signature);
  globalThis.fetch=async (url)=>{
+  if(String(url).includes(".cloudflareaccess.com/cdn-cgi/access/certs"))return new Response(JSON.stringify({keys:[publicJwk]}),{status:200});
   if(String(url).includes("turnstile/v0/siteverify"))return new Response(JSON.stringify({success:true,hostname:"remote.example"}),{status:200});
   if(String(url).includes("checkout/sessions"))return new Response(JSON.stringify({id:"cs_test_xyz",url:"https://checkout.stripe.com/c/pay/cs_test_xyz"}),{status:200});
   throw new Error("Unexpected test fetch "+url);
@@ -80,6 +92,10 @@ test("Full test-mode journey: accepted request, private ticket, Stripe verificat
   assert.equal(resp.status,201);
   const reference=(await resp.json()).reference;
   assert.match(reference,/^[0-9a-f-]{36}$/);
+  const forged=await worker.fetch(new Request(origin+"/api/tickets",{headers:{"authorization":"Bearer "+key,"cf-access-jwt-assertion":"forged.jwt.value"}}),env);
+  assert.equal(forged.status,401);
+  const noAccess=await worker.fetch(new Request(origin+"/operator"),env);
+  assert.equal(noAccess.status,401);
   resp=await worker.fetch(authRequest(origin+"/api/tickets"),env);assert.equal(resp.status,200);
   assert.equal((await resp.json()).tickets.length,1);
   const detail=async()=>{const r=await worker.fetch(authRequest(origin+"/api/tickets/"+reference),env);assert.equal(r.status,200);return (await r.json())};

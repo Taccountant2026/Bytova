@@ -56,12 +56,11 @@ test("Worker exposes no customer data before authentication",async()=>{
  assert.equal(health.status,200);
  assert.equal((await health.json()).live_payments_enabled,false);
  const noKey=await worker.fetch(new Request(origin+"/api/tickets"),{ADMIN_API_KEY:"a".repeat(40)});
- assert.equal(noKey.status,401);
+ assert.equal(noKey.status,503);
  const unavailable=await worker.fetch(new Request(origin+"/api/tickets",{headers:{authorization:"Bearer "+"a".repeat(40)}}),{ADMIN_API_KEY:"a".repeat(40)});
  assert.equal(unavailable.status,503);
  const page=await worker.fetch(new Request(origin+"/operator"),{});
- assert.equal(page.status,200);
- assert.match(page.headers.get("content-security-policy"),/frame-ancestors 'none'/);
+ assert.equal(page.status,503);
 });
 test("public intake fails closed without verified security and rejects other origins",async()=>{
  const payload={name:"Test Customer",email:"test@example.com",service:"remote-tech-help",description:"A Windows computer problem that needs support",turnstileToken:"valid-looking-token"};

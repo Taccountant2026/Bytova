@@ -1,5 +1,6 @@
 import {services,states,HttpError,validateEnquiry,requireTransition,expectedPence,verifyCheckoutEvent,verifySignedPayload,constantTimeSecret} from "./core.mjs";
 import {operatorHtml,operatorScript,requestHtml,requestScript,appCss} from "./screens.mjs";
+import {verifyOperatorAccess} from "./access.mjs";
 const headers={"content-type":"application/json; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff","referrer-policy":"no-referrer"};
 const errorResponse=(status,error,h={})=>new Response(JSON.stringify({error}),{status,headers:{...headers,...h}});
 const response=(data,status=200,h={})=>new Response(JSON.stringify(data),{status,headers:{...headers,...h}});
@@ -21,6 +22,7 @@ async function body(req,max=10000){
  try{return JSON.parse(raw)}catch{throw new HttpError(400,"Invalid JSON")}
 }
 async function authorize(req,env){
+ await verifyOperatorAccess(req,env);
  if(!env.ADMIN_API_KEY||env.ADMIN_API_KEY.length<32)throw new HttpError(503,"Operator access not configured");
  const auth=req.headers.get("authorization")||"";
  if(!auth.startsWith("Bearer ")||!(await constantTimeSecret(auth.slice(7),env.ADMIN_API_KEY)))
@@ -178,7 +180,7 @@ export default {async fetch(req,env){
    if(p==="/app.css")return page(appCss,"css");
    if(p==="/operator.js")return page(operatorScript,"js");
    if(p==="/request.js")return page(requestScript,"js",true);
-   if(p==="/operator")return page(operatorHtml,"html");
+   if(p==="/operator"){await verifyOperatorAccess(req,env);return page(operatorHtml,"html");}
    if(p==="/request")return page(requestHtml.replaceAll("__TURNSTILE_SITE_KEY__",String(env.TURNSTILE_SITE_KEY||"").replace(/[^\w-]/g,"")),"html",true);
   }
   if(p==="/api/enquiries"&&req.method==="POST")return await intake(req,env);

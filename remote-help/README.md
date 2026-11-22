@@ -4,7 +4,7 @@
 
 ## What is implemented
 - Dedicated secure-intake route at /request using server-verified Turnstile; if not configured, request submission is disabled rather than silently discarded.
-- Password-key protected case API and /operator single-operator dashboard, including ticket state, audit history, notes, Calendly invitee linkage and payment state. Operator key is never stored by browser LocalStorage.
+- Private case API and /operator dashboard require **cryptographically verified Cloudflare Access JWT** (team issuer, audience, expiry, RS256 signature and designated owner email); case API additionally requires a strong operator bearer key. Both fail closed without Access configuration. The operator key is never stored in browser localStorage.
 - D1 migration: tickets, audit events and webhook receipts with database constraints.
 - Webhook verification for Stripe and Calendly using HMAC SHA256 over the exact raw request body, signed timestamps and replay tolerance.
 - Stripe **test** Checkout creation at the official service prices, with idempotency key and webhook-only paid status. Only matching ticket, session ID, GBP price and client reference can mark paid.
@@ -15,7 +15,7 @@
 1. This service is **not deployed** and has no production D1 database, Turnstile site key, operator secret, Cloudflare Access policy, live Stripe checkout or connected Calendly webhook subscription yet.
 2. Stripe **livemode is intentionally disabled**, even if live Stripe credentials exist elsewhere. No production payments can be accepted by this Worker. Historical website/Calendly booking and payment status is not synchronised.
 3. Email acknowledgement, reminder delivery, refunds, customer login, live Calendly subscription and dedicated remote-support licence verification remain external/manual steps. Do not advertise these as automated.
-4. An existing public /portal link refers to an independent hosted service; this Worker is not a replacement and should not be assumed to share data with it.
+4. An existing public /portal link refers to an independent hosted service; this Worker is not a replacement and should not be assumed to share data with it. Until the new Worker has been deployed and verified, do not add public links to its /request or /operator routes.
 5. Before public go-live, an operator must configure authenticated Cloudflare Access + MFA at /operator and /api/*, secret management, WAF/rate limiting, privacy and deletion policy, monitoring, backups, and end-to-end tests on their own account.
 6. D1 audit logs may contain notes/customer information. Never commit a real D1 export or use a public repo for case notes.
 
@@ -23,7 +23,7 @@
 1. Read the existing website and payment workflow, avoid conflicting live changes; create a **new** Cloudflare Worker and **new** dedicated D1 database in the authorised account.
 2. Install Node 22.23.4+ and Wrangler. In this directory run: \`npm install\`.
 3. Copy \`wrangler.toml.example\` to the ignored \`wrangler.toml\`. Replace only the new D1 ID, not a database used by RRUK or another service.
-4. In Cloudflare configure an Access application covering \`/operator\` and \`/api/tickets*\` with an MFA policy restricted to the owner. Never make either publicly accessible. Add bot/WAF protections to public \`/api/enquiries\`.
+4. In Cloudflare Zero Trust configure an Access application covering \`/operator\` and \`/api/tickets*\`, with MFA, the correct owner email and a documented AUD tag. Protect direct Workers domains as well. Never expose private endpoints publicly. In GitHub set \`BYTOVA_REMOTE_ACCESS_TEAM_DOMAIN\` (e.g. \`https://your-team.cloudflareaccess.com\`), \`BYTOVA_REMOTE_ACCESS_AUD\`, and \`BYTOVA_REMOTE_ACCESS_OWNER_EMAIL\` as repository/environment variables. The Worker validates Access JWTs against the team JWKS and refuses operator access if any value is missing. Add bot/WAF protections to public \`/api/enquiries\`.
 5. Create a sufficiently random \`ADMIN_API_KEY\` (at least 32 characters). Add it with \`npx wrangler secret put ADMIN_API_KEY\`; never place it in GitHub or client code.
 6. Configure a Turnstile widget for the final Worker hostname, set public \`TURNSTILE_SITE_KEY\` in Wrangler vars and \`TURNSTILE_SECRET\` using \`npx wrangler secret put TURNSTILE_SECRET\`.
 7. Apply schema using \`npx wrangler d1 migrations apply bytova-remote-help --remote\` after verifying the database ID and taking an initial backup.
@@ -51,3 +51,23 @@
 https://github.com/Taccountant2026/Bytova/issues/12
 
 References: https://developer.calendly.com/api-docs/overview/webhooks/webhook-signatures ; https://developers.cloudflare.com/d1/get-started/ ; https://docs.stripe.com/webhooks/signature
+
+## Protected deployment settings
+
+The manually triggered GitHub deployment refuses to proceed unless the following have been configured in the **existing** Bytova Cloudflare account. Do **not** paste tokens or API keys into ChatGPT, a GitHub issue, or a public file.
+
+| GitHub setting | Purpose |
+| --- | --- |
+| Variable `BYTOVA_REMOTE_HELP_D1_ID` | UUID of a **new, dedicated** Bytova Remote Help database, not the RRUK database |
+| Variable `BYTOVA_REMOTE_ACCESS_TEAM_DOMAIN` | Exact `https://<team>.cloudflareaccess.com` issuer of the owner-only Access application |
+| Variable `BYTOVA_REMOTE_ACCESS_AUD` | AUD tag copied from the Cloudflare Access application |
+| Variable `BYTOVA_REMOTE_ACCESS_OWNER_EMAIL` | Email identity allowed by the Access policy and checked in the signed JWT |
+| Secret `CLOUDFLARE_API_TOKEN` | Least-privilege Cloudflare deployment token |
+| Secret `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID used by Wrangler |
+| Environment `remote-help-production` | Require owner review/approval before manual deployment |
+
+**Worker secrets, configured directly in Cloudflare:** `ADMIN_API_KEY`, `TURNSTILE_SECRET`, optionally `CALENDLY_WEBHOOK_SIGNING_KEY`, `STRIPE_TEST_SECRET_KEY` and `STRIPE_TEST_WEBHOOK_SECRET`. The `TURNSTILE_SITE_KEY` is a public setting, not a secret. Keep `PAYMENTS_MODE=disabled` until test-mode checkout has been verified.
+
+After provisioning the new D1, Access policy and secrets, use GitHub Actions → **Bytova Remote Help — verify and guarded deploy** → Run workflow with the documented gate value. The deployment itself must be performed in the authorised environment; the connector in this chat cannot provision Cloudflare, inspect GitHub secrets or dispatch workflows.
+
+**Go-live verification:** test owner Access authentication, block a non-owner and direct worker hostname request, submit a synthetic enquiry with Turnstile, run a test-payment webhook, confirm no duplicate payment update, check cancellation/reschedule and review logs/retention. Do not change the public Bytova booking links until the new application is verified.
