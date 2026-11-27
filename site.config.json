@@ -24,9 +24,9 @@
     "indexable": true,
     "onlineBookingEnabled": true,
     "livePaymentsVerified": false,
-    "paymentStatus": "Calendar appointments are available for Computer Care; payment is arranged separately. Bytova hosted quote checkout is paused until its own merchant and signed webhook are verified.",
-    "checkedDate": "2026-11-03",
-    "bookingAvailabilityCheckedDate": "2026-11-02",
+    "paymentStatus": "The Computer Care calendar has available times and the provider marks it as paid. Receipt, merchant and collection are unverified. Bytova hosted quote checkout is paused until its own merchant and signed webhook are verified.",
+    "checkedDate": "2026-11-27",
+    "bookingAvailabilityCheckedDate": "2026-11-27",
     "calendarAvailabilityVerified": true
   },
   "services": [

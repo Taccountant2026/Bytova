@@ -72,6 +72,9 @@ export function initialiseProjectPlanner(){
    const audience=audiences.find(a=>a.id===requested && a.id!=='employer') ||
      audiences.find(a=>a.id===(chosen?.group==='business'?'business':chosen?.group==='home'?'household':''));
    if(audience) by('audience').value=audience.id==='business'?'Sole trader / small business':'Home / personal';
+   const packageName = params.get('package');
+   // The URL can suggest a brief, but the visitor reviews it before sending.
+   if (chosen && packageName && packageName.length <= 80) goal.value='I would like a written quote for '+packageName+'.\nMy requirements are: ';
    const priorities=reviewFromQuery(params.get('review'));
    if(priorities.length)goal.value='My digital-priorities check highlighted:\n'+priorities.map(q=>'- '+q.action).join('\n')+'\n\nThe improvement I would like to discuss is: ';
  }
