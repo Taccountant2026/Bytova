@@ -34,3 +34,24 @@ test('monthly and digital offers identify the purchase route and the actual plan
   assert.match(products,/£9 once/);
   assert(pages.get('freelance-contracts.html').includes('./professional-portfolio.html'));
 });
+
+
+test('digital order enquiries are explicit, private and non-binding',()=>{
+  const html=pages.get('digital-toolkits.html');
+  const orders=[...html.matchAll(/href="mailto:([^?"]+)\?subject=([^&"]+)&amp;body=([^"]+)"/g)];
+  assert.equal(orders.length,3);
+  const expected=new Map([['Home Computer Care Planner','£5'],['Small Business IT Toolkit','£15'],['Website Launch Pack','£9']]);
+  for (const [,email,subject,body] of orders){
+    assert.equal(email,config.business.email);
+    const name=decodeURIComponent(subject).replace(/ order enquiry$/,'');
+    assert(expected.has(name),name);
+    const message=decodeURIComponent(body);
+    assert(message.includes(name+' ('+expected.get(name)+')'));
+    assert(message.includes('before I place an order'));
+    expected.delete(name);
+  }
+  assert.equal(expected.size,0);
+  assert(html.includes('No payment is taken by this page.'));
+  assert(html.includes('receive your ZIP privately.'));
+  assert.doesNotMatch(html,/href="[^"]+\.zip"/i);
+});
