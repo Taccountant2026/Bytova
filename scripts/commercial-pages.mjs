@@ -21,8 +21,13 @@ const products = [
   ['Website Launch Pack','£9','An editable responsive one-page HTML and CSS template, a launch and acceptance workbook and a content worksheet.']
 ];
 
-function mailLink(email,subject,label){
-  return '<a class="text-link" href="mailto:'+email+'?subject='+encodeURIComponent(subject)+'">'+label+'</a>';
+function mailLink(email,subject,label,body=''){
+  const query='?subject='+encodeURIComponent(subject)+(body?'&amp;body='+encodeURIComponent(body):'');
+  return '<a class="text-link" href="mailto:'+email+query+'">'+label+'</a>';
+}
+function productEnquiry(email,name,price){
+  const body=['Hello Bytova,','','I would like to enquire about the '+name+' ('+price+').','','I am buying for: [personal use / business use]','I prefer delivery: [please discuss delivery options]','Any compatibility questions:','','Please confirm the total price, payment method, licence, delivery and cancellation information before I place an order.','','Thank you.'].join('\n');
+  return mailLink(email,name+' order enquiry','Request '+name,body);
 }
 
 export function packageDetails(service) {
@@ -54,8 +59,10 @@ export function commercialPages({page,hero,link,email}) {
 
   page('digital-toolkits.html','Digital Planners, Templates & Toolkits | Bytova',
     'Compare editable Bytova digital packs for home computer care, small business IT and launching a website.',
-    hero('DIGITAL RESOURCES','Planners, templates and toolkits','Each pack is a one-off ZIP download. To request a copy, email me with the pack name. I’ll confirm payment and delivery arrangements before taking an order.')+
-    panels(products.map(([name,price,details])=>card(name,'<p><strong>'+price+' once</strong></p><p>'+details+'</p>'+mailLink(email,name+' download enquiry','Ask about '+name))).join(''))+
+    hero('DIGITAL RESOURCES','Planners, templates and toolkits','Each pack is a one-off ZIP download. Select a pack to prepare an email enquiry. I’ll confirm payment and delivery arrangements before you place an order. Sending the enquiry does not commit you to a purchase.')+
+    panels(products.map(([name,price,details])=>card(name,'<p><strong>'+price+' once</strong></p><p>'+details+'</p>'+productEnquiry(email,name,price))).join(''))+
+    section('What is inside each ZIP','<ul><li><strong>Home Computer Care Planner:</strong> a printable PDF, device register, monthly care log and recovery-test log (editable CSV files).</li><li><strong>Small Business IT Toolkit:</strong> a PDF guide, five editable CSV registers for assets, risks, backups, incidents and handovers, and a fictional worked example. It is not a certification or formal audit.</li><li><strong>Website Launch Pack:</strong> a responsive HTML/CSS template, printable workbook, content worksheet and launch acceptance checklist. Hosting, a domain, form processing and customisation are not included.</li></ul>')+
+    section('How to order','<ol><li>Choose a pack and send your enquiry.</li><li>Receive written confirmation of the price, contents, licence, payment and delivery arrangements.</li><li>Decide whether to place an order. No payment is taken by this page.</li><li>Once payment is confirmed and the agreed delivery requirements are met, receive your ZIP privately.</li></ol>')+
     section('Using the packs','<p>Extract the ZIP on your computer. Use a PDF reader for printable material and a spreadsheet application for the editable records. The website template runs in a modern browser and can be edited in a text editor. Hosting, a domain, customisation and individual support are separate.</p><p>These prices cover use by one household or business. You can adapt the supplied records for your own use. Resale or redistribution of the packs requires permission. The website template can be customised and published for your business.</p>')+
     section('Delivery and help','<p>Before accepting payment I’ll confirm the files and compatibility, price, licence, delivery timing and cancellation rights by email. If you are buying as a consumer and want delivery during the 14-day cancellation period, I’ll ask for your express consent and acknowledgement that the cancellation right ends when supply begins. Your rights if a file is faulty remain. If you prefer to wait, ask for delivery after that period.</p>'+link('./contact.html','Contact Leighton')+' '+link('./help.html','Browse free guides')));
 
